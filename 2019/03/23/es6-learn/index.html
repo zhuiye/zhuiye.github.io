@@ -3,15 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>es6-learn | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="E6的块级绑定 所声明的变量在指定的作用域外无法访问    let var const     不变量提升,块级作用域 变量提升 不变量提升,块级作用域   重复禁止声明  重复禁止声明   let 声明的变量成为window的属性  设置完成后不能被改变     JS所声明的常量对象属性的值可以改变    暂时性死区： 在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6-learn">
+<meta property="og:url" content="http://yoursite.com/2019/03/23/es6-learn/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="E6的块级绑定 所声明的变量在指定的作用域外无法访问    let var const     不变量提升,块级作用域 变量提升 不变量提升,块级作用域   重复禁止声明  重复禁止声明   let 声明的变量成为window的属性  设置完成后不能被改变     JS所声明的常量对象属性的值可以改变    暂时性死区： 在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-23T02:06:48.896Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="es6-learn">
+<meta name="twitter:description" content="E6的块级绑定 所声明的变量在指定的作用域外无法访问    let var const     不变量提升,块级作用域 变量提升 不变量提升,块级作用域   重复禁止声明  重复禁止声明   let 声明的变量成为window的属性  设置完成后不能被改变     JS所声明的常量对象属性的值可以改变    暂时性死区： 在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-es6-learn" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-es6-learn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/23/es6-learn/" class="article-date">
   <time datetime="2019-03-23T02:00:39.000Z" itemprop="datePublished">2019-03-23</time>
@@ -75,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/23/es6-learn/">es6-learn</a>
+    <h1 class="article-title" itemprop="name">
+      es6-learn
     </h1>
   
 
@@ -310,55 +312,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/18/hello-world/" class="article-date">
-  <time datetime="2019-02-18T15:34:15.226Z" itemprop="datePublished">2019-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/18/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2019/02/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/18/hello-world/" data-id="cjtkuqtnz0001rku5tta4e46r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
