@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>jQuery-Source-study-2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="jQuery(fn)的执行过程123456789/* 对于这样的代码，我们应该是很熟悉，意思是什么呢？  在DOM完成加载的时候，执行function()&amp;#123;&amp;#125;函数,  平常可见window.onload window.addEventListener(&apos;load&apos;) 都是等  页面资源（图片，样式）加载完成时，才进行触发，  而DOMContentLoaded事件只要Dom完成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery-Source-study-2">
+<meta property="og:url" content="http://yoursite.com/2019/07/08/jQuery-Source-study-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="jQuery(fn)的执行过程123456789/* 对于这样的代码，我们应该是很熟悉，意思是什么呢？  在DOM完成加载的时候，执行function()&amp;#123;&amp;#125;函数,  平常可见window.onload window.addEventListener(&apos;load&apos;) 都是等  页面资源（图片，样式）加载完成时，才进行触发，  而DOMContentLoaded事件只要Dom完成">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-08T14:54:19.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery-Source-study-2">
+<meta name="twitter:description" content="jQuery(fn)的执行过程123456789/* 对于这样的代码，我们应该是很熟悉，意思是什么呢？  在DOM完成加载的时候，执行function()&amp;#123;&amp;#125;函数,  平常可见window.onload window.addEventListener(&apos;load&apos;) 都是等  页面资源（图片，样式）加载完成时，才进行触发，  而DOMContentLoaded事件只要Dom完成">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jQuery-Source-study-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/08/jQuery-Source-study-2/" class="article-date">
+  <time datetime="2019-07-08T14:53:21.000Z" itemprop="datePublished">2019-07-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery-Source-study-2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="jQuery-fn-的执行过程"><a href="#jQuery-fn-的执行过程" class="headerlink" title="jQuery(fn)的执行过程"></a>jQuery(fn)的执行过程</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 对于这样的代码，我们应该是很熟悉，意思是什么呢？</span></span><br><span class="line"><span class="comment">  在DOM完成加载的时候，执行function()&#123;&#125;函数,</span></span><br><span class="line"><span class="comment">  平常可见window.onload window.addEventListener('load') 都是等</span></span><br><span class="line"><span class="comment">  页面资源（图片，样式）加载完成时，才进行触发，</span></span><br><span class="line"><span class="comment">  而DOMContentLoaded事件只要Dom完成装载就进行触发</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>  假设有如下代码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">1</span>)&#125;)</span><br><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>,()=&gt;&#123;<span class="built_in">console</span>.log(<span class="number">3</span>)&#125;)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  执行的顺序为 1 -&gt;3-&gt; 2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>接下来，看看$(Fn)的具体实现过程,来看代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">a,c</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 目前我们什么都不传------$()</span></span><br><span class="line">	<span class="comment">// Shortcut for document ready (because $(document).each() is silly)</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">           从这个代码可知,当我们传入一个函数的时候,调用jQuery(document)-&gt;生成的是一个</span></span><br><span class="line"><span class="comment">           &#123;0:document,length:1&#125;的jQuery对象，然后调用对象上的ready方法</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">	<span class="keyword">if</span> ( a &amp;&amp; a.constructor == <span class="built_in">Function</span> &amp;&amp; jQuery.fn.ready )</span><br><span class="line">		<span class="keyword">return</span> jQuery(<span class="built_in">document</span>).ready(a);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** ....省略一些代码...**/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="jQuery-fn-ready"><a href="#jQuery-fn-ready" class="headerlink" title="jQuery.fn.ready()"></a>jQuery.fn.ready()</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ready: <span class="function"><span class="keyword">function</span>(<span class="params">f</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// If the DOM is already ready --如果已经加载了，直接调用传经来的函数</span></span><br><span class="line">		<span class="keyword">if</span> ( jQuery.isReady )</span><br><span class="line">			<span class="comment">// Execute the function immediately </span></span><br><span class="line">            <span class="comment">// 这里面也可以看出$(function()&#123;console.log(this)&#125;) this===document</span></span><br><span class="line">			f.apply( <span class="built_in">document</span> ); </span><br><span class="line">			</span><br><span class="line">		<span class="comment">// Otherwise, remember the function for later</span></span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">             <span class="comment">// 如果就加入队列.---这个很重要，因为执行DOMContenLoaded的时候调用</span></span><br><span class="line">            <span class="comment">// jQuery.ready()里面执行readyList的遍历</span></span><br><span class="line">			<span class="comment">// Add the function to the wait list</span></span><br><span class="line">			jQuery.readyList.push( f );</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>立即执行函数监听 DOMContentLoaded</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	<span class="comment">// If Mozilla is used  如果时mozilla 或者 opera浏览器就 ...</span></span><br><span class="line">	<span class="keyword">if</span> ( jQuery.browser.mozilla || jQuery.browser.opera ) &#123;</span><br><span class="line">		<span class="comment">// Use the handy event callback</span></span><br><span class="line">		<span class="built_in">document</span>.addEventListener( <span class="string">"DOMContentLoaded"</span>, jQuery.ready, <span class="literal">false</span> );</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// If IE is used, use the excellent hack by Matthias Miller</span></span><br><span class="line">	<span class="comment">// http://www.outofhanwell.com/blog/index.php?title=the_window_onload_problem_revisited</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.browser.msie ) &#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	  下面简单解析下代码，是为了hack当时的ie,创建一个script元素，并利用其</span></span><br><span class="line"><span class="comment">	  onreadystatechange事件的时机来调用传进来的函数</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">		<span class="comment">// Only works if you document.write() it</span></span><br><span class="line">		<span class="built_in">document</span>.write(<span class="string">"&lt;scr"</span> + <span class="string">"ipt id=__ie_init defer=true "</span> + </span><br><span class="line">			<span class="string">"src=//:&gt;&lt;\/script&gt;"</span>);</span><br><span class="line">	</span><br><span class="line">		<span class="comment">// Use the defer script hack</span></span><br><span class="line">		<span class="keyword">var</span> script = <span class="built_in">document</span>.getElementById(<span class="string">"__ie_init"</span>);</span><br><span class="line">		script.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> ( <span class="keyword">this</span>.readyState != <span class="string">"complete"</span> ) <span class="keyword">return</span>;</span><br><span class="line">			<span class="keyword">this</span>.parentNode.removeChild( <span class="keyword">this</span> );</span><br><span class="line">            <span class="comment">//调用函数对象商得jQuery.ready()方法</span></span><br><span class="line">			jQuery.ready();</span><br><span class="line">		&#125;;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">// Clear from memory</span></span><br><span class="line">		script = <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// If Safari  is used</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.browser.safari ) &#123;</span><br><span class="line">		<span class="comment">// Continually check to see if the document.readyState is valid</span></span><br><span class="line">        <span class="comment">//如果是safari的化，只能是不断的调用SetInterval 判断document.readyState是否complete </span></span><br><span class="line">		jQuery.safariTimer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="comment">// loaded and complete are both valid states</span></span><br><span class="line">			<span class="keyword">if</span> ( <span class="built_in">document</span>.readyState == <span class="string">"loaded"</span> || </span><br><span class="line">				<span class="built_in">document</span>.readyState == <span class="string">"complete"</span> ) &#123;</span><br><span class="line">	</span><br><span class="line">				<span class="comment">// If either one are found, remove the timer</span></span><br><span class="line">				clearInterval( jQuery.safariTimer );</span><br><span class="line">				jQuery.safariTimer = <span class="literal">null</span>;</span><br><span class="line">	</span><br><span class="line">				<span class="comment">// and execute any waiting functions</span></span><br><span class="line">				jQuery.ready();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;, <span class="number">10</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="jQuery-ready"><a href="#jQuery-ready" class="headerlink" title="jQuery.ready"></a>jQuery.ready</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * All the code that makes DOM Ready work nicely.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	isReady: <span class="literal">false</span>,</span><br><span class="line">	readyList: [],</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// Handle when the DOM is ready</span></span><br><span class="line">	ready: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// Make sure that the DOM is not already loaded</span></span><br><span class="line">		<span class="keyword">if</span> ( !jQuery.isReady ) &#123;  <span class="comment">//设置状态</span></span><br><span class="line">			<span class="comment">// Remember that the DOM is ready</span></span><br><span class="line">			jQuery.isReady = <span class="literal">true</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">// If there are functions bound, to execute</span></span><br><span class="line">			<span class="keyword">if</span> ( jQuery.readyList ) &#123;</span><br><span class="line">				<span class="comment">// Execute all of them</span></span><br><span class="line">				<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; jQuery.readyList.length; i++ )</span><br><span class="line">                    <span class="comment">//在document的作用域下调用传进来的函数</span></span><br><span class="line">					jQuery.readyList[i].apply( <span class="built_in">document</span> );</span><br><span class="line">				</span><br><span class="line">				<span class="comment">// Reset the list of functions --重置readyList</span></span><br><span class="line">				jQuery.readyList = <span class="literal">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/08/jQuery-Source-study-2/" data-id="cjxuibrlx00027gu54furi73x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/07/jQuery-Source-study-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jQuery Source study (1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/08/jQuery-Source-study-2/">jQuery-Source-study-2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/jQuery-Source-study-1/">jQuery Source study (1)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/summary-learn/">summary-learn</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/vscode-eslint-learn/">vscode-eslint-learn</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/23/es6-learn/">es6-learn</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
