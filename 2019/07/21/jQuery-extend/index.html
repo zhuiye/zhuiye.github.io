@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>jQuery.extend | chen heng cheng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JQuery.extend()方法详解基本的使用方法..1.只传一个对象的时候，对象里面的属性，会扩充到jQuery函数的原型中或者jQuery函数的属性中 123456789$.extend(&amp;#123;sayHello()&amp;#123;    console.log(&apos;hello wolrd&apos;)&amp;#125;&amp;#125;)$.sayHello()jQuery.fn.extend(&amp;#123;say">
+<meta name="keywords" content="jQuery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery.extend">
+<meta property="og:url" content="http://yoursite.com/2019/07/21/jQuery-extend/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="JQuery.extend()方法详解基本的使用方法..1.只传一个对象的时候，对象里面的属性，会扩充到jQuery函数的原型中或者jQuery函数的属性中 123456789$.extend(&amp;#123;sayHello()&amp;#123;    console.log(&apos;hello wolrd&apos;)&amp;#125;&amp;#125;)$.sayHello()jQuery.fn.extend(&amp;#123;say">
+<meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-07-21T05:18:00.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery.extend">
+<meta name="twitter:description" content="JQuery.extend()方法详解基本的使用方法..1.只传一个对象的时候，对象里面的属性，会扩充到jQuery函数的原型中或者jQuery函数的属性中 123456789$.extend(&amp;#123;sayHello()&amp;#123;    console.log(&apos;hello wolrd&apos;)&amp;#125;&amp;#125;)$.sayHello()jQuery.fn.extend(&amp;#123;say">
+  
+    <link rel="alternate" href="/atom.xml" title="chen heng cheng" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chen heng cheng</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">知识的匮乏，让人心生恐惧</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jQuery-extend" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/jQuery-extend/" class="article-date">
+  <time datetime="2019-07-21T05:16:38.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery.extend
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JQuery-extend-方法详解"><a href="#JQuery-extend-方法详解" class="headerlink" title="JQuery.extend()方法详解"></a>JQuery.extend()方法详解</h2><h3 id="基本的使用方法"><a href="#基本的使用方法" class="headerlink" title="基本的使用方法.."></a>基本的使用方法..</h3><p>1.只传一个对象的时候，对象里面的属性，会扩充到jQuery函数的原型中或者jQuery函数的属性中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.extend(&#123;sayHello()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello wolrd'</span>)</span><br><span class="line">&#125;&#125;)</span><br><span class="line">$.sayHello()</span><br><span class="line"></span><br><span class="line">jQuery.fn.extend(&#123;sayHello()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello wolrd'</span>)</span><br><span class="line">&#125;&#125;)</span><br><span class="line">$().sayHello()</span><br></pre></td></tr></table></figure>
+<p>2.传入两个两个object 对象的甚至多个，会合并后续对象的属性到第一个对象中，并返回合并之后的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=&#123;<span class="attr">name</span>:<span class="string">'aiden'</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="keyword">let</span> b=&#123;<span class="attr">age</span>:<span class="number">24</span>&#125;</span><br><span class="line"><span class="keyword">const</span> res=$.extend(a,b)</span><br><span class="line"><span class="built_in">console</span>.log(a)  <span class="comment">// &#123;name:'aiden',age:24&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(res)  <span class="comment">//&#123;name:'aiden',age:24&#125;</span></span><br></pre></td></tr></table></figure>
+<p>3.如果第一个参数传true,则执行深复制</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=&#123;<span class="attr">name</span>:<span class="string">'aiden'</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">disrtc</span>:&#123;<span class="attr">provinc</span>:<span class="string">'GD'</span>,<span class="attr">city</span>:<span class="string">'ZH'</span>,<span class="attr">zone</span>:<span class="string">'lz'</span>&#125;&#125;</span><br><span class="line"><span class="keyword">let</span> b=&#123;<span class="attr">age</span>:<span class="number">24</span>,<span class="attr">disrtc</span>:&#123;<span class="attr">provinc</span>:<span class="string">'GD'</span>,<span class="attr">city</span>:<span class="string">'gz'</span>&#125;&#125;</span><br><span class="line"><span class="keyword">const</span> res=$.extend(<span class="literal">true</span>,a,b)</span><br><span class="line"><span class="built_in">console</span>.log(a)  <span class="comment">//  name:'aiden',age:24,disrtc:&#123;provinc:'GD',city:'gz',zone:'lz'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(res)  <span class="comment">// name:'aiden',age:24,disrtc:&#123;provinc:'GD',city:'gz',zone:'lz'&#125;</span></span><br></pre></td></tr></table></figure>
+<p>分析1.5版本的extend实现..</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	 <span class="keyword">var</span> options, name, src, copy, copyIsArray, clone,</span><br><span class="line">		target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;,</span><br><span class="line">		i = <span class="number">1</span>,</span><br><span class="line">		length = <span class="built_in">arguments</span>.length,</span><br><span class="line">		deep = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Handle a deep copy situation 如果传经来的第一个参数为boolean ,</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> target === <span class="string">"boolean"</span> ) &#123;</span><br><span class="line">		deep = target;</span><br><span class="line">		target = <span class="built_in">arguments</span>[<span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">		<span class="comment">// skip the boolean and the target</span></span><br><span class="line">		i = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Handle case when target is a string or something (possible in deep copy)</span></span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> target !== <span class="string">"object"</span> &amp;&amp; !jQuery.isFunction(target) ) &#123;</span><br><span class="line">		target = &#123;&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 如果只传如一个就把target设为jquery对象</span></span><br><span class="line">	<span class="comment">// extend jQuery itself if only one argument is passed---</span></span><br><span class="line">	<span class="keyword">if</span> ( length === i ) &#123;</span><br><span class="line">		target = <span class="keyword">this</span>;</span><br><span class="line">		--i; <span class="comment">//重置i=0</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> ( ; i &lt; length; i++ ) &#123;</span><br><span class="line">		<span class="comment">// Only deal with non-null/undefined values 不处理值为传经来null和undefined</span></span><br><span class="line">		<span class="keyword">if</span> ( (options = <span class="built_in">arguments</span>[ i ]) != <span class="literal">null</span> ) &#123;</span><br><span class="line">			<span class="comment">// Extend the base object</span></span><br><span class="line">			<span class="keyword">for</span> ( name <span class="keyword">in</span> options ) &#123;</span><br><span class="line">				src = target[ name ];</span><br><span class="line">				copy = options[ name ];</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Prevent never-ending loop 如果 ???</span></span><br><span class="line">				<span class="keyword">if</span> ( target === copy ) &#123;</span><br><span class="line">					<span class="keyword">continue</span>;</span><br><span class="line">				&#125;</span><br><span class="line">                 <span class="comment">// 合并对象，或者数组</span></span><br><span class="line">				<span class="comment">// Recurse if we're merging plain objects or arrays</span></span><br><span class="line">				<span class="keyword">if</span> ( deep &amp;&amp; copy &amp;&amp; ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) &#123;</span><br><span class="line">                    <span class="comment">// 如果要复制的属性的值是一个数组..</span></span><br><span class="line">					<span class="keyword">if</span> ( copyIsArray ) &#123;</span><br><span class="line">						copyIsArray = <span class="literal">false</span>;</span><br><span class="line">						clone = src &amp;&amp; jQuery.isArray(src) ? src : [];</span><br><span class="line"></span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : &#123;&#125;;</span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					<span class="comment">// Never move original objects, clone them --递归...</span></span><br><span class="line">					target[ name ] = jQuery.extend( deep, clone, copy );</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Don't bring in undefined values --不处理带 undefined的值</span></span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( copy !== <span class="literal">undefined</span> ) &#123;</span><br><span class="line">					target[ name ] = copy;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Return the modified object  返回一个改变的对象</span></span><br><span class="line">	<span class="keyword">return</span> target;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>扩展 Object.assign()</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/21/jQuery-extend/" data-id="cjyciio6w000444u5tdwx8bxl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/11/jQuery-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jQuery-3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/21/jQuery-extend/">jQuery.extend</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/11/jQuery-3/">jQuery-3</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/08/jQuery-Source-study-2/">jQuery-Source-study-2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/07/jQuery-Source-study-1/">jQuery Source study (1)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/summary-learn/">summary-learn</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 恒承<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
