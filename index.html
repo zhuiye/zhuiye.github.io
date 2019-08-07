@@ -69,6 +69,203 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jump-wall" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/07/jump-wall/" class="article-date">
+  <time datetime="2019-08-07T14:28:47.000Z" itemprop="datePublished">2019-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/07/jump-wall/">jump-wall</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><ol>
+<li><p>置备一台国外的服务器</p>
+<p>阿里云的香港服务器  <a href="qq://txfile/#" target="_blank" rel="noopener">https://cn.aliyun.com/product/swas</a></p>
+</li>
+<li><p>进入系统创建一个 ssr.sh 脚本文件</p>
+<p>内容如下:<a href="https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh" target="_blank" rel="noopener">https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test </span><br><span class="line">vim ssr.sh</span><br><span class="line">i:进入编辑模式</span><br><span class="line">......输入内容</span><br><span class="line">ese：返回一般模式</span><br><span class="line">:wq 保存退处</span><br><span class="line">bash ssr.sh :执行...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li>开启服务器（SSR服务器端口）也就是在配置SSR， 需要的端口号</li>
+</ol>
+<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>进入服务器，执行复制下列代码,傻瓜式操作即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure></p>
+<p>ssh root@ipaddress</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/07/jump-wall/" data-id="cjz1cmksh0007gcu55pf9rv7u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jump-wall/">jump wall</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-dart-study" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/dart-study/" class="article-date">
+  <time datetime="2019-07-22T15:29:18.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/22/dart-study/">dart-study</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#dart Study<br><a href="https://dart.dev/guides/language/language-tour#a-basic-dart-program" target="_blank" rel="noopener">https://dart.dev/guides/language/language-tour#a-basic-dart-program</a></p>
+<h3 id="dart-语言教程"><a href="#dart-语言教程" class="headerlink" title="dart 语言教程"></a>dart 语言教程</h3><h3 id="一个基础的dart-程序"><a href="#一个基础的dart-程序" class="headerlink" title="一个基础的dart 程序"></a>一个基础的dart 程序</h3><p>下面的代码用了dart基础功能<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个函数</span></span><br><span class="line">printInteger(<span class="built_in">int</span> aNumber) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'The number is <span class="subst">$aNumber</span>.'</span>); <span class="comment">// Print to console.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app的执行入口main函数.</span></span><br><span class="line">main() &#123;</span><br><span class="line">    <span class="comment">// 声明并初始化一个变量</span></span><br><span class="line">    <span class="keyword">var</span> number = <span class="number">42</span>;</span><br><span class="line">    printInteger(number); <span class="comment">// Call a function.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><b>//</b>  这是一个单行的注释</p>
+<p><b>int</b> 一个内置的类型(built in types),其它内置类型有String,bool…</p>
+<p><b>$variableName (or ${expression})</b> 字符串插值，类似字符串模板</p>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><hr>
+<ol>
+<li>一切皆对象</li>
+<li>Dart是强类型语言，类型声明是可选的，因为有类型推断,number 被推断为int,</li>
+<li>dart 支持常规类型，List\<int>或者 List\<dynamic></dynamic></int></li>
+<li>dart 支持全局函数，如 main(), 可以嵌套函数，或者当作类实例的方法，对象的方法</li>
+<li>相似的，dart 也支持全局的变量,也可当作对象的属性，类实例的属性</li>
+<li>不像java,<b>dart</b> 没有关键字 <b>public, protected ,private</b> 如果一个标识符以”_”开头,它将在这个库是私有的.</li>
+<li>Dart 的工具能报告两种类型问题，警告和错误,警告不会阻止你的代码执行，但错误会</li>
+</ol>
+<h3 id="keyWords"><a href="#keyWords" class="headerlink" title="keyWords"></a>keyWords</h3><p>略….</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>创建变量并初始化<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">"hengcheng"</span></span><br><span class="line"></span><br><span class="line">dymaic name=<span class="string">"hengcheng"</span></span><br><span class="line"><span class="built_in">String</span> name=<span class="string">"hengcheng"</span></span><br></pre></td></tr></table></figure></p>
+<p>变量储存引用,name引用了一个带有值hengcheng得字符串对象<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> lineCount;</span><br><span class="line"><span class="keyword">assert</span>(lineCount == <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
+<p>没被赋值得变量有一个默认值为<b>null</b></p>
+<h4 id="Final-and-const"><a href="#Final-and-const" class="headerlink" title="Final and const"></a>Final and const</h4><p>如果你没有意图去改变一个变量得值，用const 或者final</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> name = <span class="string">'Bob'</span>; <span class="comment">// Without a type annotation</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> nickname = <span class="string">'Bobby'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h3><ol>
+<li>numbers</li>
+<li>strings</li>
+<li>booleans</li>
+<li>lists(就像数组) </li>
+<li>sets </li>
+<li>maps</li>
+<li>runes </li>
+<li>symbols</li>
+</ol>
+<h3 id="字符串转数字"><a href="#字符串转数字" class="headerlink" title="字符串转数字"></a>字符串转数字</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String -&gt; int</span></span><br><span class="line"><span class="keyword">var</span> one = <span class="built_in">int</span>.parse(<span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">assert</span>(one == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String -&gt; double</span></span><br><span class="line"><span class="keyword">var</span> onePointOne = <span class="built_in">double</span>.parse(<span class="string">'1.1'</span>);</span><br><span class="line"><span class="keyword">assert</span>(onePointOne == <span class="number">1.1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> oneAsString = <span class="number">1.</span>toString();</span><br><span class="line"><span class="keyword">assert</span>(oneAsString == <span class="string">'1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// double -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> piAsString = <span class="number">3.14159</span>.toStringAsFixed(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">assert</span>(piAsString == <span class="string">'3.14'</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/22/dart-study/" data-id="cjz1cmks40000gcu5wb3xx2wy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-flutter-ListView" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/22/flutter-ListView/" class="article-date">
+  <time datetime="2019-07-22T15:09:51.000Z" itemprop="datePublished">2019-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/22/flutter-ListView/">flutter-ListView</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Flutter-ListView"><a href="#Flutter-ListView" class="headerlink" title="Flutter ListView"></a>Flutter ListView</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/22/flutter-ListView/" data-id="cjz1cmksb0003gcu5eipyzyb7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flutter/">flutter</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-flutter-Text" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/21/flutter-Text/" class="article-date">
+  <time datetime="2019-07-21T14:16:10.000Z" itemprop="datePublished">2019-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/flutter-Text/">flutter-Text</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Flutter-Text-Widget"><a href="#Flutter-Text-Widget" class="headerlink" title="Flutter Text Widget"></a>Flutter Text Widget</h2><p><b>reference: </b><a href="https://api.flutter.dev/flutter/widgets/Text-class.html" target="_blank" rel="noopener">https://api.flutter.dev/flutter/widgets/Text-class.html</a></p>
+<h3 id="simple-code"><a href="#simple-code" class="headerlink" title="simple code"></a>simple code</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/* in fact you do not remember any arguments,you can hover Text and editor tool will hint you Text pass params and name</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">   Text(<span class="string">'22999dsfsdfsdf'</span>,</span><br><span class="line">        overflow: TextOverflow.ellipsis, <span class="comment">// over display "..."</span></span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">        style: TextStyle(fontWeight: FontWeight.bold))</span><br><span class="line"></span><br><span class="line"><span class="comment">// the Text.rich make your diff text section use diff style</span></span><br><span class="line"><span class="keyword">const</span> Text.rich(</span><br><span class="line">  TextSpan(</span><br><span class="line">    text: <span class="string">'Hello'</span>, <span class="comment">// default text style</span></span><br><span class="line">    children: &lt;TextSpan&gt;[</span><br><span class="line">      TextSpan(text: <span class="string">' beautiful '</span>, style: TextStyle(fontStyle: FontStyle.italic)),</span><br><span class="line">      TextSpan(text: <span class="string">'world'</span>, style: TextStyle(fontWeight: FontWeight.bold)),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// if your want  Text react click event ,you can do as follow</span></span><br><span class="line"> GestureDetector(</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'xxx'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    child: Container(</span><br><span class="line">        color: Colors.yellow,</span><br><span class="line">        child: Text(<span class="string">'TURN LIGHTS ON'</span>),</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  some props you can use </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  maxLines</span></span><br><span class="line"><span class="comment">  overflow</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/21/flutter-Text/" data-id="cjz1cmksl000bgcu5n6mlkp2r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jQuery-deferred" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/21/jQuery-deferred/" class="article-date">
@@ -103,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/21/jQuery-deferred/" data-id="cjycyxkn700025ou5anavdrjv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/21/jQuery-deferred/" data-id="cjz1cmksg0006gcu549evhwb5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -151,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/21/jQuery-extend/" data-id="cjycyxknn000b5ou5s58o3178" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/21/jQuery-extend/" data-id="cjz1cmksz000lgcu5su0xzv45" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -195,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/11/jQuery-3/" data-id="cjycyxknb00055ou5rtsshdnq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/11/jQuery-3/" data-id="cjz1cmksc0004gcu50o7el8zb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -242,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/08/jQuery-Source-study-2/" data-id="cjycyxkn800035ou53r8lwjst" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/08/jQuery-Source-study-2/" data-id="cjz1cmksi0008gcu520gdq6x8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -291,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/07/jQuery-Source-study-1/" data-id="cjycyxkno000c5ou53h4yehcw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/07/jQuery-Source-study-1/" data-id="cjz1cmkt0000mgcu5q2o03v3n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -498,394 +695,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/31/summary-learn/" data-id="cjycyxko7000g5ou5cu86mdaj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-vscode-eslint-learn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/31/vscode-eslint-learn/" class="article-date">
-  <time datetime="2019-03-31T14:44:57.000Z" itemprop="datePublished">2019-03-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/31/vscode-eslint-learn/">vscode-eslint-learn</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Visual-Studio-code"><a href="#Visual-Studio-code" class="headerlink" title="Visual Studio code"></a>Visual Studio code</h2><p>近期认真的学习了一下Visual studio code 下面，仅为记录学习所学</p>
-<h3 id="一些快捷键"><a href="#一些快捷键" class="headerlink" title="一些快捷键"></a>一些快捷键</h3><p><code>Ctrl+k v</code>  打开侧边栏预览 markdown 文件<br><code>Ctrl+Shift+W</code> 关闭窗口<br><code>Alt+Shfit+A</code>  块级注释<br><code>Shift+Alt+upArrow</code>  向上复制一行<br><code>Shift+Ctrl+F</code> 在文件中查找<br><code>Ctrl+Shift+H</code> 替换</p>
-<p>关于markDown 的语法，具体参照这篇文章<a href="http://zefey.com/detail.html?id=63" target="_blank" rel="noopener">markdown的基本语法</a></p>
-<hr>
-<h3 id="一些基本的配置"><a href="#一些基本的配置" class="headerlink" title="一些基本的配置"></a>一些基本的配置</h3><p>文件-&gt; 首选项-&gt; 设置<br>里面有个用户设置和工作区设置 ，<a href="&quot;https://zhuanlan.zhihu.com/p/54770077&quot;">“区别点击看这篇文章”</a><br>以下仅列出一些个人所需配置 本人的setting.json 路径 “C:\Users\Administrator\AppData\Roaming\Code\User”</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"editor.fontSize": 18   // 用户设置中配置编辑器中显示的字体大小</span><br><span class="line">"files.exclude": &#123;</span><br><span class="line">  "**/.git": true,</span><br><span class="line">  "**/.svn": true,</span><br><span class="line">  "**/.hg": true,</span><br><span class="line">  "**/CVS": true,</span><br><span class="line">  "**/.DS_Store": true</span><br><span class="line">&#125;  // 配置在工作目录中不显示如下的目录</span><br><span class="line">"editor.formatOnSave": true  //保存文件格式化</span><br><span class="line">"editor.suggestOnTriggerCharacters": true  //提供建议代码</span><br><span class="line">"files.trimTrailingWhitespace": false   //启用后,保存文件时，剪裁尾随空格</span><br></pre></td></tr></table></figure>
-<h3 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h3><p><code>ctrl+shift+</code> `  调出终端<br>有四大tab</p>
-<ul>
-<li>问题          eslint 检查文件出问题会在这里显示</li>
-<li>输出          关于启用一些服务时的输入，如eslint, prettier</li>
-<li>调试控制台   </li>
-<li>终端  </li>
-</ul>
-<h3 id="常用的插件"><a href="#常用的插件" class="headerlink" title="常用的插件"></a>常用的插件</h3><ul>
-<li>vscode-icons<br>一款漂亮的文件图标插件</li>
-<li>Path Intellisense<br> 智能的提示文件的路径</li>
-<li>EditorConfig for vs code<br> 为项目配置单独的编辑设置,覆盖用户设置</li>
-<li>ESLint<br> js代码检验工具</li>
-<li>prettier<br>  不错的格式化代码工具</li>
-</ul>
-<h2 id="ESlint"><a href="#ESlint" class="headerlink" title="ESlint"></a>ESlint</h2><p>一个静态的检查js 代码的工具,它提供一定的规范来检查你的代码，规范可以自定义</p>
-<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>为一个项目使用eslint 首先需先安装,项目目录下执行<br><code>npm init</code>   创建一个package.json<br><code>npm install eslint --save-dev</code><br><code>.\node_modules\.bin\eslint --init</code><br><a href="https://www.npmjs.com/package/eslint-config-airbnb" target="_blank" rel="noopener">eslint-config-airbnb</a></p>
-<p>我选用airbnb 的配置</p>
-<p><code>npm info &quot;eslint-config-airbnb@latest&quot; peerDependencies</code></p>
-<p><code>npx install-peerdeps --dev eslint-config-airbnb</code><br>直接下载所有依赖<br><code>npm install --dev eslint-config-airbnb</code><br><code>npm install --dev eslint-plugin-import</code><br><code>npm install --dev eslint-plugin-react</code><br><code>npm install --dev eslint-plugin-jsx-a11y</code></p>
-<blockquote>
-<p>npm install –save-dev eslint-config-airbnb eslint@^#.#.# eslint-plugin-jsx-a11y@^#.#.# eslint-plugin-import@^#.#.# eslint-plugin-react@^#.#.#</p>
-</blockquote>
-<p>.eslinttrc.js</p>
-<p><code>extends: [&quot;airbnb&quot;]</code></p>
-<h3 id="question"><a href="#question" class="headerlink" title="question"></a>question</h3><p><strong><em>JSX not allowed in files with extension ‘.js’eslint(react/jsx-filename-extension)</em></strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">    <span class="string">"react/jsx-filename-extension"</span>: [</span><br><span class="line">      <span class="number">1</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        extensions: [<span class="string">".js"</span>, <span class="string">".jsx"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong><em>eslint检测报错error Expected linebreaks to be ‘LF’ but found ‘CRLF’ linebreak-style</em></strong></p>
-<p> airbnb 规则下:linebreak-style 用的是 [“erro”,”unix”]; 也就是不用LF 行尾换行的话会报错</p>
-<p>解决之道:</p>
-<p><strong>1: 不校验……</strong></p>
-<p>.eslinttrc.js rules规则下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 统一换行符，&quot;\n&quot; unix(for LF) and &quot;\r\n&quot; for windows(CRLF)，默认unix</span><br><span class="line">// off或0: 禁用规则</span><br><span class="line">&apos;linebreak-style&apos;: &apos;off&apos;</span><br></pre></td></tr></table></figure>
-<p><strong>2:vscode  配置使用 LF 行尾换行符</strong></p>
-<p>这个时候就要出现一个插件</p>
-<p>EditorConfig for vs code </p>
-<blockquote>
-<p>此插件尝试使用.editorconfig文件中的设置覆盖用户/工作区设置，不需要其他或特定于vscode的文件，与任何EditorConfig插件一样，如果未指定root = true，EditorConfig将继续在项目外部查找.editorconfig文件。</p>
-</blockquote>
-<p>简单的一配置文件如下: <strong>.editorconfig</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">charset = utf-8</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = 2</span><br><span class="line">end_of_line = lf</span><br><span class="line">insert_final_newline = true</span><br><span class="line">trim_trailing_whitespace = true</span><br></pre></td></tr></table></figure>
-<h2 id="Prettier"><a href="#Prettier" class="headerlink" title="Prettier"></a>Prettier</h2><p><a href="https://www.jianshu.com/p/d6a69eb08f07" target="_blank" rel="noopener">prettier的介绍与基本用法</a><br>非常好用的格式美化工具,经过一些配置，自动帮你美化代码，如自动插入分号..</p>
-<h3 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h3><p><code>npm install  prettier --dev</code></p>
-<p>也可以配合 eslint 使用<br><code>npm install --dev prettier eslint-plugin-prettier</code></p>
-<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><p><strong><em>prettier 自动化格式出现问题</em></strong></p>
-<p>经过发现是vscode 里面的一个格式化插件冲突了，我有了beauty,再使用prettier 就出问题了,禁用就好了</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><a href="https://segmentfault.com/a/1190000012909159" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012909159</a></p>
-<p>.prettierrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;useTabs&quot;: false,</span><br><span class="line">  &quot;tabWidth&quot;: 2,</span><br><span class="line">  &quot;trailingComma&quot;: &quot;es5&quot;,</span><br><span class="line">  &quot;singleQuote&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/31/vscode-eslint-learn/" data-id="cjycyxknq000e5ou5gtpwu0em" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-es6-learn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/23/es6-learn/" class="article-date">
-  <time datetime="2019-03-23T02:00:39.000Z" itemprop="datePublished">2019-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/23/es6-learn/">es6-learn</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>E6的块级绑定</p>
-<p>所声明的变量在指定的作用域外无法访问</p>
-<table>
-<thead>
-<tr>
-<th>let</th>
-<th>var</th>
-<th>const</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>不变量提升,块级作用域</td>
-<td>变量提升</td>
-<td>不变量提升,块级作用域</td>
-</tr>
-<tr>
-<td>重复禁止声明</td>
-<td></td>
-<td>重复禁止声明</td>
-</tr>
-<tr>
-<td>let 声明的变量成为window的属性</td>
-<td></td>
-<td>设置完成后不能被改变</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>JS所声明的常量对象属性的值可以改变</td>
-</tr>
-</tbody>
-</table>
-<p>暂时性死区：</p>
-<p>在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的,访问会导致一个引用错误</p>
-<p>ES6模块</p>
-<p>由于JS共享一切的特性,容易产生命名冲突.安全等问题,代码的模块划分很有必要</p>
-<table>
-<thead>
-<tr>
-<th>模块加载方式</th>
-<th>JS脚本加载方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>严格模式下运行</td>
-<td></td>
-</tr>
-<tr>
-<td>模块顶级作用域创建的变量不会自动添加到全局作用域中</td>
-<td></td>
-</tr>
-<tr>
-<td>顶级作用域this 为undefinde</td>
-<td></td>
-</tr>
-<tr>
-<td>对于需要让模块外部访问的代码内容，模块必须导出他们</td>
-</tr>
-</tbody>
-</table>
-<p>导出的方式</p>
-<table>
-<thead>
-<tr>
-<th>export</th>
-<th>相对应的导入</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>导出的函数，类必修有名字 export  {aaa};</td>
-<td>import {aaa} from xxx;</td>
-</tr>
-<tr>
-<td></td>
-<td>命名空间导入:完全导入一个模块,import * as     example     from “./example.js”; example.sum()</td>
-</tr>
-<tr>
-<td>重命名导出： export    {    sum    as    add    };</td>
-<td>重命名导入 import    {    add    as    sum    }    from    “./example.js”;</td>
-</tr>
-</tbody>
-</table>
-<p>默认导出</p>
-<table>
-<thead>
-<tr>
-<th>导出默认值</th>
-<th>导入默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>export  default  xxx;</td>
-<td>import    sum    from    “./example.js”;</td>
-</tr>
-</tbody>
-</table>
-<p>加载模块</p>
-<table>
-<thead>
-<tr>
-<th>script 外部加载</th>
-<th>script 脚本加载</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>type=”module” src=”example.js”</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>script 行内加载</strong></td>
-<td></td>
-</tr>
-<tr>
-<td>import {sum} from ‘’</td>
-<td></td>
-</tr>
-<tr>
-<td>按顺序执行加载，像应用了defer 的script</td>
-</tr>
-</tbody>
-</table>
-<p>函数</p>
-<p>剩余参数…arg,扩展运算符</p>
-<p>箭头函数–解决this 的追踪问题</p>
-<table>
-<thead>
-<tr>
-<th>箭头函数</th>
-<th>普通函数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>没有this super argument ,没有this 绑定</td>
-<td></td>
-</tr>
-<tr>
-<td>不能被new 调用</td>
-<td></td>
-</tr>
-<tr>
-<td>不能更改this,没有arguments 对象</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Set-和Map"><a href="#Set-和Map" class="headerlink" title="Set 和Map"></a>Set 和Map</h2><table>
-<thead>
-<tr>
-<th>set</th>
-<th>weakSet</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>不包含重复值的有序列表</td>
-<td>自动解除set中得引用，如果其他引用没有了</td>
-</tr>
-<tr>
-<td>new set([arr]） set.size  set.add(value) set.has(value)  set.delete(value) set.clear();</td>
-<td>初始化只能接受对象得值</td>
-</tr>
-<tr>
-<td>forEach((value,key,ownset)=&gt;{}) 按顺序处理每一项</td>
-<td>无size ,forEach,迭代器得方法也没有</td>
-</tr>
-<tr>
-<td>转换为数组:let    set    =    new    Set([1,    2,    3,    3,    3,    4,    5]),                array    =    […set];</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Map</th>
-<th>weakMap</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>键值对有序列表,键和值都是任意类型得</td>
-<td></td>
-</tr>
-<tr>
-<td>map.set(“”,””)  map.get(“”) map.size</td>
-<td></td>
-</tr>
-<tr>
-<td>has() delete()  clear</td>
-<td></td>
-</tr>
-<tr>
-<td>初始化:let  map    =    new    Map([[“name”,    “Nicholas”],    [“age”,    25]]); 双数组</td>
-<td></td>
-</tr>
-<tr>
-<td>forEach</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/23/es6-learn/" data-id="cjycyxkn100005ou54zsond7z" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/18/hello-world/" class="article-date">
-  <time datetime="2019-02-18T15:34:15.226Z" itemprop="datePublished">2019-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/18/hello-world/" data-id="cjycyxkn500015ou5jc3dxl7h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/31/summary-learn/" data-id="cjz1cmktg000qgcu5dbbea378" class="article-share-link">Share</a>
       
       
     </footer>
@@ -896,6 +706,10 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -907,7 +721,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jump-wall/">jump wall</a></li></ul>
     </div>
   </div>
 
@@ -917,7 +731,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a>
+      <a href="/tags/Flutter/" style="font-size: 10px;">Flutter</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/jQuery/" style="font-size: 20px;">jQuery</a> <a href="/tags/jump-wall/" style="font-size: 10px;">jump wall</a>
     </div>
   </div>
 
@@ -926,7 +740,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
     </div>
   </div>
 
@@ -939,23 +753,23 @@
       <ul>
         
           <li>
+            <a href="/2019/08/07/jump-wall/">jump-wall</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/dart-study/">dart-study</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/flutter-ListView/">flutter-ListView</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/flutter-Text/">flutter-Text</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/21/jQuery-deferred/">jQuery.deferred</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/21/jQuery-extend/">jQuery.extend</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/11/jQuery-3/">jQuery-3</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/08/jQuery-Source-study-2/">jQuery-Source-study-2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/07/jQuery-Source-study-1/">jQuery Source study (1)</a>
           </li>
         
       </ul>

@@ -3,19 +3,18 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>vscode-eslint-learn | chen heng cheng</title>
+  <title>chen heng cheng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Visual Studio code近期认真的学习了一下Visual studio code 下面，仅为记录学习所学 一些快捷键Ctrl+k v  打开侧边栏预览 markdown 文件Ctrl+Shift+W 关闭窗口Alt+Shfit+A  块级注释Shift+Alt+upArrow  向上复制一行Shift+Ctrl+F 在文件中查找Ctrl+Shift+H 替换 关于markDown 的语">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vscode-eslint-learn">
-<meta property="og:url" content="http://yoursite.com/2019/03/31/vscode-eslint-learn/index.html">
+  <meta name="description" content="study space">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chen heng cheng">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="Visual Studio code近期认真的学习了一下Visual studio code 下面，仅为记录学习所学 一些快捷键Ctrl+k v  打开侧边栏预览 markdown 文件Ctrl+Shift+W 关闭窗口Alt+Shfit+A  块级注释Shift+Alt+upArrow  向上复制一行Shift+Ctrl+F 在文件中查找Ctrl+Shift+H 替换 关于markDown 的语">
+<meta property="og:description" content="study space">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-03-31T14:46:34.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vscode-eslint-learn">
-<meta name="twitter:description" content="Visual Studio code近期认真的学习了一下Visual studio code 下面，仅为记录学习所学 一些快捷键Ctrl+k v  打开侧边栏预览 markdown 文件Ctrl+Shift+W 关闭窗口Alt+Shfit+A  块级注释Shift+Alt+upArrow  向上复制一行Shift+Ctrl+F 在文件中查找Ctrl+Shift+H 替换 关于markDown 的语">
+<meta name="twitter:title" content="chen heng cheng">
+<meta name="twitter:description" content="study space">
   
     <link rel="alternate" href="/atom.xml" title="chen heng cheng" type="application/atom+xml">
   
@@ -68,7 +67,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-vscode-eslint-learn" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-vscode-eslint-learn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/31/vscode-eslint-learn/" class="article-date">
   <time datetime="2019-03-31T14:44:57.000Z" itemprop="datePublished">2019-03-31</time>
@@ -81,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      vscode-eslint-learn
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/31/vscode-eslint-learn/">vscode-eslint-learn</a>
     </h1>
   
 
@@ -154,29 +155,312 @@
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2019/03/31/summary-learn/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          summary-learn
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/03/23/es6-learn/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">es6-learn</div>
-    </a>
-  
-</nav>
+</article>
 
+
+  
+    <article id="post-es6-learn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/23/es6-learn/" class="article-date">
+  <time datetime="2019-03-23T02:00:39.000Z" itemprop="datePublished">2019-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/23/es6-learn/">es6-learn</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>E6的块级绑定</p>
+<p>所声明的变量在指定的作用域外无法访问</p>
+<table>
+<thead>
+<tr>
+<th>let</th>
+<th>var</th>
+<th>const</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不变量提升,块级作用域</td>
+<td>变量提升</td>
+<td>不变量提升,块级作用域</td>
+</tr>
+<tr>
+<td>重复禁止声明</td>
+<td></td>
+<td>重复禁止声明</td>
+</tr>
+<tr>
+<td>let 声明的变量成为window的属性</td>
+<td></td>
+<td>设置完成后不能被改变</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>JS所声明的常量对象属性的值可以改变</td>
+</tr>
+</tbody>
+</table>
+<p>暂时性死区：</p>
+<p>在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的,访问会导致一个引用错误</p>
+<p>ES6模块</p>
+<p>由于JS共享一切的特性,容易产生命名冲突.安全等问题,代码的模块划分很有必要</p>
+<table>
+<thead>
+<tr>
+<th>模块加载方式</th>
+<th>JS脚本加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>严格模式下运行</td>
+<td></td>
+</tr>
+<tr>
+<td>模块顶级作用域创建的变量不会自动添加到全局作用域中</td>
+<td></td>
+</tr>
+<tr>
+<td>顶级作用域this 为undefinde</td>
+<td></td>
+</tr>
+<tr>
+<td>对于需要让模块外部访问的代码内容，模块必须导出他们</td>
+</tr>
+</tbody>
+</table>
+<p>导出的方式</p>
+<table>
+<thead>
+<tr>
+<th>export</th>
+<th>相对应的导入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导出的函数，类必修有名字 export  {aaa};</td>
+<td>import {aaa} from xxx;</td>
+</tr>
+<tr>
+<td></td>
+<td>命名空间导入:完全导入一个模块,import * as     example     from “./example.js”; example.sum()</td>
+</tr>
+<tr>
+<td>重命名导出： export    {    sum    as    add    };</td>
+<td>重命名导入 import    {    add    as    sum    }    from    “./example.js”;</td>
+</tr>
+</tbody>
+</table>
+<p>默认导出</p>
+<table>
+<thead>
+<tr>
+<th>导出默认值</th>
+<th>导入默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>export  default  xxx;</td>
+<td>import    sum    from    “./example.js”;</td>
+</tr>
+</tbody>
+</table>
+<p>加载模块</p>
+<table>
+<thead>
+<tr>
+<th>script 外部加载</th>
+<th>script 脚本加载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type=”module” src=”example.js”</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>script 行内加载</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>import {sum} from ‘’</td>
+<td></td>
+</tr>
+<tr>
+<td>按顺序执行加载，像应用了defer 的script</td>
+</tr>
+</tbody>
+</table>
+<p>函数</p>
+<p>剩余参数…arg,扩展运算符</p>
+<p>箭头函数–解决this 的追踪问题</p>
+<table>
+<thead>
+<tr>
+<th>箭头函数</th>
+<th>普通函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没有this super argument ,没有this 绑定</td>
+<td></td>
+</tr>
+<tr>
+<td>不能被new 调用</td>
+<td></td>
+</tr>
+<tr>
+<td>不能更改this,没有arguments 对象</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Set-和Map"><a href="#Set-和Map" class="headerlink" title="Set 和Map"></a>Set 和Map</h2><table>
+<thead>
+<tr>
+<th>set</th>
+<th>weakSet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不包含重复值的有序列表</td>
+<td>自动解除set中得引用，如果其他引用没有了</td>
+</tr>
+<tr>
+<td>new set([arr]） set.size  set.add(value) set.has(value)  set.delete(value) set.clear();</td>
+<td>初始化只能接受对象得值</td>
+</tr>
+<tr>
+<td>forEach((value,key,ownset)=&gt;{}) 按顺序处理每一项</td>
+<td>无size ,forEach,迭代器得方法也没有</td>
+</tr>
+<tr>
+<td>转换为数组:let    set    =    new    Set([1,    2,    3,    3,    3,    4,    5]),                array    =    […set];</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Map</th>
+<th>weakMap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>键值对有序列表,键和值都是任意类型得</td>
+<td></td>
+</tr>
+<tr>
+<td>map.set(“”,””)  map.get(“”) map.size</td>
+<td></td>
+</tr>
+<tr>
+<td>has() delete()  clear</td>
+<td></td>
+</tr>
+<tr>
+<td>初始化:let  map    =    new    Map([[“name”,    “Nicholas”],    [“age”,    25]]); 双数组</td>
+<td></td>
+</tr>
+<tr>
+<td>forEach</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/23/es6-learn/" data-id="cjz1cmks90002gcu56aus49b5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
   
 </article>
 
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/18/hello-world/" class="article-date">
+  <time datetime="2019-02-18T15:34:15.226Z" itemprop="datePublished">2019-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/18/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/18/hello-world/" data-id="cjz1cmks80001gcu524x7oez5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 </section>
         
           <aside id="sidebar">
