@@ -316,7 +316,7 @@
             <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>某些情况下,我们需要获取组件的实例,或者 react 元素的 Dom 节点,,这个时候就得用到 ref,关于 ref 的基本使用方法有两种:</p>
 <ol>
 <li><code>this.ref=createRef()</code></li>
-<li><code>&lt;ReactDom ref={(ref)=&gt;{ref}}/&gt;</code></li>
+<li><code>&lt;ReactDom ref={(ref)=&gt;{this.ref=ref }}/&gt;</code></li>
 </ol>
 <p>基本使用 : <a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html" target="_blank" rel="noopener">https://zh-hans.reactjs.org/docs/refs-and-the-dom.html</a></p>
 <h2 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h2><p>最近在做的项目的时候,遇到一个需求.十几个输入框或者选择框组成一个表单域,然后整体对这个”表单域”进行增加.正常思维就是把这个”表单域”封装为一个组件,我就起名为了 SchemeForm ,然后组件内就声明一个方法获取数据 ,就叫getFormData(),类的结构大致如下:</p>
