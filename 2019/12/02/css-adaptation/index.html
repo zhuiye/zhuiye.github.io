@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 7501334 或者 375667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1 物">
+<meta name="description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 750*1334 或者 375*667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1">
 <meta name="keywords" content="css">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS适配">
 <meta property="og:url" content="http://yoursite.com/2019/12/02/css-adaptation/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 7501334 或者 375667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1 物">
+<meta property="og:description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 750*1334 或者 375*667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-12-02T14:54:48.691Z">
+<meta property="og:updated_time" content="2019-12-14T06:41:34.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS适配">
-<meta name="twitter:description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 7501334 或者 375667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1 物">
+<meta name="twitter:description" content="说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理， 对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 750*1334 或者 375*667 尺寸。接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，一般标准下：  1px 像素对应 1">
 
 
 
@@ -311,7 +311,7 @@
 
       
         <p>说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理，</p>
-<p>对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 750<em>1334 或者 375</em>667 尺寸。<br>接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，<br>一般标准下：</p>
+<p>对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 <strong>750*1334</strong> 或者 <strong>375*667</strong> 尺寸。<br>接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，<br>一般标准下：</p>
 <ol>
 <li>1px 像素对应 1 物理像素.</li>
 <li>设备像素比=设备独立像素/物理像素</li>
@@ -321,12 +321,16 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">       一个100*100 的盒子在pc端就很正常的显示，但在移动端，显示就比较模糊，而且有往远处拉的感觉,变得很小很小,原因是我们没有设置 name="viewport" device=device-width，让css 布局视口=设备的宽度，设置之后，我们又会发现100px 占了大约屏幕三分之一大。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:100px;height:100px;background:red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>现在来讲讲如何将设计稿中的尺度映射到我们到设置的具体 css 像素。以下皆设定设计稿 iPhone6 750*1334<br>设计稿中宽 100px 的盒子,需要设置多少才能在 iPhone6 真机中按比率显示呢？<br>首先，我们先让布局适口宽度等于设备宽度,即添加如下标签</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>iPhone6 我们的设置的 css 像素计算为：100/750*document.documentElement.clientWidth(375)=50px;<br>pixel2 下 我们设置的 css 像素为: 100/750**document.documentElement.clientWidth(411)=54.8px;</p>
+<p>iPhone6 我们的设置的 css 像素计算为：100/750*document.documentElement.clientWidth(375)=50px;<br>pixel2 下 我们设置的 css 像素为: 100/750*document.documentElement.clientWidth(411)=54.8px;</p>
 <p>可以看到，如果我们要让不同的屏幕的”100px”跟设计图的占比相同，需要设置不同的 px,但好在我们有一个 rem 像素单位（以 html 的 fontSize 大小（px）为倍数），有的这个连接点，我们在不同的屏幕下，动态计算 html 中 fontSize 的大小，然后我们只需要根据计算图中算出的 rem 比率，就可以适配到不同的屏幕。这也就使淘宝的适配方案了，接下来，分析下源码：</p>
 <p><a href="https://github.com/amfe/lib-flexible/blob/2.0/index.js" target="_blank" rel="noopener">https://github.com/amfe/lib-flexible/blob/2.0/index.js</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">flexible</span>(<span class="params">window, document</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 获取适口布局元素</span></span><br><span class="line">  <span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement;</span><br><span class="line">  <span class="keyword">var</span> dpr = <span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// adjust body font size</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setBodyFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.body) &#123;</span><br><span class="line">      <span class="built_in">document</span>.body.style.fontSize = <span class="number">12</span> * dpr + <span class="string">"px"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">document</span>.addEventListener(<span class="string">"DOMContentLoaded"</span>, setBodyFontSize);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  setBodyFontSize();</span><br><span class="line">  <span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rem = docEl.clientWidth / <span class="number">10</span>;</span><br><span class="line">    docEl.style.fontSize = rem + <span class="string">"px"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  setRemUnit();</span><br><span class="line">  <span class="comment">// reset rem unit on page resize</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>, setRemUnit);</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"pageshow"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e.persisted) &#123;</span><br><span class="line">      setRemUnit();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// detect 0.5px supports</span></span><br><span class="line">  <span class="keyword">if</span> (dpr &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> fakeBody = <span class="built_in">document</span>.createElement(<span class="string">"body"</span>);</span><br><span class="line">    <span class="keyword">var</span> testElement = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    testElement.style.border = <span class="string">".5px solid transparent"</span>;</span><br><span class="line">    fakeBody.appendChild(testElement);</span><br><span class="line">    docEl.appendChild(fakeBody);</span><br><span class="line">    <span class="keyword">if</span> (testElement.offsetHeight === <span class="number">1</span>) &#123;</span><br><span class="line">      docEl.classList.add(<span class="string">"hairlines"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    docEl.removeChild(fakeBody);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="built_in">window</span>, <span class="built_in">document</span>);</span><br></pre></td></tr></table></figure>
 <p>把布局适口分成 10 份，可以看到，挡在 iPhone6 下,1rem=37.5px,fontSize 为 37.5px,在 pixel2 下为 41.1px。<br>计算图也分成 10 份，1rem=75px;100px 的设计图对应的比率为 100/75=1.33333rem,即我们布局输入为 1.3333rem。</p>
-<h2 id="关于-vw-vh"><a href="#关于-vw-vh" class="headerlink" title="关于 vw,vh"></a>关于 vw,vh</h2><p>vw:代表布局适口的宽度百分之一<br>vh:代表布局适口的高度百分之一<br>假设 750<em>1334 的设计图，计算 vw,vh 如下,假设计算 100px</em>100px<br>100/750<em>100=13.3vw<br>100/1334</em>100=7.496vh<br>我们当然也可以借助 vscode 的插件进行转化 px-to-vw ,pxtorem 等等。。。</p>
+<h2 id="关于-vw-vh"><a href="#关于-vw-vh" class="headerlink" title="关于 vw,vh"></a>关于 vw,vh</h2><p>vw:代表布局适口的宽度百分之一<br>vh:代表布局适口的高度百分之一<br>假设 750*1334 的设计图，计算 vw,vh 如下,假设计算</p>
+<p>100px*100px</p>
+<p>100/750*100=13.3vw</p>
+<p>100/1334*100=7.496vh</p>
+<p>我们当然也可以借助 vscode 的插件进行转化 px-to-vw ,pxtorem 等等。。。</p>
 <h2 id="项目中的具体运用"><a href="#项目中的具体运用" class="headerlink" title="项目中的具体运用"></a>项目中的具体运用</h2><p>对于公司的项目，我采用 vw +flexBox 布局，对于 margin,padding,采用 vw,对于字体，则用 css 媒体查询，<br>不同 screenWidth,设置 不同的 body fontSizes</p>
 
       
@@ -367,6 +371,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/14/React-Ref/" rel="prev" title="React Ref">
+                React Ref <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -445,7 +453,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -458,7 +466,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

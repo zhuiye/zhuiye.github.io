@@ -242,6 +242,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/React-Ref/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/14/React-Ref/" itemprop="url">React Ref</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-14T14:36:10+08:00">
+                2019-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>某些情况下,我们需要获取组件的实例,或者 react 元素的 Dom 节点,,这个时候就得用到 ref,关于 ref 的基本使用方法有两种:</p>
+<p>this.ref=createRef()</p>
+<p><reactdom ref="{(ref)=">{ref}}/&gt;<br>基本使用:<a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html" target="_blank" rel="noopener">https://zh-hans.reactjs.org/docs/refs-and-the-dom.html</a></reactdom></p>
+<h2 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h2><p>最近在做的项目的时候,遇到一个需求.十几个输入框或者选择框组成一个表单域,然后整体对这个”表单域”进行增加.正常思维就是把这个”表单域”封装为一个组件,我就起名为了 SchemeForm ,然后组件内就声明一个方法获取数据 ,就叫getFormData(),类的结构大致如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchemeForm</span>  <span class="keyword">extends</span> <span class="title">component</span> </span>&#123;</span><br><span class="line">    getFormData()&#123;</span><br><span class="line">        <span class="comment">// 此方法进行表单验证,以及获取数据,</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>App.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    data: [&#123; <span class="attr">name</span>: <span class="string">'aa'</span> &#125;],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  formRefs = [];</span><br><span class="line"></span><br><span class="line">  getFormData() &#123;</span><br><span class="line">    <span class="comment">// 此方法进行表单验证,以及获取数据,</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  add = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.formRefs = [];</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      data: data.concat(&#123; <span class="attr">name</span>: <span class="string">'bbb'</span> &#125;),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  getRef(refs, item) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'执行...'</span>, refs, item);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (refs) &#123;</span><br><span class="line">      <span class="keyword">this</span>.formRefs.push(refs);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">     此执行结果也一样</span></span><br><span class="line"><span class="comment">    &lt;SchemeForm key=&#123;index&#125; ref=&#123;this.getRef.bind(this,item)&#125;/&gt;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="comment">// 保险起见,每次render 函数被调用都重置formRefs</span></span><br><span class="line">    <span class="keyword">this</span>.formRefs = [];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123;data.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> (</span><br><span class="line">          &lt;SchemeForm</span><br><span class="line">            key=&#123;index&#125;</span><br><span class="line">            ref=&#123;ref =&gt; &#123;</span><br><span class="line">              <span class="built_in">console</span>.log(ref, item);</span><br><span class="line">              <span class="keyword">if</span> (ref) &#123;</span><br><span class="line">                <span class="keyword">this</span>.formRefs.push(ref);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">        &lt;button onClick=&#123;<span class="keyword">this</span>.add&#125;&gt;+&lt;/button&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>日志输出如下:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">初入渲染:</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">点击+按钮:</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">再次点击:</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">经过观察,里面的回调函数,会执行上一次 render 里面 ref 绑定的回调函数.是在怪哉,不明,但终归动态的获取到了组件的 ref 数组</span><br></pre></td></tr></table></figure></p>
+<h3 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h3><p>经过折腾得知,ref 里面的回调函数,是在 render 函数之后才执行的,在 componentDidMount 和 compnentDidUpdate 可以获取得到 。ref的用法，在项目中也经常可见，如,在最APP中根元素，放置一个Modal组件,然后把ref保持出来存在一个类中，这样，我们就可以在项目其它地方可以调用 ref.show(config),把模态框展现出来。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/02/css-adaptation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -314,7 +442,7 @@
         
           
             <p>说起移动端的适配方案，提最多的当属手淘的 rem 适配布局,现今已经过度到 vw 了。今来溯本求源来说一下适配原理，</p>
-<p>对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 750<em>1334 或者 375</em>667 尺寸。<br>接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，<br>一般标准下：</p>
+<p>对于移动端的适配，我们是怎么做的呢？首先，设计师按 iPhone6 的设计尺度出图，一般设计图是 <strong>750*1334</strong> 或者 <strong>375*667</strong> 尺寸。<br>接着就到我们前端进行适配了。撇去那些繁多的，设备独立像素，物理像素，设备像素比的定义，我们只需要记得，<br>一般标准下：</p>
 <ol>
 <li>1px 像素对应 1 物理像素.</li>
 <li>设备像素比=设备独立像素/物理像素</li>
@@ -324,12 +452,16 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">       一个100*100 的盒子在pc端就很正常的显示，但在移动端，显示就比较模糊，而且有往远处拉的感觉,变得很小很小,原因是我们没有设置 name="viewport" device=device-width，让css 布局视口=设备的宽度，设置之后，我们又会发现100px 占了大约屏幕三分之一大。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"width:100px;height:100px;background:red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>现在来讲讲如何将设计稿中的尺度映射到我们到设置的具体 css 像素。以下皆设定设计稿 iPhone6 750*1334<br>设计稿中宽 100px 的盒子,需要设置多少才能在 iPhone6 真机中按比率显示呢？<br>首先，我们先让布局适口宽度等于设备宽度,即添加如下标签</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>iPhone6 我们的设置的 css 像素计算为：100/750*document.documentElement.clientWidth(375)=50px;<br>pixel2 下 我们设置的 css 像素为: 100/750**document.documentElement.clientWidth(411)=54.8px;</p>
+<p>iPhone6 我们的设置的 css 像素计算为：100/750*document.documentElement.clientWidth(375)=50px;<br>pixel2 下 我们设置的 css 像素为: 100/750*document.documentElement.clientWidth(411)=54.8px;</p>
 <p>可以看到，如果我们要让不同的屏幕的”100px”跟设计图的占比相同，需要设置不同的 px,但好在我们有一个 rem 像素单位（以 html 的 fontSize 大小（px）为倍数），有的这个连接点，我们在不同的屏幕下，动态计算 html 中 fontSize 的大小，然后我们只需要根据计算图中算出的 rem 比率，就可以适配到不同的屏幕。这也就使淘宝的适配方案了，接下来，分析下源码：</p>
 <p><a href="https://github.com/amfe/lib-flexible/blob/2.0/index.js" target="_blank" rel="noopener">https://github.com/amfe/lib-flexible/blob/2.0/index.js</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">flexible</span>(<span class="params">window, document</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 获取适口布局元素</span></span><br><span class="line">  <span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement;</span><br><span class="line">  <span class="keyword">var</span> dpr = <span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// adjust body font size</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setBodyFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.body) &#123;</span><br><span class="line">      <span class="built_in">document</span>.body.style.fontSize = <span class="number">12</span> * dpr + <span class="string">"px"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">document</span>.addEventListener(<span class="string">"DOMContentLoaded"</span>, setBodyFontSize);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  setBodyFontSize();</span><br><span class="line">  <span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rem = docEl.clientWidth / <span class="number">10</span>;</span><br><span class="line">    docEl.style.fontSize = rem + <span class="string">"px"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  setRemUnit();</span><br><span class="line">  <span class="comment">// reset rem unit on page resize</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>, setRemUnit);</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">"pageshow"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e.persisted) &#123;</span><br><span class="line">      setRemUnit();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// detect 0.5px supports</span></span><br><span class="line">  <span class="keyword">if</span> (dpr &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> fakeBody = <span class="built_in">document</span>.createElement(<span class="string">"body"</span>);</span><br><span class="line">    <span class="keyword">var</span> testElement = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    testElement.style.border = <span class="string">".5px solid transparent"</span>;</span><br><span class="line">    fakeBody.appendChild(testElement);</span><br><span class="line">    docEl.appendChild(fakeBody);</span><br><span class="line">    <span class="keyword">if</span> (testElement.offsetHeight === <span class="number">1</span>) &#123;</span><br><span class="line">      docEl.classList.add(<span class="string">"hairlines"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    docEl.removeChild(fakeBody);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="built_in">window</span>, <span class="built_in">document</span>);</span><br></pre></td></tr></table></figure>
 <p>把布局适口分成 10 份，可以看到，挡在 iPhone6 下,1rem=37.5px,fontSize 为 37.5px,在 pixel2 下为 41.1px。<br>计算图也分成 10 份，1rem=75px;100px 的设计图对应的比率为 100/75=1.33333rem,即我们布局输入为 1.3333rem。</p>
-<h2 id="关于-vw-vh"><a href="#关于-vw-vh" class="headerlink" title="关于 vw,vh"></a>关于 vw,vh</h2><p>vw:代表布局适口的宽度百分之一<br>vh:代表布局适口的高度百分之一<br>假设 750<em>1334 的设计图，计算 vw,vh 如下,假设计算 100px</em>100px<br>100/750<em>100=13.3vw<br>100/1334</em>100=7.496vh<br>我们当然也可以借助 vscode 的插件进行转化 px-to-vw ,pxtorem 等等。。。</p>
+<h2 id="关于-vw-vh"><a href="#关于-vw-vh" class="headerlink" title="关于 vw,vh"></a>关于 vw,vh</h2><p>vw:代表布局适口的宽度百分之一<br>vh:代表布局适口的高度百分之一<br>假设 750*1334 的设计图，计算 vw,vh 如下,假设计算</p>
+<p>100px*100px</p>
+<p>100/750*100=13.3vw</p>
+<p>100/1334*100=7.496vh</p>
+<p>我们当然也可以借助 vscode 的插件进行转化 px-to-vw ,pxtorem 等等。。。</p>
 <h2 id="项目中的具体运用"><a href="#项目中的具体运用" class="headerlink" title="项目中的具体运用"></a>项目中的具体运用</h2><p>对于公司的项目，我采用 vw +flexBox 布局，对于 margin,padding,采用 vw,对于字体，则用 css 媒体查询，<br>不同 screenWidth,设置 不同的 body fontSizes</p>
 
           
@@ -1400,133 +1532,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/jQuery-deferred/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/21/jQuery-deferred/" itemprop="url">jQuery.deferred</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-21T20:57:13+08:00">
-                2019-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="jQuery-deferred"><a href="#jQuery-deferred" class="headerlink" title="jQuery.deferred()"></a>jQuery.deferred()</h2><h3 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h3><p>由于javascript中的存在着异步特性的调用，写异步代码的时候，容易造成回调函数地狱，使代码不雅观，于是便出现了一写解决方案，去解决这个嵌套地狱，如deferred,Promise方案…</p>
-<h3 id="常见的回调地狱"><a href="#常见的回调地狱" class="headerlink" title="常见的回调地狱"></a>常见的回调地狱</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;<span class="attr">url</span>:<span class="string">'test.php'</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url:<span class="string">'test.php'</span>,</span><br><span class="line">        data:res.data,</span><br><span class="line">        success:<span class="function"><span class="keyword">function</span>(<span class="params">res1</span>)</span>&#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">                ......</span></span><br><span class="line"><span class="comment">                ...</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="deferred"><a href="#deferred" class="headerlink" title="deferred()"></a>deferred()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;<span class="attr">url</span>:<span class="string">'test.php'</span>&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $.ajax(&#123;<span class="attr">url</span>:<span class="string">'test1.php'</span>,<span class="attr">data</span>:res.data&#125;) </span><br><span class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">res1</span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="实现简单的deferred"><a href="#实现简单的deferred" class="headerlink" title="实现简单的deferred"></a>实现简单的deferred</h3><p>1.Deferred 有done方法，有resovle 决定函数异步是否成功了的状态</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Deferred = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> callbackList = [];</span><br><span class="line">    <span class="keyword">let</span> failcallbackList = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> deferred = &#123;</span><br><span class="line">        done: <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 简单的假设传进来的是fn--参数是函数</span></span><br><span class="line">            callbackList.push(fn)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        resolve: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> fn <span class="keyword">of</span> callbackList) &#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>, data)</span><br><span class="line">            &#125;</span><br><span class="line">            callbackList=[]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">            failcallbackList.push(fn)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        reject: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> fn <span class="keyword">of</span> failcallbackList) &#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>, data)</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            failcallbackList=[]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> deferred;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testFn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span>  deferred=Deferred();</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="comment">// deferred.resolve('test data')</span></span><br><span class="line">       deferred.reject(<span class="string">' occur error '</span>)</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">    <span class="keyword">return</span> deferred</span><br><span class="line">&#125;</span><br><span class="line">testFn().done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;).fail(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>简单的实现大致如上，下面我们来看看jQuery.deferred的具体实现，源码参照1.5版本</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a simple deferred (one callbacks list)</span></span><br><span class="line">  <span class="comment">// 创建一个简单的deferred对象</span></span><br><span class="line">_Deferred: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> <span class="comment">// callbacks list ---回调函数列表</span></span><br><span class="line">		callbacks = [],</span><br><span class="line">             <span class="comment">// 储存上下文和参数</span></span><br><span class="line">		<span class="comment">// stored [ context , args ] </span></span><br><span class="line">		fired,</span><br><span class="line">           <span class="comment">// .</span></span><br><span class="line">		<span class="comment">// to avoid firing when already doing so</span></span><br><span class="line">		firing,</span><br><span class="line">		<span class="comment">// flag to know if the deferred has been cancelled</span></span><br><span class="line">		cancelled,</span><br><span class="line">		<span class="comment">// the deferred itself</span></span><br><span class="line">		deferred  = &#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// done( f1, f2, ...)</span></span><br><span class="line">			done: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> ( !cancelled ) &#123;</span><br><span class="line">					<span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">						i,</span><br><span class="line">						length,</span><br><span class="line">						elem,</span><br><span class="line">						type,</span><br><span class="line">						_fired;</span><br><span class="line">					<span class="keyword">if</span> ( fired ) &#123;</span><br><span class="line">						_fired = fired; <span class="comment">//如果已经有了上下文信息 ，存储，</span></span><br><span class="line">						fired = <span class="number">0</span>;<span class="comment">// 重置</span></span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">for</span> ( i = <span class="number">0</span>, length = args.length; i &lt; length; i++ ) &#123;</span><br><span class="line">						elem = args[ i ];</span><br><span class="line">						type = jQuery.type( elem );</span><br><span class="line">                           <span class="comment">// 把函数加入私有的变量的列表中..</span></span><br><span class="line">						<span class="keyword">if</span> ( type === <span class="string">"array"</span> ) &#123;</span><br><span class="line">                                 <span class="comment">// 如果是传经来的是数组，如&#123;[fn1,fn2]&#125;--递归调用</span></span><br><span class="line">							deferred.done.apply( deferred, elem );</span><br><span class="line">						&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( type === <span class="string">"function"</span> ) &#123;</span><br><span class="line">							callbacks.push( elem );</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">                       <span class="comment">// 如果_fired有..触发</span></span><br><span class="line">					<span class="keyword">if</span> ( _fired ) &#123;</span><br><span class="line">						deferred.resolveWith( _fired[ <span class="number">0</span> ], _fired[ <span class="number">1</span> ] );</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">                   <span class="comment">// 返回this ,回调用的</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// resolve with given context and args</span></span><br><span class="line">			resolveWith: <span class="function"><span class="keyword">function</span>(<span class="params"> context, args </span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> ( !cancelled &amp;&amp; !fired &amp;&amp; !firing ) &#123;</span><br><span class="line">					firing = <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">try</span> &#123;</span><br><span class="line">                           <span class="comment">// 利用队列，顺序调用每一个函数</span></span><br><span class="line">						<span class="keyword">while</span>( callbacks[ <span class="number">0</span> ] ) &#123;</span><br><span class="line">							callbacks.shift().apply( context, args );</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">finally</span> &#123;</span><br><span class="line">						fired = [ context, args ];</span><br><span class="line">						firing = <span class="number">0</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// resolve with this as context and given arguments</span></span><br><span class="line">			resolve: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				deferred.resolveWith( jQuery.isFunction( <span class="keyword">this</span>.promise ) ? <span class="keyword">this</span>.promise() : <span class="keyword">this</span>, <span class="built_in">arguments</span> );</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Has this deferred been resolved? 判断一个deffer 对象的状态</span></span><br><span class="line">			isResolved: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> !!( firing || fired );</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Cancel</span></span><br><span class="line">			cancel: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				cancelled = <span class="number">1</span>;</span><br><span class="line">				callbacks = [];</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> deferred;</span><br><span class="line">&#125;,</span><br><span class="line">       </span><br><span class="line">   <span class="comment">// Full fledged deferred (two callbacks list)</span></span><br><span class="line">Deferred: <span class="function"><span class="keyword">function</span>(<span class="params"> func </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> deferred = jQuery._Deferred(),</span><br><span class="line">		failDeferred = jQuery._Deferred(),</span><br><span class="line">		promise;</span><br><span class="line">	<span class="comment">// Add errorDeferred methods, then and promise</span></span><br><span class="line">       <span class="comment">// 往deferred对象中添加errorDeferred方法和promise</span></span><br><span class="line">	jQuery.extend( deferred, &#123;</span><br><span class="line">		then: <span class="function"><span class="keyword">function</span>(<span class="params"> doneCallbacks, failCallbacks </span>) </span>&#123;</span><br><span class="line">			deferred.done( doneCallbacks ).fail( failCallbacks );</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">		&#125;,</span><br><span class="line">		fail: failDeferred.done,</span><br><span class="line">		rejectWith: failDeferred.resolveWith,</span><br><span class="line">		reject: failDeferred.resolve,</span><br><span class="line">		isRejected: failDeferred.isResolved,</span><br><span class="line">		<span class="comment">// Get a promise for this deferred</span></span><br><span class="line">		<span class="comment">// If obj is provided, the promise aspect is added to the object</span></span><br><span class="line">           <span class="comment">// 返回一个deferred对象</span></span><br><span class="line">           <span class="comment">// 如果传入一个对象，会把deferred对象的所有属性赋予给这个对象</span></span><br><span class="line">		promise: <span class="function"><span class="keyword">function</span>(<span class="params"> obj , i <span class="regexp">/* internal */</span> </span>) </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> ( obj == <span class="literal">null</span> ) &#123;</span><br><span class="line">				<span class="keyword">if</span> ( promise ) &#123;</span><br><span class="line">					<span class="keyword">return</span> promise;</span><br><span class="line">				&#125;</span><br><span class="line">				promise = obj = &#123;&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			i = promiseMethods.length;</span><br><span class="line">			<span class="keyword">while</span>( i-- ) &#123;</span><br><span class="line">				obj[ promiseMethods[ i ] ] = deferred[ promiseMethods[ i ] ];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> obj;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; );</span><br><span class="line">	<span class="comment">// Make sure only one callback list will be used</span></span><br><span class="line">	deferred.then( failDeferred.cancel, deferred.cancel );</span><br><span class="line">	<span class="comment">// Unexpose cancel</span></span><br><span class="line">	<span class="keyword">delete</span> deferred.cancel;</span><br><span class="line">	<span class="comment">// Call given func if any</span></span><br><span class="line">	<span class="keyword">if</span> ( func ) &#123;</span><br><span class="line">		func.call( deferred, deferred );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> deferred;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// Deferred helper 这个方法相当于Promise.all([])</span></span><br><span class="line">when: <span class="function"><span class="keyword">function</span>(<span class="params"> object </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">		length = args.length,</span><br><span class="line">		deferred = length &lt;= <span class="number">1</span> &amp;&amp; object &amp;&amp; jQuery.isFunction( object.promise ) ?</span><br><span class="line">			object :</span><br><span class="line">			jQuery.Deferred(),</span><br><span class="line">		promise = deferred.promise(),</span><br><span class="line">		resolveArray;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ( length &gt; <span class="number">1</span> ) &#123;</span><br><span class="line">		resolveArray = <span class="keyword">new</span> <span class="built_in">Array</span>( length );</span><br><span class="line">		jQuery.each( args, <span class="function"><span class="keyword">function</span>(<span class="params"> index, element </span>) </span>&#123;</span><br><span class="line">			jQuery.when( element ).then( <span class="function"><span class="keyword">function</span>(<span class="params"> value </span>) </span>&#123;</span><br><span class="line">				resolveArray[ index ] = <span class="built_in">arguments</span>.length &gt; <span class="number">1</span> ? slice.call( <span class="built_in">arguments</span>, <span class="number">0</span> ) : value;</span><br><span class="line">				<span class="keyword">if</span>( ! --length ) &#123;</span><br><span class="line">					deferred.resolveWith( promise, resolveArray );</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;, deferred.reject );</span><br><span class="line">		&#125; );</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( deferred !== object ) &#123;</span><br><span class="line">		deferred.resolve( object );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> promise;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p>跟promise 比起来，功能还没那么强大  To be continue…..</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1579,7 +1584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1592,7 +1597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
