@@ -242,6 +242,275 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-hook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/15/react-hook/" itemprop="url">react-hook</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-15T16:53:33+08:00">
+                2019-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>react-hook 是 16.8 版本之后为组件函数提供 state 功能的工具。关于诸多介绍，详细看文档了，下面只讲述我在项目的实际使用。</p>
+<h2 id="react-hook-诞生目的"><a href="#react-hook-诞生目的" class="headerlink" title="react-hook 诞生目的"></a>react-hook 诞生目的</h2><p>根据官方的说法，多年用 class 编写组件，发现其中逻辑的复用并不高，尽管有 renderProps 和高阶组件解决方案，但终究不够优雅，组件间嵌套的层数，一不小心就会让人深陷泥潭。为此官方一直寻找一个方式，更大的复用组件中的一些 state 以及耦合的逻辑，由此 react-hook 诞生出来了，当然 react-hook 也不仅仅是逻辑间的复用，还有 state 组织方式，以及类式 class 生命周期的 useEffect hook。</p>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p>useEffect 这个 hook，里面的门道一点也不简单，目前在项目中使用场景也非常简单，只是在里面处理异步的请求，后续会补充其更多的使用场景。详情请看下面两个链接：</p>
+<p><a href="https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/" target="_blank" rel="noopener">https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/</a></p>
+<p><a href="https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/" target="_blank" rel="noopener">https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/</a></p>
+<p><a href="https://www.robinwieruch.de/react-hooks-fetch-data/" target="_blank" rel="noopener">https://www.robinwieruch.de/react-hooks-fetch-data/</a></p>
+<p>useEffect 集合了类式 class 组件的生命周期 componentDidMount(),componentWillUnMount()<br>componentDidUpdate()。</p>
+<h2 id="自定义的-hook"><a href="#自定义的-hook" class="headerlink" title="自定义的 hook"></a>自定义的 hook</h2><p>大大提升复用率，自定义的 hook 是什么呢，在我看来，它就是一个函数，你可以往里面传一些参数，里面有一个自己的 state，然后返回一个 state 就行了。看下面我封装的代码就可以明白这一点</p>
+<h2 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h2><p>在最近的重构项目中使用 react-hook，react-hook 不仅赋予了函数组件 state 的能力，而且一个强大之处就是对 state 的复用，这点深有体会。用了 react-hook 不仅代码函数大大缩减，而且可以对不同的 state 声明，以及操作进行划分设置，最厉害的就是复用率大大提升。下面就放上项目封装的 request hook</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单示意</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useRequestData</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> fetchData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// params  参数可以传进请求需要的参数</span></span><br><span class="line">    request.post(params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      setData(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetchData();</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 暴露出fetchData 主要是为了 刷新，查询所用</span></span><br><span class="line">  <span class="keyword">return</span> [data, fetchData];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现-componentWillReceiverComponent-or-getDerivedStateFromProps"><a href="#实现-componentWillReceiverComponent-or-getDerivedStateFromProps" class="headerlink" title="实现 componentWillReceiverComponent or getDerivedStateFromProps"></a>实现 componentWillReceiverComponent or getDerivedStateFromProps</h2><p>在初次用 hook 封装组件的时候，遇到了需要使用 getDerivedStateFromProps 场景，<br>官方给出的建议是保存 state 上次的 props,然后跟更新的 props 做比较。实话实说，实现不怎么优雅</p>
+<p><a href="https://react.docschina.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops" target="_blank" rel="noopener">https://react.docschina.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops</a></p>
+<p>请看下面代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState, CSSProperties &#125; from &quot;react&quot;;</span><br><span class="line">import &#123; Modal, Icon, message &#125; from &quot;antd&quot;;</span><br><span class="line"></span><br><span class="line">const styles: &#123;</span><br><span class="line">  [key: string]: CSSProperties;</span><br><span class="line">&#125; = &#123;</span><br><span class="line">  modalStyle: &#123;&#125;,</span><br><span class="line">  container: &#123;</span><br><span class="line">    width: &quot;100%&quot;,</span><br><span class="line">    height: &quot;100%&quot;,</span><br><span class="line">    position: &quot;relative&quot;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  leftIcon: &#123;</span><br><span class="line">    fontSize: 40,</span><br><span class="line">    position: &quot;absolute&quot;,</span><br><span class="line">    left: 0,</span><br><span class="line">    top: &quot;50%&quot;,</span><br><span class="line">    marginTop: -20,</span><br><span class="line">    cursor: &quot;pointer&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  rightIcon: &#123;</span><br><span class="line">    fontSize: 40,</span><br><span class="line">    position: &quot;absolute&quot;,</span><br><span class="line">    right: 0,</span><br><span class="line">    top: &quot;50%&quot;,</span><br><span class="line">    marginTop: -20,</span><br><span class="line">    cursor: &quot;pointer&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  img: &#123;</span><br><span class="line">    width: &quot;100%&quot;,</span><br><span class="line">    height: &quot;auto&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  pictureDesc: &#123;</span><br><span class="line">    fontWeight: &quot;bold&quot;,</span><br><span class="line">    marginBottom: 4,</span><br><span class="line">    marginTop: 4,</span><br><span class="line">    textAlign: &quot;center&quot;,</span><br><span class="line">    display: &quot;block&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">interface PictureScrollViewProps &#123;</span><br><span class="line">  visible: boolean;</span><br><span class="line">  picIndex?: number;</span><br><span class="line">  close: () =&gt; void;</span><br><span class="line">  data: Array&lt;&#123;</span><br><span class="line">    type_name: string;</span><br><span class="line">    url: string;</span><br><span class="line">  &#125;&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const PictureScrollView: React.FC&lt;PictureScrollViewProps&gt; = (&#123;</span><br><span class="line">  visible,</span><br><span class="line">  close,</span><br><span class="line">  data,</span><br><span class="line">  picIndex = 0</span><br><span class="line">&#125;) =&gt; &#123;</span><br><span class="line">  const [currentIndex, setCurrentIndex] = useState(picIndex);</span><br><span class="line"></span><br><span class="line">  /*  目的是当picIndex发生变化,</span><br><span class="line">      更新它</span><br><span class="line">      https://react.docschina.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops</span><br><span class="line">  */</span><br><span class="line">  let [prevIndex, setPreIndex] = useState &lt; number &gt; 0;</span><br><span class="line"></span><br><span class="line">  if (picIndex !== prevIndex) &#123;</span><br><span class="line">    setPreIndex(picIndex);</span><br><span class="line">    setCurrentIndex(picIndex);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const last = () =&gt; &#123;</span><br><span class="line">    if (currentIndex === 0) &#123;</span><br><span class="line">      message.warn(&quot;已到第一张图片&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      setCurrentIndex(currentIndex - 1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const next = () =&gt; &#123;</span><br><span class="line">    if (currentIndex === data.length - 1) &#123;</span><br><span class="line">      message.warn(&quot;已到最后一张图片&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      setCurrentIndex(currentIndex + 1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;Modal</span><br><span class="line">      visible=&#123;visible&#125;</span><br><span class="line">      footer=&#123;null&#125;</span><br><span class="line">      title=&#123;null&#125;</span><br><span class="line">      onCancel=&#123;() =&gt; &#123;</span><br><span class="line">        setCurrentIndex(picIndex);</span><br><span class="line">        close();</span><br><span class="line">      &#125;&#125;</span><br><span class="line">      width=&#123;600&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;data.length !== 0 ? (</span><br><span class="line">        &lt;div style=&#123;styles.container&#125;&gt;</span><br><span class="line">          &lt;picture&gt;</span><br><span class="line">            &lt;figcaption style=&#123;styles.pictureDesc&#125;&gt;</span><br><span class="line">              &#123;data[currentIndex].type_name&#125;</span><br><span class="line">            &lt;/figcaption&gt;</span><br><span class="line">            &lt;img src=&#123;data[currentIndex].url&#125; alt=&quot;xxx&quot; style=&#123;styles.img&#125; /&gt;</span><br><span class="line">          &lt;/picture&gt;</span><br><span class="line">          &lt;Icon</span><br><span class="line">            type=&quot;left-circle&quot;</span><br><span class="line">            theme=&quot;filled&quot;</span><br><span class="line">            style=&#123;styles.leftIcon&#125;</span><br><span class="line">            onClick=&#123;last&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;Icon</span><br><span class="line">            type=&quot;right-circle&quot;</span><br><span class="line">            theme=&quot;filled&quot;</span><br><span class="line">            style=&#123;styles.rightIcon&#125;</span><br><span class="line">            onClick=&#123;next&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      ) : (</span><br><span class="line">        &lt;div&gt;无图片数据&lt;/div&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/Modal&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">export default PictureScrollView;</span><br></pre></td></tr></table></figure>
+<p>上面的组件封装的是一个照片轮播墙，picIndex 是指当前的照片是哪一张，组件初入挂载，<br>picIndex 从组件外传进来，关闭，再次点击另一张照片，picIndex 要相应改变，故此要监听 picIndex prop 的变量，从而同步更新内部的 picIndex state .</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-life-cycle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/15/react-life-cycle/" itemprop="url">react-life-cycle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-15T16:52:28+08:00">
+                2019-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="关于在-componentWillMount-中执行异步操作的争论"><a href="#关于在-componentWillMount-中执行异步操作的争论" class="headerlink" title="关于在 componentWillMount 中执行异步操作的争论"></a>关于在 componentWillMount 中执行异步操作的争论</h2><p>componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用 componentWillMount，而且现在的 react 版本已经弃用此 api 了，不再过多关注和讨论</p>
+<h3 id="项目中使用"><a href="#项目中使用" class="headerlink" title="项目中使用"></a>项目中使用</h3><p>一般在 constructor 中进行数据的初始化，以前订阅一些操作，而异步的请求则在 componentDidMount 中进行。</p>
+<h2 id="关于-react-的生命周期"><a href="#关于-react-的生命周期" class="headerlink" title="关于 react 的生命周期"></a>关于 react 的生命周期</h2><h3 id="先前版本"><a href="#先前版本" class="headerlink" title="先前版本"></a>先前版本</h3><p><strong>mount：</strong></p>
+<p>constructor-&gt;componentWillMount-&gt;render-&gt;componentDidMount</p>
+<p><strong>setState 更新：</strong></p>
+<p>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
+<p><strong>父组件更新:</strong></p>
+<p>componentWillReceiverProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
+<h3 id="如今版本"><a href="#如今版本" class="headerlink" title="如今版本"></a>如今版本</h3><p><strong>mount：</strong></p>
+<p>constructor-&gt;getDerivedStateFromProps-&gt;render-&gt;componentDidMount</p>
+<p><strong>setState 更新：</strong></p>
+<p>getDerivedStateFromProps-&gt;shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
+<p><strong>父组件更新:</strong></p>
+<p>getDerivedStateFromProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38030418</a></p>
+<p><a href="https://github.com/reactjs/reactjs.org/issues/302" target="_blank" rel="noopener">https://github.com/reactjs/reactjs.org/issues/302</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/React-Ref/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1297,250 +1566,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/flutter-ListView/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/22/flutter-ListView/" itemprop="url">flutter-ListView</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-22T23:09:51+08:00">
-                2019-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Flutter-ListView"><a href="#Flutter-ListView" class="headerlink" title="Flutter ListView"></a>Flutter ListView</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/flutter-Text/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/21/flutter-Text/" itemprop="url">flutter-Text</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-21T22:16:10+08:00">
-                2019-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Flutter-Text-Widget"><a href="#Flutter-Text-Widget" class="headerlink" title="Flutter Text Widget"></a>Flutter Text Widget</h2><p><b>reference: </b><a href="https://api.flutter.dev/flutter/widgets/Text-class.html" target="_blank" rel="noopener">https://api.flutter.dev/flutter/widgets/Text-class.html</a></p>
-<h3 id="simple-code"><a href="#simple-code" class="headerlink" title="simple code"></a>simple code</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/* in fact you do not remember any arguments,you can hover Text and editor tool will hint you Text pass params and name</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">   Text(<span class="string">'22999dsfsdfsdf'</span>,</span><br><span class="line">        overflow: TextOverflow.ellipsis, <span class="comment">// over display "..."</span></span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">        style: TextStyle(fontWeight: FontWeight.bold))</span><br><span class="line"></span><br><span class="line"><span class="comment">// the Text.rich make your diff text section use diff style</span></span><br><span class="line"><span class="keyword">const</span> Text.rich(</span><br><span class="line">  TextSpan(</span><br><span class="line">    text: <span class="string">'Hello'</span>, <span class="comment">// default text style</span></span><br><span class="line">    children: &lt;TextSpan&gt;[</span><br><span class="line">      TextSpan(text: <span class="string">' beautiful '</span>, style: TextStyle(fontStyle: FontStyle.italic)),</span><br><span class="line">      TextSpan(text: <span class="string">'world'</span>, style: TextStyle(fontWeight: FontWeight.bold)),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// if your want  Text react click event ,you can do as follow</span></span><br><span class="line"> GestureDetector(</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'xxx'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    child: Container(</span><br><span class="line">        color: Colors.yellow,</span><br><span class="line">        child: Text(<span class="string">'TURN LIGHTS ON'</span>),</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  some props you can use </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  maxLines</span></span><br><span class="line"><span class="comment">  overflow</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1588,7 +1618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS,">
+  <meta name="keywords" content="React,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="iOS development  preface  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原">
-<meta name="keywords" content="iOS">
+<meta name="description" content="关于在 componentWillMount 中执行异步操作的争论componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用">
+<meta name="keywords" content="React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS development  preface">
-<meta property="og:url" content="http://yoursite.com/2019/11/09/iOS-development-preface/index.html">
+<meta property="og:title" content="react-life-cycle">
+<meta property="og:url" content="http://yoursite.com/2019/12/15/react-life-cycle/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="iOS development  preface  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原">
+<meta property="og:description" content="关于在 componentWillMount 中执行异步操作的争论componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-11-10T15:28:42.379Z">
+<meta property="og:updated_time" content="2019-12-15T08:53:52.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS development  preface">
-<meta name="twitter:description" content="iOS development  preface  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原">
+<meta name="twitter:title" content="react-life-cycle">
+<meta name="twitter:description" content="关于在 componentWillMount 中执行异步操作的争论componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/09/iOS-development-preface/">
+  <link rel="canonical" href="http://yoursite.com/2019/12/15/react-life-cycle/">
 
 
 
 
 
-  <title>iOS development  preface | chen heng cheng</title>
+  <title>react-life-cycle | chen heng cheng</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/iOS-development-preface/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-life-cycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="恒承">
@@ -260,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS development  preface</h1>
+          <h1 class="post-title" itemprop="name headline">react-life-cycle</h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-09T22:28:19+08:00">
-                2019-11-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-15T16:52:28+08:00">
+                2019-12-15
               </time>
             
 
@@ -310,8 +310,22 @@
       
 
       
-        <h1 id="iOS-development-preface"><a href="#iOS-development-preface" class="headerlink" title="iOS development  preface"></a>iOS development  preface</h1><p>  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.<br>  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原因，苹果在2014年又推出了新的开发语言Swift,用来开发 iOS 应用，目前苹果官方也是极力推Swift,对于OC,则是”维护”的状态。由于国内项目多采用OC,对于新的swift项目也在实践当中，故此，我从OC开始学起，从网上搜寻得来两本书，&lt;Objective-C.程序设计&gt;,<effective objective-c 2.0 编写高质量ios与os x代码的52个有效方></effective></p>
-<p>  语言都有思想的共性，无非是写的方式不同，学习一门新的语言，首先从语法开始学习，不得不说，OC的语法,啰嗦，而且怪异，可能是我写脚本语言JS较多的缘故吧。OC 跟大都数面对对象的语言一样，拥有类的概念，继承，多态等等，还有C的内存管理,后续学习的过程中，我会和JS参照对比</p>
+        <h2 id="关于在-componentWillMount-中执行异步操作的争论"><a href="#关于在-componentWillMount-中执行异步操作的争论" class="headerlink" title="关于在 componentWillMount 中执行异步操作的争论"></a>关于在 componentWillMount 中执行异步操作的争论</h2><p>componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用 componentWillMount，而且现在的 react 版本已经弃用此 api 了，不再过多关注和讨论</p>
+<h3 id="项目中使用"><a href="#项目中使用" class="headerlink" title="项目中使用"></a>项目中使用</h3><p>一般在 constructor 中进行数据的初始化，以前订阅一些操作，而异步的请求则在 componentDidMount 中进行。</p>
+<h2 id="关于-react-的生命周期"><a href="#关于-react-的生命周期" class="headerlink" title="关于 react 的生命周期"></a>关于 react 的生命周期</h2><h3 id="先前版本"><a href="#先前版本" class="headerlink" title="先前版本"></a>先前版本</h3><p><strong>mount：</strong></p>
+<p>constructor-&gt;componentWillMount-&gt;render-&gt;componentDidMount</p>
+<p><strong>setState 更新：</strong></p>
+<p>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
+<p><strong>父组件更新:</strong></p>
+<p>componentWillReceiverProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
+<h3 id="如今版本"><a href="#如今版本" class="headerlink" title="如今版本"></a>如今版本</h3><p><strong>mount：</strong></p>
+<p>constructor-&gt;getDerivedStateFromProps-&gt;render-&gt;componentDidMount</p>
+<p><strong>setState 更新：</strong></p>
+<p>getDerivedStateFromProps-&gt;shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
+<p><strong>父组件更新:</strong></p>
+<p>getDerivedStateFromProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38030418</a></p>
+<p><a href="https://github.com/reactjs/reactjs.org/issues/302" target="_blank" rel="noopener">https://github.com/reactjs/reactjs.org/issues/302</a></p>
 
       
     </div>
@@ -329,7 +343,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -342,8 +356,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/09/react-native-module/" rel="next" title="react-native-module">
-                <i class="fa fa-chevron-left"></i> react-native-module
+              <a href="/2019/12/14/React-Ref/" rel="next" title="React Ref">
+                <i class="fa fa-chevron-left"></i> React Ref
               </a>
             
           </div>
@@ -352,8 +366,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/18/react-native-swiper/" rel="prev" title="react-native-swiper">
-                react-native-swiper <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/15/react-hook/" rel="prev" title="react-hook">
+                react-hook <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -479,7 +493,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-development-preface"><span class="nav-number">1.</span> <span class="nav-text">iOS development  preface</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于在-componentWillMount-中执行异步操作的争论"><span class="nav-number">1.</span> <span class="nav-text">关于在 componentWillMount 中执行异步操作的争论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目中使用"><span class="nav-number">1.1.</span> <span class="nav-text">项目中使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-react-的生命周期"><span class="nav-number">2.</span> <span class="nav-text">关于 react 的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先前版本"><span class="nav-number">2.1.</span> <span class="nav-text">先前版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如今版本"><span class="nav-number">2.2.</span> <span class="nav-text">如今版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
