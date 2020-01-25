@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="jump wall,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="科学上网方式1 置备一台国外的服务器 阿里云的香港服务器  https://cn.aliyun.com/product/swas  进入系统创建一个 ssr.sh 脚本文件 内容如下:https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh 12345678mkdir testcd test vim ssr.shi:进入编辑模式......输入">
-<meta name="keywords" content="jump wall">
+<meta name="description" content="网络通信安全非常重要，不注重就会造成重大的损失，今天就来梳理一下https请求的全过程。此处用A代表客户端，B代表服务器端，来模拟一个请求通信的过程 A: 经历TCP三次握手与后端建立链接信号，信道准备完毕，发送请求，表明自己支持加解密的算法信息 B：接受信息，处理请求,并响应，发送数字证书回A， A：收到B的证书，验证证书，根证书（顶级CA机构验证证书的来源是否可靠），如果可靠，则取出公钥，然后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jump-wall">
-<meta property="og:url" content="http://yoursite.com/2019/08/07/jump-wall/index.html">
+<meta property="og:title" content="security">
+<meta property="og:url" content="http://yoursite.com/2020/01/21/security/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="科学上网方式1 置备一台国外的服务器 阿里云的香港服务器  https://cn.aliyun.com/product/swas  进入系统创建一个 ssr.sh 脚本文件 内容如下:https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh 12345678mkdir testcd test vim ssr.shi:进入编辑模式......输入">
+<meta property="og:description" content="网络通信安全非常重要，不注重就会造成重大的损失，今天就来梳理一下https请求的全过程。此处用A代表客户端，B代表服务器端，来模拟一个请求通信的过程 A: 经历TCP三次握手与后端建立链接信号，信道准备完毕，发送请求，表明自己支持加解密的算法信息 B：接受信息，处理请求,并响应，发送数字证书回A， A：收到B的证书，验证证书，根证书（顶级CA机构验证证书的来源是否可靠），如果可靠，则取出公钥，然后">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-11-23T09:18:40.615Z">
+<meta property="og:updated_time" content="2020-01-25T01:05:01.751Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jump-wall">
-<meta name="twitter:description" content="科学上网方式1 置备一台国外的服务器 阿里云的香港服务器  https://cn.aliyun.com/product/swas  进入系统创建一个 ssr.sh 脚本文件 内容如下:https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh 12345678mkdir testcd test vim ssr.shi:进入编辑模式......输入">
+<meta name="twitter:title" content="security">
+<meta name="twitter:description" content="网络通信安全非常重要，不注重就会造成重大的损失，今天就来梳理一下https请求的全过程。此处用A代表客户端，B代表服务器端，来模拟一个请求通信的过程 A: 经历TCP三次握手与后端建立链接信号，信道准备完毕，发送请求，表明自己支持加解密的算法信息 B：接受信息，处理请求,并响应，发送数字证书回A， A：收到B的证书，验证证书，根证书（顶级CA机构验证证书的来源是否可靠），如果可靠，则取出公钥，然后">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/07/jump-wall/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/21/security/">
 
 
 
 
 
-  <title>jump-wall | chen heng cheng</title>
+  <title>security | chen heng cheng</title>
   
 
 
@@ -243,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jump-wall/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/security/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="恒承">
@@ -260,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">jump-wall</h1>
+          <h1 class="post-title" itemprop="name headline">security</h1>
         
 
         <div class="post-meta">
@@ -272,8 +271,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T22:28:47+08:00">
-                2019-08-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T21:08:20+08:00">
+                2020-01-21
               </time>
             
 
@@ -310,23 +309,28 @@
       
 
       
-        <h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><ol>
-<li><p>置备一台国外的服务器</p>
-<p>阿里云的香港服务器  <a href="qq://txfile/#" target="_blank" rel="noopener">https://cn.aliyun.com/product/swas</a></p>
-</li>
-<li><p>进入系统创建一个 ssr.sh 脚本文件</p>
-<p>内容如下:<a href="https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh" target="_blank" rel="noopener">https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test </span><br><span class="line">vim ssr.sh</span><br><span class="line">i:进入编辑模式</span><br><span class="line">......输入内容</span><br><span class="line">ese：返回一般模式</span><br><span class="line">:wq 保存退处</span><br><span class="line">bash ssr.sh :执行...</span><br></pre></td></tr></table></figure>
-</li>
+        <p>网络通信安全非常重要，不注重就会造成重大的损失，今天就来梳理一下https请求的全过程。<br>此处用A代表客户端，B代表服务器端，来模拟一个请求通信的过程</p>
+<p>A: 经历TCP三次握手与后端建立链接信号，信道准备完毕，发送请求，表明自己支持加解密的算法信息</p>
+<p>B：接受信息，处理请求,并响应，发送数字证书回A，</p>
+<p>A：收到B的证书，验证证书，<strong>根证书</strong>（顶级CA机构验证证书的来源是否可靠），如果可靠，则取出公钥，然后在信道上进行加密传输数据，如果证书不可靠，或者过期，会安全提示。</p>
+<h2 id="共享密钥对称加密"><a href="#共享密钥对称加密" class="headerlink" title="共享密钥对称加密"></a>共享密钥对称加密</h2><p>A与B都用相同的加密解密方法，且<strong>密钥相同</strong>,对双方来往的数据加密解密的一种方式。<br>双发发送消息，A与B都要事先知道加密方式和密钥，就免不了密钥传输的过程。如此，就可以能被<br>窃取到密钥（网络传输过程），窃取者然后，猜测用何种方式加密数据，然后进行把数据解密，也并非无这个可能，<br>然后就可以当中间人进行假冒，可以冒充A，也可以冒充B回应A。</p>
+<p>常见的 对称加密 算法主要有 DES、3DES、AES 等…</p>
+<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>A：用B生成的公钥加密</p>
+<p>B：用私钥进行解密</p>
+<p>C：得到公钥，也无法解密，但可以假冒B，给A发送公钥，A无法确定公钥是B的，所以中招.</p>
+<p>为防止此等情况，出现了<br>由第三方CA机构颁发的数字签名以防止此等情况</p>
+<p>常见的 非对称算法 主要有 RSA、DSA 等.</p>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>B用公钥进行向CA申请，得到数字签名，里面是一个包含公钥，服务器信息得文件，发送给A，A本地有个CA得根证书，可以检测<br>该证书得真伪,这样就知道A接受到的公钥，是不是来自于正确的B端.</p>
+<h2 id="散列算法"><a href="#散列算法" class="headerlink" title="散列算法"></a>散列算法</h2><p>此算法用来加密一些数据，如密码等…</p>
+<p>散列算法 主要有 SHA-1、MD5 等。</p>
+<h2 id="项目中加密实际的运用"><a href="#项目中加密实际的运用" class="headerlink" title="项目中加密实际的运用"></a>项目中加密实际的运用</h2><ol>
+<li>对于request 请求体，用RSA公钥加密，同时传递 “AES或者DES”产生的公钥传于后端，</li>
+<li>后端接受数据后，私钥解密，后端用共享密钥对Response 体中的数据加密处理.然后返回给客户端。</li>
 </ol>
-<ol start="3">
-<li>开启服务器（SSR服务器端口）也就是在配置SSR， 需要的端口号</li>
-</ol>
-<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>进入服务器，执行复制下列代码,傻瓜式操作即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure></p>
-<p>ssh root@ipaddress</p>
-<h2 id="notice"><a href="#notice" class="headerlink" title="notice"></a>notice</h2><p>系统要求: <strong><em>centos7</em></strong></p>
-<p>一般情况下就可以轻松happy访问,但你会发现即使100M的网络，也如龟速，这个时候就要安装BBR 加速.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh </span><br><span class="line">chmod +x bbr.sh </span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p>
-<h3 id="relative-link-following"><a href="#relative-link-following" class="headerlink" title="relative link following"></a>relative link following</h3><p><a href="https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/" target="_blank" rel="noopener">https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/</a></p>
+<h2 id="前端-RSA-与AES-DES-库如下："><a href="#前端-RSA-与AES-DES-库如下：" class="headerlink" title="前端 RSA 与AES,DES 库如下："></a>前端 RSA 与AES,DES 库如下：</h2><p>crypto-js: <a href="https://github.com/brix/crypto-js" target="_blank" rel="noopener">https://github.com/brix/crypto-js</a></p>
+<p>RSA: <a href="https://github.com/travist/jsencrypt" target="_blank" rel="noopener">https://github.com/travist/jsencrypt</a></p>
+<p>AES: <a href="https://github.com/ricmoo/aes-js" target="_blank" rel="noopener">https://github.com/ricmoo/aes-js</a></p>
+<p><a href="https://www.jianshu.com/p/a47477e8126a" target="_blank" rel="noopener">https://www.jianshu.com/p/a47477e8126a</a></p>
 
       
     </div>
@@ -342,12 +346,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/jump-wall/" rel="tag"># jump wall</a>
-          
-        </div>
-      
 
       
       
@@ -357,8 +355,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/22/dart-study/" rel="next" title="dart-study">
-                <i class="fa fa-chevron-left"></i> dart-study
+              <a href="/2020/01/16/project-summary/" rel="next" title="project-summary">
+                <i class="fa fa-chevron-left"></i> project-summary
               </a>
             
           </div>
@@ -367,8 +365,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/09/react-native-module/" rel="prev" title="react-native-module">
-                react-native-module <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/21/Dynamic-programming/" rel="prev" title="Dynamic programming">
+                Dynamic programming <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -494,7 +492,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#科学上网"><span class="nav-number">1.</span> <span class="nav-text">科学上网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方式1"><span class="nav-number">1.1.</span> <span class="nav-text">方式1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方式2"><span class="nav-number">1.2.</span> <span class="nav-text">方式2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#notice"><span class="nav-number">1.3.</span> <span class="nav-text">notice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#relative-link-following"><span class="nav-number">1.3.1.</span> <span class="nav-text">relative link following</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#共享密钥对称加密"><span class="nav-number">1.</span> <span class="nav-text">共享密钥对称加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非对称加密"><span class="nav-number">2.</span> <span class="nav-text">非对称加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">3.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列算法"><span class="nav-number">4.</span> <span class="nav-text">散列算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中加密实际的运用"><span class="nav-number">5.</span> <span class="nav-text">项目中加密实际的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端-RSA-与AES-DES-库如下："><span class="nav-number">6.</span> <span class="nav-text">前端 RSA 与AES,DES 库如下：</span></a></li></ol></div>
             
 
           </div>

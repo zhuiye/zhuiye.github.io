@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="chen heng cheng">
 <meta property="og:description" content="近期看了朴灵大神的深入浅出nodejs,受益匪浅，至少从表层大致了解后端究竟在执行什么内容，以及后端一些常规操作，测试，监控，部署，维护，负载均衡，进程，线程。 使用场景根据书中所述，适用高并发，以及密集度高的io应用，也可以用来做爬虫应用，写一些命令行工具…. 组成采用chrome 的v8引擎 运行js,底层的架构则是采用c++模块进行构建。 特点单线程，事件驱动，以及异步处理 异步io如果要在">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2020-01-11T14:59:32.509Z">
+<meta property="og:updated_time" content="2020-01-16T13:31:21.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node">
 <meta name="twitter:description" content="近期看了朴灵大神的深入浅出nodejs,受益匪浅，至少从表层大致了解后端究竟在执行什么内容，以及后端一些常规操作，测试，监控，部署，维护，负载均衡，进程，线程。 使用场景根据书中所述，适用高并发，以及密集度高的io应用，也可以用来做爬虫应用，写一些命令行工具…. 组成采用chrome 的v8引擎 运行js,底层的架构则是采用c++模块进行构建。 特点单线程，事件驱动，以及异步处理 异步io如果要在">
@@ -315,6 +315,9 @@
 <h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>采用chrome 的v8引擎 运行js,底层的架构则是采用c++模块进行构建。</p>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>单线程，事件驱动，以及异步处理</p>
 <h3 id="异步io"><a href="#异步io" class="headerlink" title="异步io"></a>异步io</h3><p>如果要在单线程中实现异步的话，就需要用到轮询<br>异步io的实现终归是利用线程池</p>
+<h3 id="异步编程的方式"><a href="#异步编程的方式" class="headerlink" title="异步编程的方式"></a>异步编程的方式</h3><p>事件订阅/发布模板<br>promise/defer<br>async await<br>一些异步流程控制库</p>
+<h3 id="node-内存的管理"><a href="#node-内存的管理" class="headerlink" title="node 内存的管理"></a>node 内存的管理</h3><p>v8 引擎申请的内存受到限制，因为垃圾回收机制。</p>
+<h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>二进制数据，占用堆外内存，不由v8分配.在网络/io传输中，利用它能加快速率，与字符串之间的转化，也需要注意，buffer的读取，拼接，然后再转化成字符串，这样的方式最稳妥，解决中文乱码最稳妥的方式</p>
 
       
     </div>
@@ -436,7 +439,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -449,7 +452,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -482,7 +485,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组成"><span class="nav-number">2.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步io"><span class="nav-number">4.</span> <span class="nav-text">异步io</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组成"><span class="nav-number">2.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步io"><span class="nav-number">4.</span> <span class="nav-text">异步io</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步编程的方式"><span class="nav-number">5.</span> <span class="nav-text">异步编程的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node-内存的管理"><span class="nav-number">6.</span> <span class="nav-text">node 内存的管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">7.</span> <span class="nav-text">Buffer</span></a></li></ol></div>
             
 
           </div>
