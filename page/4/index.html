@@ -79,17 +79,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/02/18/hello-world/index.html">
+<meta name="description" content="知识的匮乏，让人心生恐惧">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chen heng cheng">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="知识的匮乏，让人心生恐惧">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2020-01-08T15:23:24.710Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="chen heng cheng">
+<meta name="twitter:description" content="知识的匮乏，让人心生恐惧">
 
 
 
@@ -119,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/18/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/page/4/">
 
 
 
 
 
-  <title>Hello World | chen heng cheng</title>
+  <title>chen heng cheng</title>
   
 
 
@@ -144,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,9 +227,344 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/es6-learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/23/es6-learn/" itemprop="url">es6-learn</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-23T10:00:39+08:00">
+                2019-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>E6的块级绑定</p>
+<p>所声明的变量在指定的作用域外无法访问</p>
+<table>
+<thead>
+<tr>
+<th>let</th>
+<th>var</th>
+<th>const</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不变量提升,块级作用域</td>
+<td>变量提升</td>
+<td>不变量提升,块级作用域</td>
+</tr>
+<tr>
+<td>重复禁止声明</td>
+<td></td>
+<td>重复禁止声明</td>
+</tr>
+<tr>
+<td>let 声明的变量成为window的属性</td>
+<td></td>
+<td>设置完成后不能被改变</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>JS所声明的常量对象属性的值可以改变</td>
+</tr>
+</tbody>
+</table>
+<p>暂时性死区：</p>
+<p>在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的,访问会导致一个引用错误</p>
+<p>ES6模块</p>
+<p>由于JS共享一切的特性,容易产生命名冲突.安全等问题,代码的模块划分很有必要</p>
+<table>
+<thead>
+<tr>
+<th>模块加载方式</th>
+<th>JS脚本加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>严格模式下运行</td>
+<td></td>
+</tr>
+<tr>
+<td>模块顶级作用域创建的变量不会自动添加到全局作用域中</td>
+<td></td>
+</tr>
+<tr>
+<td>顶级作用域this 为undefinde</td>
+<td></td>
+</tr>
+<tr>
+<td>对于需要让模块外部访问的代码内容，模块必须导出他们</td>
+</tr>
+</tbody>
+</table>
+<p>导出的方式</p>
+<table>
+<thead>
+<tr>
+<th>export</th>
+<th>相对应的导入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导出的函数，类必修有名字 export  {aaa};</td>
+<td>import {aaa} from xxx;</td>
+</tr>
+<tr>
+<td></td>
+<td>命名空间导入:完全导入一个模块,import * as     example     from “./example.js”; example.sum()</td>
+</tr>
+<tr>
+<td>重命名导出： export    {    sum    as    add    };</td>
+<td>重命名导入 import    {    add    as    sum    }    from    “./example.js”;</td>
+</tr>
+</tbody>
+</table>
+<p>默认导出</p>
+<table>
+<thead>
+<tr>
+<th>导出默认值</th>
+<th>导入默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>export  default  xxx;</td>
+<td>import    sum    from    “./example.js”;</td>
+</tr>
+</tbody>
+</table>
+<p>加载模块</p>
+<table>
+<thead>
+<tr>
+<th>script 外部加载</th>
+<th>script 脚本加载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type=”module” src=”example.js”</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>script 行内加载</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>import {sum} from ‘’</td>
+<td></td>
+</tr>
+<tr>
+<td>按顺序执行加载，像应用了defer 的script</td>
+</tr>
+</tbody>
+</table>
+<p>函数</p>
+<p>剩余参数…arg,扩展运算符</p>
+<p>箭头函数–解决this 的追踪问题</p>
+<table>
+<thead>
+<tr>
+<th>箭头函数</th>
+<th>普通函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没有this super argument ,没有this 绑定</td>
+<td></td>
+</tr>
+<tr>
+<td>不能被new 调用</td>
+<td></td>
+</tr>
+<tr>
+<td>不能更改this,没有arguments 对象</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Set-和Map"><a href="#Set-和Map" class="headerlink" title="Set 和Map"></a>Set 和Map</h2><table>
+<thead>
+<tr>
+<th>set</th>
+<th>weakSet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不包含重复值的有序列表</td>
+<td>自动解除set中得引用，如果其他引用没有了</td>
+</tr>
+<tr>
+<td>new set([arr]） set.size  set.add(value) set.has(value)  set.delete(value) set.clear();</td>
+<td>初始化只能接受对象得值</td>
+</tr>
+<tr>
+<td>forEach((value,key,ownset)=&gt;{}) 按顺序处理每一项</td>
+<td>无size ,forEach,迭代器得方法也没有</td>
+</tr>
+<tr>
+<td>转换为数组:let    set    =    new    Set([1,    2,    3,    3,    3,    4,    5]),                array    =    […set];</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Map</th>
+<th>weakMap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>键值对有序列表,键和值都是任意类型得</td>
+<td></td>
+</tr>
+<tr>
+<td>map.set(“”,””)  map.get(“”) map.size</td>
+<td></td>
+</tr>
+<tr>
+<td>has() delete()  clear</td>
+<td></td>
+</tr>
+<tr>
+<td>初始化:let  map    =    new    Map([[“name”,    “Nicholas”],    [“age”,    25]]); 双数组</td>
+<td></td>
+</tr>
+<tr>
+<td>forEach</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
 
   
 
@@ -259,7 +594,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/18/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -309,7 +646,9 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -320,6 +659,8 @@
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 <p><a href="https://blog.csdn.net/qq_26891045/article/details/51693571" target="_blank" rel="noopener">https://blog.csdn.net/qq_26891045/article/details/51693571</a></p>
 
+          
+        
       
     </div>
     
@@ -336,28 +677,12 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/23/es6-learn/" rel="prev" title="es6-learn">
-                es6-learn <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -367,11 +692,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
@@ -379,10 +707,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -403,17 +727,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -466,22 +781,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -615,10 +914,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

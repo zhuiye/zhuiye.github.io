@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Flutter,">
+  <meta name="keywords" content="React,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Flutter Text Widgetreference: https://api.flutter.dev/flutter/widgets/Text-class.html simple code123456789101112131415161718192021222324252627282930313233343536   /* in fact you do not remember any ar">
-<meta name="keywords" content="Flutter">
+<meta name="description" content="前言在开发场景中,我们常常有这样一个需求,页面A有一个Table列表,我们点击表格中的某一项详情,进入详情页,返回时,页面不刷新,保持原页面数据. 经查,react 中并没有这样的功能,vue中的keep-alive 与倒是与此类似。 解决之道经查如下链接: https://github.com/facebook/react/issues/12039 https://github.com/Hzy0">
+<meta name="keywords" content="React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="flutter-Text">
-<meta property="og:url" content="http://yoursite.com/2019/07/21/flutter-Text/index.html">
+<meta property="og:title" content="React 中的 keep-alive">
+<meta property="og:url" content="http://yoursite.com/2020/03/04/react-keep-alive/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="Flutter Text Widgetreference: https://api.flutter.dev/flutter/widgets/Text-class.html simple code123456789101112131415161718192021222324252627282930313233343536   /* in fact you do not remember any ar">
+<meta property="og:description" content="前言在开发场景中,我们常常有这样一个需求,页面A有一个Table列表,我们点击表格中的某一项详情,进入详情页,返回时,页面不刷新,保持原页面数据. 经查,react 中并没有这样的功能,vue中的keep-alive 与倒是与此类似。 解决之道经查如下链接: https://github.com/facebook/react/issues/12039 https://github.com/Hzy0">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-07-21T14:51:00.099Z">
+<meta property="og:updated_time" content="2020-03-04T13:08:34.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="flutter-Text">
-<meta name="twitter:description" content="Flutter Text Widgetreference: https://api.flutter.dev/flutter/widgets/Text-class.html simple code123456789101112131415161718192021222324252627282930313233343536   /* in fact you do not remember any ar">
+<meta name="twitter:title" content="React 中的 keep-alive">
+<meta name="twitter:description" content="前言在开发场景中,我们常常有这样一个需求,页面A有一个Table列表,我们点击表格中的某一项详情,进入详情页,返回时,页面不刷新,保持原页面数据. 经查,react 中并没有这样的功能,vue中的keep-alive 与倒是与此类似。 解决之道经查如下链接: https://github.com/facebook/react/issues/12039 https://github.com/Hzy0">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/21/flutter-Text/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/04/react-keep-alive/">
 
 
 
 
 
-  <title>flutter-Text | chen heng cheng</title>
+  <title>React 中的 keep-alive | chen heng cheng</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/flutter-Text/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/react-keep-alive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="恒承">
@@ -260,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">flutter-Text</h1>
+          <h1 class="post-title" itemprop="name headline">React 中的 keep-alive</h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-21T22:16:10+08:00">
-                2019-07-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-04T21:01:21+08:00">
+                2020-03-04
               </time>
             
 
@@ -310,8 +310,20 @@
       
 
       
-        <h2 id="Flutter-Text-Widget"><a href="#Flutter-Text-Widget" class="headerlink" title="Flutter Text Widget"></a>Flutter Text Widget</h2><p><b>reference: </b><a href="https://api.flutter.dev/flutter/widgets/Text-class.html" target="_blank" rel="noopener">https://api.flutter.dev/flutter/widgets/Text-class.html</a></p>
-<h3 id="simple-code"><a href="#simple-code" class="headerlink" title="simple code"></a>simple code</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/* in fact you do not remember any arguments,you can hover Text and editor tool will hint you Text pass params and name</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">   Text(<span class="string">'22999dsfsdfsdf'</span>,</span><br><span class="line">        overflow: TextOverflow.ellipsis, <span class="comment">// over display "..."</span></span><br><span class="line">        <span class="comment">// </span></span><br><span class="line">        style: TextStyle(fontWeight: FontWeight.bold))</span><br><span class="line"></span><br><span class="line"><span class="comment">// the Text.rich make your diff text section use diff style</span></span><br><span class="line"><span class="keyword">const</span> Text.rich(</span><br><span class="line">  TextSpan(</span><br><span class="line">    text: <span class="string">'Hello'</span>, <span class="comment">// default text style</span></span><br><span class="line">    children: &lt;TextSpan&gt;[</span><br><span class="line">      TextSpan(text: <span class="string">' beautiful '</span>, style: TextStyle(fontStyle: FontStyle.italic)),</span><br><span class="line">      TextSpan(text: <span class="string">'world'</span>, style: TextStyle(fontWeight: FontWeight.bold)),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// if your want  Text react click event ,you can do as follow</span></span><br><span class="line"> GestureDetector(</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'xxx'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    child: Container(</span><br><span class="line">        color: Colors.yellow,</span><br><span class="line">        child: Text(<span class="string">'TURN LIGHTS ON'</span>),</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  some props you can use </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  maxLines</span></span><br><span class="line"><span class="comment">  overflow</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在开发场景中,我们常常有这样一个需求,页面A有一个Table列表,我们点击表格中的某一项详情,进入详情页,返回时,页面不刷新,保持原页面数据.</p>
+<p>经查,react 中并没有这样的功能,vue中的keep-alive 与倒是与此类似。</p>
+<h2 id="解决之道"><a href="#解决之道" class="headerlink" title="解决之道"></a>解决之道</h2><p>经查如下链接:</p>
+<p><a href="https://github.com/facebook/react/issues/12039" target="_blank" rel="noopener">https://github.com/facebook/react/issues/12039</a></p>
+<p><a href="https://github.com/Hzy0913/bolgrepo/issues/41" target="_blank" rel="noopener">https://github.com/Hzy0913/bolgrepo/issues/41</a></p>
+<p>react 作者大佬有如下两种方案</p>
+<ol>
+<li>数据与组件分离,缓存需要的数据可以用redux，mo储存，待每次渲染用已经缓存的数据经行渲染</li>
+<li>使用样式上的隐藏 display:none</li>
+</ol>
+<p>最后作者大佬还对此事盖棺定论, 我们只要单单的保持缓存的数据就足够了,没必要保存整个组件实例.想象一下如果在应用的声明周期保存N个缓存的实例,那会是什么样子</p>
+<p>而我在项目中采用的是第一种,但也比较麻烦,因为要无时无刻关注页面的缓存数据,什么时候,清除,缓存..关注点太多,代码比较重</p>
+<h2 id="从设计层面来规避"><a href="#从设计层面来规避" class="headerlink" title="从设计层面来规避"></a>从设计层面来规避</h2><p>我们可以在页面上弹出一个模态框,来显示信息,这样这个问题也就没有了.<br>设计与实现产生矛盾时,如果实现麻烦,从设计下手</p>
+
       
     </div>
     
@@ -328,7 +340,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -341,8 +353,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/21/jQuery-deferred/" rel="next" title="jQuery.deferred">
-                <i class="fa fa-chevron-left"></i> jQuery.deferred
+              <a href="/2020/03/04/react-warning/" rel="next" title="Can't perform a React state update">
+                <i class="fa fa-chevron-left"></i> Can't perform a React state update
               </a>
             
           </div>
@@ -350,10 +362,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/22/flutter-ListView/" rel="prev" title="flutter-ListView">
-                flutter-ListView <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -478,7 +486,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flutter-Text-Widget"><span class="nav-number">1.</span> <span class="nav-text">Flutter Text Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-code"><span class="nav-number">1.1.</span> <span class="nav-text">simple code</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决之道"><span class="nav-number">2.</span> <span class="nav-text">解决之道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从设计层面来规避"><span class="nav-number">3.</span> <span class="nav-text">从设计层面来规避</span></a></li></ol></div>
             
 
           </div>

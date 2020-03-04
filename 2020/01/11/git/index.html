@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="chen heng cheng">
 <meta property="og:description" content="前言今天就好好补充一下，这两年在项目中使用git 的经验，git 是一款非常方便的项目管理工具。公司内部一般搭建一个gitlab 服务用于存放代码。 本机设置用户名和账号进入新公司的第一步，我们一般要更改电脑git 中配置的用户名和邮箱，此为识别操作的用户。12git config --global user.name &amp;quot;hengcheng&amp;quot;git config --globa">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2020-02-04T06:54:56.478Z">
+<meta property="og:updated_time" content="2020-03-04T12:45:50.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git">
 <meta name="twitter:description" content="前言今天就好好补充一下，这两年在项目中使用git 的经验，git 是一款非常方便的项目管理工具。公司内部一般搭建一个gitlab 服务用于存放代码。 本机设置用户名和账号进入新公司的第一步，我们一般要更改电脑git 中配置的用户名和邮箱，此为识别操作的用户。12git config --global user.name &amp;quot;hengcheng&amp;quot;git config --globa">
@@ -339,6 +339,8 @@
 <p>这在项目中非常有用，例如如果你在后续的版本中，发现某一次的commit代码有问题，这个时候就可以revert 一下。那么这次commit 的代码就会被剔除.</p>
 <p><strong>提交到远程库</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase  <span class="comment">// 把远程库上的代码，加到我们commit记录之后</span></span><br><span class="line">git push origin  <span class="comment">// 代码提交至远程</span></span><br></pre></td></tr></table></figure>
+<h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h2><p>当我们在某个分支上进行开发的时候，突然接受到从主分支上代码的更新，我们需要合并到正在开发的分支中，这个时候，又不想git commit 因为我们手头的工作还没完成，不想多提交一个记录，我们就可以使用<br>git stash 相关的命名，把这次的更新都暂时存起来。然后我们先去合并主分支，合并好之后，再 弹出 stash 中存储的内容即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash save &quot;hint&quot;</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure></p>
+<p>详情可以参考这篇文章<br><a href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html" target="_blank" rel="noopener">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
 <h2 id="团队合作"><a href="#团队合作" class="headerlink" title="团队合作"></a>团队合作</h2><p>一般而言，我们并不在master 分支上进行功能开发，多人协作，我们都会在开一个属于自己”功能分支”，创建分支，可以使用如下命令:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b function  // 创建并切换到function分支</span><br><span class="line"></span><br><span class="line">git checkout function  //切换到function 分支</span><br><span class="line"></span><br><span class="line">git branch -D function   //删除function 分支</span><br></pre></td></tr></table></figure>
 <p>当我们正在开发的途中，我们在function 分支，如何同步master 分支的代码呢?如下命令:</p>
@@ -356,6 +358,16 @@
 <li>git commit -m</li>
 <li>继续后续操作…</li>
 </ol>
+<h2 id="对远程分支操作"><a href="#对远程分支操作" class="headerlink" title="对远程分支操作"></a>对远程分支操作</h2><p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -d origin branch-name</span><br></pre></td></tr></table></figure></p>
+<p>显示(本地)git所知道的所有本地和远程分支。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
+<p>若要更新远程分支的本地列表，请执行以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote update origin --prune</span><br></pre></td></tr></table></figure>
+<h2 id="给版本打标签"><a href="#给版本打标签" class="headerlink" title="给版本打标签"></a>给版本打标签</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v0.1 -m &apos;注释&apos;</span><br></pre></td></tr></table></figure>
+<p>本地打完标签之后，推送到远程服务器中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
+<h2 id="关于git-window-下-文件lf-与-crlf-的问题"><a href="#关于git-window-下-文件lf-与-crlf-的问题" class="headerlink" title="关于git window 下  文件lf 与 crlf 的问题"></a>关于git window 下  文件lf 与 crlf 的问题</h2><p>文件设置为lf 行尾符，在window 环境下 ,git clone 下来却是 crlf ,原因是 git 的自动转化，我们只需要关闭它就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
 <h2 id="git-提交规范"><a href="#git-提交规范" class="headerlink" title="git 提交规范"></a>git 提交规范</h2><ul>
 <li>chore:</li>
 <li>style:</li>
@@ -363,9 +375,6 @@
 <li>upgrade:</li>
 <li>feat:</li>
 </ul>
-<h2 id="给版本打标签"><a href="#给版本打标签" class="headerlink" title="给版本打标签"></a>给版本打标签</h2><p>暂无使用经验，不过在我的理解中，最好每到发布，就打一个标签，以免后续版本衍生出多个不同的应用</p>
-<h2 id="关于git-window-下-文件lf-与-crlf-的问题"><a href="#关于git-window-下-文件lf-与-crlf-的问题" class="headerlink" title="关于git window 下  文件lf 与 crlf 的问题"></a>关于git window 下  文件lf 与 crlf 的问题</h2><p>文件设置为lf 行尾符，在window 环境下 ,git clone 下来却是 crlf ,原因是 git 的自动转化，我们只需要关闭它就好了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
 <p><a href="https://blog.csdn.net/weixin_33275327/article/details/81485051" target="_blank" rel="noopener">点击查看更多详情</a></p>
 
       
@@ -488,7 +497,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -534,7 +543,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本机设置用户名和账号"><span class="nav-number">2.</span> <span class="nav-text">本机设置用户名和账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于新电脑，添加ssh-的公钥于gitlab-账号上"><span class="nav-number">3.</span> <span class="nav-text">对于新电脑，添加ssh 的公钥于gitlab 账号上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-clone"><span class="nav-number">4.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常规操作"><span class="nav-number">5.</span> <span class="nav-text">常规操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#团队合作"><span class="nav-number">6.</span> <span class="nav-text">团队合作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地添加远程库"><span class="nav-number">7.</span> <span class="nav-text">本地添加远程库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-cherry-pick-commitid"><span class="nav-number">8.</span> <span class="nav-text">git cherry-pick commitid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-number">9.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-提交规范"><span class="nav-number">10.</span> <span class="nav-text">git 提交规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给版本打标签"><span class="nav-number">11.</span> <span class="nav-text">给版本打标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于git-window-下-文件lf-与-crlf-的问题"><span class="nav-number">12.</span> <span class="nav-text">关于git window 下  文件lf 与 crlf 的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本机设置用户名和账号"><span class="nav-number">2.</span> <span class="nav-text">本机设置用户名和账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于新电脑，添加ssh-的公钥于gitlab-账号上"><span class="nav-number">3.</span> <span class="nav-text">对于新电脑，添加ssh 的公钥于gitlab 账号上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-clone"><span class="nav-number">4.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常规操作"><span class="nav-number">5.</span> <span class="nav-text">常规操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-stash"><span class="nav-number">6.</span> <span class="nav-text">git stash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#团队合作"><span class="nav-number">7.</span> <span class="nav-text">团队合作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地添加远程库"><span class="nav-number">8.</span> <span class="nav-text">本地添加远程库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-cherry-pick-commitid"><span class="nav-number">9.</span> <span class="nav-text">git cherry-pick commitid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-number">10.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对远程分支操作"><span class="nav-number">11.</span> <span class="nav-text">对远程分支操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给版本打标签"><span class="nav-number">12.</span> <span class="nav-text">给版本打标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于git-window-下-文件lf-与-crlf-的问题"><span class="nav-number">13.</span> <span class="nav-text">关于git window 下  文件lf 与 crlf 的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-提交规范"><span class="nav-number">14.</span> <span class="nav-text">git 提交规范</span></a></li></ol></div>
             
 
           </div>
