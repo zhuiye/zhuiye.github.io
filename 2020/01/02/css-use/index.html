@@ -88,7 +88,7 @@
 <meta property="og:description" content="前言是非经过不知难，近期由于业务需要，做一些展示交互型的web移动端页面，由于接触较少，遇到不少坑，特来记录一下此次的获取的经验。 技术运用 react作页面架构 css animate animejs antV   hammer.js  手势识别  lottie-web  动画库 echart  关于页面的适配100vh或许会产生有滚动条的现象，浏览器一般都有标题栏，和工具栏，如果我们给body">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://q3xixxvsx.bkt.clouddn.com/jumpToApp.jpg">
-<meta property="og:updated_time" content="2020-01-11T06:10:39.554Z">
+<meta property="og:updated_time" content="2020-03-21T15:01:30.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css-use">
 <meta name="twitter:description" content="前言是非经过不知难，近期由于业务需要，做一些展示交互型的web移动端页面，由于接触较少，遇到不少坑，特来记录一下此次的获取的经验。 技术运用 react作页面架构 css animate animejs antV   hammer.js  手势识别  lottie-web  动画库 echart  关于页面的适配100vh或许会产生有滚动条的现象，浏览器一般都有标题栏，和工具栏，如果我们给body">
@@ -337,6 +337,7 @@
 <p>  iOS则采用<strong>Universal Link</strong>, 也需要经过一番配置，具体操作配置可以上网搜搜，不过需要注意点是跳转iOS那个链接，必须是<strong>不同域</strong>,意味着h5的页面（假如采用:pmtest）要和配置的<strong>Universal Link</strong> (采用pmtest2)不同域。</p>
 <p>  在业务中我们的跳转app大体流程如下：</p>
 <p>  <img src="http://q3xixxvsx.bkt.clouddn.com/jumpToApp.jpg"></p>
+<p>  下段代码为一个中间页，用来唤醒APP<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">WakeUpApp</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">      componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAndroid()) &#123;</span><br><span class="line">          <span class="built_in">window</span>.location.href = <span class="string">"cktaSpp://xxxxx"</span>;</span><br><span class="line">          setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">window</span>.location.href = <span class="string">"https://fir.im/yfckhb"</span>;</span><br><span class="line">          &#125;, <span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">window</span>.location.href =</span><br><span class="line">            <span class="string">"https://itunes.apple.com/cn/app/%E7%95%85%E5%AE%A2%E4%BC%99%E4%BC%B4/id1449233800?mt=8"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      render() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>  推荐参考链接：</p>
 <p>  <a href="https://juejin.im/post/5b7efb2ee51d45388b6af96c" target="_blank" rel="noopener">https://juejin.im/post/5b7efb2ee51d45388b6af96c</a></p>
 <h2 id="关于此次的页面设计"><a href="#关于此次的页面设计" class="headerlink" title="关于此次的页面设计"></a>关于此次的页面设计</h2><p>设计师尽管是按照iphone6的尺寸来设计，但并没有考虑到iphone6 在safari中的可视页面高度为677-标题栏-工具栏高度，大约517px，如果要求没有<strong>滚动条</strong>的要求，就需要考虑这个<strong>可视高度</strong>。其次，<strong>布局随背景图片乃是大忌</strong>，何解？其一，不同屏幕的适配，会拉伸图片(当然你也可以媒体查询设置不同分辨率的图片,但意味着，要写多套高度适配代码),其二，垂直方向随屏幕高度适配，此处可采取vh,或者可视高度占比来作适配，vh计算其实并不是那么准确，占比也没试过，这些方案并不好，到了这里，说得很清楚了，这就是设计问题了。得出结论，<strong>谨慎布局随背景需求</strong></p>
@@ -462,7 +463,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -475,7 +476,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

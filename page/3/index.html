@@ -242,6 +242,280 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/react-native-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/09/react-native-module/" itemprop="url">react-native-module</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-09T12:29:47+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="create-react-native-module"><a href="#create-react-native-module" class="headerlink" title="create-react-native-module"></a>create-react-native-module</h2><p>此为官方推荐用来创建native 库的一个工具</p>
+<p><a href="https://github.com/brodybits/create-react-native-module" target="_blank" rel="noopener">https://github.com/brodybits/create-react-native-module</a></p>
+<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-native-module</span><br></pre></td></tr></table></figure>
+<h3 id="use"><a href="#use" class="headerlink" title="use"></a>use</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-native-module MyFancyLibrary</span><br></pre></td></tr></table></figure>
+<h2 id="下面是我集成一个android-sdk-ocr-于库中的一个步骤，本地开发"><a href="#下面是我集成一个android-sdk-ocr-于库中的一个步骤，本地开发" class="headerlink" title="下面是我集成一个android sdk (ocr) 于库中的一个步骤，本地开发"></a>下面是我集成一个android sdk (ocr) 于库中的一个步骤，本地开发</h2><h3 id="创建库与项目目录平级"><a href="#创建库与项目目录平级" class="headerlink" title="创建库与项目目录平级"></a>创建库与项目目录平级</h3><pre><code>如: react-native-project &amp; react-native-library
+</code></pre><h3 id="修改react-native-project项目中的package-json"><a href="#修改react-native-project项目中的package-json" class="headerlink" title="修改react-native-project项目中的package.json"></a>修改react-native-project项目中的package.json</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 代表等下yarn  install 的时候从同级目录中下载</span></span><br><span class="line"><span class="comment">   后续开发完成你也可以把包上传到github 上 </span></span><br><span class="line"><span class="comment">   "https://github.com/user/react-native-library" </span></span><br><span class="line"><span class="comment">   或者自己的私有gitlabe服务器中</span></span><br><span class="line"><span class="comment">   :git+ssh://git@gitlab.xxxxxx/react-native-library.git</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">"react-native-library"</span>: <span class="string">"file:../react-native-library"</span>,</span><br></pre></td></tr></table></figure>
+<h3 id="android-中-build-grade-修改"><a href="#android-中-build-grade-修改" class="headerlink" title="android 中 build.grade 修改"></a>android 中 build.grade 修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        maven &#123;</span><br><span class="line">            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm</span><br><span class="line">            url &quot;$rootDir/../node_modules/react-native/android&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        // Requested by ImageCropPicker</span><br><span class="line">        maven &#123; url &apos;https://maven.google.com&apos; &#125;</span><br><span class="line">        maven &#123; url &quot;https://jitpack.io&quot; &#125;</span><br><span class="line">        flatDir &#123;</span><br><span class="line">            // 对于库中依赖的aar包,可能需要这样配置</span><br><span class="line">            dirs &quot;$rootDir/../node_modules/react-native-alipay/android/libs&quot;, </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="setting-grade修改"><a href="#setting-grade修改" class="headerlink" title="setting.grade修改"></a>setting.grade修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 这里的路径仅为开发时的,待开发完成时，改为node_moudle  包下的即可</span><br><span class="line"> project(&apos;:react-native-library&apos;).projectDir = new File(rootProject.projectDir, &apos;../../react-native-library/android&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="关于android-如何集成"><a href="#关于android-如何集成" class="headerlink" title="关于android 如何集成"></a>关于android 如何集成</h3><p>这次我集成的是一个ocr sdk ,其实也不难，一般有提供一个sample demo<br>我们只需要 复制其中的代码与我们的native 库中，然后做js的桥接即可，<br>这复制过程中，要注意的点:</p>
+<ol>
+<li>复制过来文件包名的修改</li>
+<li>sample 代码中对库的依赖也要加入 我们要开发库中的build.grade文件中</li>
+</ol>
+<hr>
+<p>native libray build.gradle 要配置好,example 如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    // ref:</span><br><span class="line">    // https://github.com/facebook/react-native/blob/0.61-stable/template/android/app/build.gradle#L192</span><br><span class="line">    //noinspection GradleDynamicVersion</span><br><span class="line">    // 着重:依赖的sdk</span><br><span class="line">    implementation fileTree(dir: &apos;libs&apos;, include: [&apos;*.aar&apos;])</span><br><span class="line"></span><br><span class="line">    implementation &apos;com.facebook.react:react-native:+&apos;</span><br><span class="line">    // 着重</span><br><span class="line">    // 复制的代码依赖的库...</span><br><span class="line">    implementation &apos;com.android.support:appcompat-v7:28.0.0&apos;</span><br><span class="line">    implementation &apos;com.android.support:design:28.0.0&apos;</span><br><span class="line">    implementation &apos;com.android.support.constraint:constraint-layout:1.1.3&apos;// From node_modules</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="桥接native-端代码"><a href="#桥接native-端代码" class="headerlink" title="桥接native 端代码"></a>桥接native 端代码</h3><p>集成之后，我们就可以写桥接代码了,参考官方提供的桥接代码就可以了<br><a href="https://reactnative.cn/docs/native-modules-android/" target="_blank" rel="noopener">https://reactnative.cn/docs/native-modules-android/</a></p>
+<p><strong>关于定义js的接口</strong><br>如果集成的sdk中，有关于api key and api secret 的配置，我们最好也暴露出一个js的方法，交由js 配置<br>如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reactNativeLibrary.config(key ,secret )</span><br></pre></td></tr></table></figure></p>
+<p>也可以参考阿里支付的集成方案<br><a href="https://github.com/0x5e/react-native-alipay" target="_blank" rel="noopener">https://github.com/0x5e/react-native-alipay</a></p>
+<p>ios 端暂无试过集成..</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jump-wall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/jump-wall/" itemprop="url">jump-wall</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T22:28:47+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><ol>
+<li><p>置备一台国外的服务器</p>
+<p>阿里云的香港服务器  <a href="qq://txfile/#" target="_blank" rel="noopener">https://cn.aliyun.com/product/swas</a></p>
+</li>
+<li><p>进入系统创建一个 ssr.sh 脚本文件</p>
+<p>内容如下:<a href="https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh" target="_blank" rel="noopener">https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test </span><br><span class="line">vim ssr.sh</span><br><span class="line">i:进入编辑模式</span><br><span class="line">......输入内容</span><br><span class="line">ese：返回一般模式</span><br><span class="line">:wq 保存退处</span><br><span class="line">bash ssr.sh :执行...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li>开启服务器（SSR服务器端口）也就是在配置SSR， 需要的端口号</li>
+</ol>
+<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>进入服务器，执行复制下列代码,傻瓜式操作即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure></p>
+<p>ssh root@ipaddress</p>
+<h2 id="notice"><a href="#notice" class="headerlink" title="notice"></a>notice</h2><p>系统要求: <strong><em>centos7</em></strong></p>
+<p>一般情况下就可以轻松happy访问,但你会发现即使100M的网络，也如龟速，这个时候就要安装BBR 加速.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh </span><br><span class="line">chmod +x bbr.sh </span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p>
+<h3 id="relative-link-following"><a href="#relative-link-following" class="headerlink" title="relative link following"></a>relative link following</h3><p><a href="https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/" target="_blank" rel="noopener">https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/dart-study/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1258,467 +1532,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/summary-learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/31/summary-learn/" itemprop="url">summary-learn</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-31T22:47:57+08:00">
-                2019-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://caibaojian.com/fedbook/learning/seo.html" target="_blank" rel="noopener">http://caibaojian.com/fedbook/learning/seo.html</a></p>
-<p><a href="https://yq.aliyun.com/articles/6272?utm_campaign=wenzhang&amp;utm_medium=article&amp;utm_source=QQ-qun&amp;utm_content=m_10838" target="_blank" rel="noopener">https://yq.aliyun.com/articles/6272?utm_campaign=wenzhang&amp;utm_medium=article&amp;utm_source=QQ-qun&amp;utm_content=m_10838</a></p>
-<h2 id="前端seo优化"><a href="#前端seo优化" class="headerlink" title="前端seo优化"></a>前端seo优化</h2><h2 id="1-搜索引擎工作原理"><a href="#1-搜索引擎工作原理" class="headerlink" title="1.搜索引擎工作原理"></a>1.搜索引擎工作原理</h2><h2 id="2-seo-Search-English-Optimization-简介"><a href="#2-seo-Search-English-Optimization-简介" class="headerlink" title="2.seo(Search English Optimization)简介"></a>2.seo(Search English Optimization)简介</h2><p> 1.为了提升网页在搜索引擎自然搜索结果中的收录数量以及排序位置而做的优化行为 .</p>
-<p>​    简单的说就是让你的网站  排在 搜索引擎结果的前面的一种优化行为</p>
-<p>​    SEO 是让我们的站点更加符合搜索引擎的胃口</p>
-<p>2.</p>
-<h3 id="3-前端SEO-Search-English-Optimization"><a href="#3-前端SEO-Search-English-Optimization" class="headerlink" title="3.前端SEO(Search English Optimization)"></a>3.前端SEO(Search English Optimization)</h3><p><strong>SEO</strong>包括<strong>站内优化</strong>和<strong>站外优化：</strong></p>
-<p>一、<strong>站内优化</strong></p>
-<p>1、<strong>网站结构：</strong>树形结构，结构清晰明了，更利于爬虫的爬取</p>
-<p>2、<strong>meta标签的优化：</strong></p>
-<p>meta标签的内容，官网在搜索结果的展示中尤其重要：</p>
-<p>（1）<strong>title属性：</strong>标题要明确，用户一看就明白这网站是干嘛的。</p>
-<p>（2）<strong>keywords属性：</strong>虽然现在主流搜索引擎中对搜索结果的排名几乎没有影响了，但是爬虫会收录，也值得设置。</p>
-<p>（3）<strong>discription属性：</strong>为了让官网在搜索结果中，信息展示更完善，需要设置，控制70字以内（多了被折叠）。</p>
-<p>如：</p>
-<p><img src="https://pic4.zhimg.com/v2-03b1a701c45dd7a4b75a2689ad624557_b.png" alt="img"><img src="https://pic4.zhimg.com/80/v2-03b1a701c45dd7a4b75a2689ad624557_hd.png" alt="img"></p>
-<p>3、<strong>html标签中的h1、h2、h3…h6标签</strong></p>
-<p>h1放最重要的内容，h2次之，一般的中小型网站控制在h3之内。</p>
-<p><strong>4、页面链接的静态化</strong></p>
-<p>5<strong>、**</strong>页面中的关键词的词频和密度（一般1%、2%就可以）**</p>
-<p>词频和密度对SEO没有太直接的相关性了，可优化，可不优化。不过适当提高一点的话，可能对网络搜索的排名有所提高。</p>
-<p><strong>6、定期更新网站内容，爬虫会更勤快来网站做客哦，能增加被收录的页面~</strong></p>
-<p>二、<strong>站外优化</strong></p>
-<p><strong>1、外部链接建设</strong></p>
-<p>其他网站有链接指向网站的链接对SEO有帮助，有传递权重、提升形象或者带来流量的作用。</p>
-<p><strong>（1）</strong>友情链接（不要垃圾网站的友链）</p>
-<p><strong>（2）</strong>导航网站中网站目录提交</p>
-<p><strong>（3）</strong>垂直媒体或门户网站发表关于产品或网站的文章带链接（媒体的编辑发表更佳）</p>
-<p><strong>（4）</strong>论坛中回答相关的问题并带上链接（若论坛，如知乎，网站内对我们的链接加“nofollow”属性，对权重没影响，但如果我们的回答是对别人有帮助的，可提升形象和带来流量）</p>
-<p><strong>三、如何增加百度搜索中与网站和产品相关的结果？</strong></p>
-<p><strong>1、百度百科、文库、经验、知道、地图地址、相关的热门贴吧。</strong></p>
-<p><strong>2、热门论坛**</strong>（如豆瓣、知乎）上与网站和产品等的提问和回答。**</p>
-<p>具体可查看马海祥博客《学习SEO优化最常见的100个SEO问答》的相关介绍）。</p>
-<p>《百度移动搜索优化指南2.0》</p>
-<h2 id="谈谈你对jQuery的理解"><a href="#谈谈你对jQuery的理解" class="headerlink" title="谈谈你对jQuery的理解"></a>谈谈你对jQuery的理解</h2><p>为什么会有 jQuery 的存在 ？</p>
-<p>​    1.各浏览器对DOM的实现不同,浏览器兼容问题</p>
-<p>​    2.对获取HTML 元素的DOM对象操作更加便利 </p>
-<p>​        3.此外该库还 封装对ajax ，dom，bom 等等操作 的一些方法</p>
-<h3 id="一个基本的实现"><a href="#一个基本的实现" class="headerlink" title="一个基本的实现?"></a>一个基本的实现?</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//init 中的原型指挥 Jquery 中的原型</span><br><span class="line">function Jquery (cssselect,context)&#123;</span><br><span class="line">    return new Jquery.prototype.init(cssselect,context)</span><br><span class="line">&#125;</span><br><span class="line">Jquery.prototype=&#123;</span><br><span class="line">	init:function()&#123;</span><br><span class="line">        </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Jquery.prototype.init.prototype=Jquery.prototype;</span><br></pre></td></tr></table></figure>
-<h3 id="window-load-与-fn-的区别"><a href="#window-load-与-fn-的区别" class="headerlink" title="window.load()  与$(fn)的区别"></a>window.load()  与$(fn)的区别</h3><p>​    1.window.onload是在网页中所有元素<strong>加上所有资源</strong>++完全加++载到浏览器后才执行。</p>
-<h3 id="谈谈你对boostrap的理解"><a href="#谈谈你对boostrap的理解" class="headerlink" title="谈谈你对boostrap的理解"></a>谈谈你对boostrap的理解</h3><p>用于开发响应式布局，移动设备优先的UI框架, </p>
-<p>其核心原理是利用CSS3媒体查询，针对不同的屏幕大小，匹配不同的样式</p>
-<p>盒模型采用 border-box</p>
-<p>栅格布局</p>
-<h2 id="Bootstrap源码阅读"><a href="#Bootstrap源码阅读" class="headerlink" title="Bootstrap源码阅读"></a>Bootstrap源码阅读</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">目录结构</span><br><span class="line">  assert</span><br><span class="line">    images</span><br><span class="line">    javascript</span><br><span class="line">    stylesheets</span><br><span class="line">       bootstrap</span><br><span class="line">          mixins 混合器</span><br><span class="line">       </span><br><span class="line">       _bootstrap.scss 主页</span><br></pre></td></tr></table></figure>
-<p> 改变大小写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text-transform: lowercase/uppercase/capitalize;</span><br></pre></td></tr></table></figure>
-<h2 id="迭代器和生成器"><a href="#迭代器和生成器" class="headerlink" title="迭代器和生成器"></a>迭代器和生成器</h2><p><strong>Symbol.iterator</strong>  符号被用于定义对象的默认迭代器</p>
-<p> <strong>迭代器</strong>为何会出现?</p>
-<p>如何简单的实现一个迭代器,</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIterator</span>(<span class="params">items</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> done=(i&gt;=items.length);</span><br><span class="line">             <span class="keyword">var</span> value=!done?items[i++]:<span class="literal">undefined</span>;</span><br><span class="line">             <span class="keyword">return</span> &#123;</span><br><span class="line">                 done:done,</span><br><span class="line">                 value:value</span><br><span class="line">             &#125;     </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>迭代器</strong>   — <strong>专用于迭代的对象</strong>  一个对象而已</p>
-<p>迭代器对象都拥有next()方法，返回一个结果对象</p>
-<p><strong>生成器</strong>  —<strong>返回一个迭代器的函数</strong></p>
-<p>语法    不能将箭头函数创建为生成器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function * createIterator()&#123;</span><br><span class="line">    yield 1;</span><br><span class="line">    yield 2;</span><br><span class="line">    yield 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>for -of 循环</strong>  –<strong>留意条件更少</strong></p>
-<p><strong>创建可迭代对象</strong></p>
-<p><strong>内置迭代器</strong></p>
-<p>  集合的迭代 数组  Map  Set</p>
-<p>entries()   values()  keys()</p>
-<p><strong>Weak Set</strong>       <strong>Weak Map</strong>    并未拥有内置的迭代器</p>
-<p>NodeList  的迭代器</p>
-<p><strong>传递参数给迭代器</strong> </p>
-<p>生成器的Return  语句</p>
-<h2 id="Promise-与异步编程—回调地狱的解决方案"><a href="#Promise-与异步编程—回调地狱的解决方案" class="headerlink" title="Promise 与异步编程—回调地狱的解决方案"></a>Promise 与异步编程—回调地狱的解决方案</h2><p>回调地狱：嵌套过多的回调函数</p>
-<p>pendding </p>
-<p>fulfilled</p>
-<p><strong>创建已决的Promise</strong></p>
-<p>Promise.resolve()</p>
-<p><strong>创建未决的Promise</strong></p>
-<p>Promise.reject()</p>
-<p>非 Promise 的 Thenable</p>
-<p>串联Promise</p>
-<p>Promise.then() 中返回 Promise</p>
-<p>响应多个 Promise</p>
-<p>Promise.all()</p>
-<p><strong>接受单个可迭代对象(如数组)作为参数,并返回一个Promise.这个可迭代对象的元素都是Promise,</strong></p>
-<p><strong>只有在他们都完成后，所返回的Promise 才会被完成</strong></p>
-<p><strong>若传递给  Promise.all()  的任意 Promise 被拒绝了，那么方法所返回的 Promise 就会立刻被</strong><br><strong>拒绝，而不必等待其他的 Promise 结束</strong></p>
-<p><strong>拒绝处理函数总会接收到单个值，而不是一个数组，该值就是被拒绝的 Promise 所返回的拒<br>绝值</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      resolve(<span class="number">42</span>);</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> p2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">   setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      resolve(<span class="number">43</span>);</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> p3 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">resolve(<span class="number">44</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> p4 = <span class="built_in">Promise</span>.all([p1, p2, p3]);</span><br><span class="line">p4.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//返回按promise.all()中传入Promise 的顺序</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(value)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(value[<span class="number">0</span>]); <span class="comment">// 42</span></span><br><span class="line"><span class="built_in">console</span>.log(value[<span class="number">1</span>]); <span class="comment">// 43</span></span><br><span class="line"><span class="built_in">console</span>.log(value[<span class="number">2</span>]); <span class="comment">// 44</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>promise.race()</p>
-<p>在来源Promise 中任意一个被完成时，Promise.race()方法所返回的 Promise 就能作出响应.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="built_in">Promise</span>.resolve(<span class="number">42</span>);</span><br><span class="line"><span class="keyword">let</span> p2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">resolve(<span class="number">43</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> p3 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">resolve(<span class="number">44</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> p4 = <span class="built_in">Promise</span>.race([p1, p2, p3]);</span><br><span class="line">p4.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 42</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/*若胜出的 Promise 是被</span></span><br><span class="line"><span class="comment">完成，则返回的新 Promise 也会被完成；而胜出的 Promise 若是被拒绝，则新 Promise 也会</span></span><br><span class="line"><span class="comment">被拒绝*/</span></span><br></pre></td></tr></table></figure>
-<p>集成Promise</p>
-<h2 id="Async-函数-await"><a href="#Async-函数-await" class="headerlink" title="Async  函数 await"></a>Async  函数 await</h2><p>Generator 函数的语法糖</p>
-<p><code>async</code>函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而<code>await</code>命令就是内部<code>then</code>命令的语法糖</p>
-<p><code>async</code>函数返回一个 Promise 对象，可以使用<code>then</code>方法添加回调函数。</p>
-<p>当函数执行的时候，一旦遇到<code>await</code>就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。</p>
-<p><code>**async</code>函数返回的 Promise 对象，必须等到内部所有<code>await</code>命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到<code>return</code>语句或者抛出错误。也就是说，只有<code>async</code>函数内部的异步操作执行完，才会执行<code>then</code>方法指定的回调函数。**</p>
-<h2 id="谈谈你对ES6-ES7了解程度"><a href="#谈谈你对ES6-ES7了解程度" class="headerlink" title="谈谈你对ES6,ES7了解程度"></a>谈谈你对ES6,ES7了解程度</h2><h2 id="微信小程序的开发"><a href="#微信小程序的开发" class="headerlink" title="微信小程序的开发"></a>微信小程序的开发</h2><h2 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h2><p>   什么是函数表达式 —</p>
-<p><strong>声明一个匿名函数的时候立即复制给一个变量，没有函数提升</strong></p>
-<p><strong>递归</strong>   arguments.callee() ;  是一个指向正在执行函数的指针</p>
-<p><strong>命名函数表达式</strong></p>
-<p><strong>闭包</strong>:有权访问另一个函数作用域中的变量的函数</p>
-<p><strong>如何创建闭包</strong>  :一个函数内部创建另一个函数</p>
-<p><strong>闭包的优点</strong></p>
-<p>​        <strong> 模范块级作用域</strong></p>
-<pre><code>**私有变量**
-</code></pre><p>在构造函数中定义一个私有变量和函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a=<span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">privateFunction</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.publicMethod=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">        <span class="keyword">return</span> privateFunction();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>静态私有变量  —属于这个类有的</strong></p>
-<p>要点:在私有作用域中定义私有变量或函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> privateVariable=<span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">privateFunction</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">    MyObject=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    MyObject.prototype.publicMethod=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        privateVariable++;</span><br><span class="line">        <span class="keyword">return</span> privateFunction();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<p><strong>模块模式</strong></p>
-<p>匿名函数立即执行 返回一个单例对象而已</p>
-<p><strong>闭包的缺点</strong>  </p>
-<p>由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存。</p>
-<p>在闭包中使用this 对象也会可能导致一些问题 </p>
-<p><strong>匿名函数的执行环境具有全局性,因此其this对象通常指向window</strong></p>
-<h2 id="ICARE-源码简单浏览"><a href="#ICARE-源码简单浏览" class="headerlink" title="ICARE 源码简单浏览"></a>ICARE 源码简单浏览</h2><ul>
-<li>react native 开发环境搭建</li>
-<li>android 打包 …..真机调试……chrome 调试</li>
-<li>搭建APP路由，</li>
-<li>项目目录结构,</li>
-<li>工具类封装,</li>
-<li>样式兼容</li>
-</ul>
-<h3 id="index-文件"><a href="#index-文件" class="headerlink" title="index 文件"></a>index 文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import &#123; AppRegistry &#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">//导入换成  ----生产环境下 去除 console 的输出</span><br><span class="line">if (!__DEV__) &#123;</span><br><span class="line">  global.console = &#123;</span><br><span class="line">    info: () =&gt; &#123;&#125;,</span><br><span class="line">    log: () =&gt; &#123;&#125;,</span><br><span class="line">    warn: () =&gt; &#123;&#125;,</span><br><span class="line">    debug: () =&gt; &#123;&#125;,</span><br><span class="line">    error: () =&gt; &#123;&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">import storage from &apos;./App/Storage&apos;;  //这个是用来</span><br><span class="line"></span><br><span class="line">import Root from   &apos;./App/Components/Root&apos;;  //主入口文件，搭建App路由</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(&apos;inquiry&apos;, () =&gt; Root);</span><br></pre></td></tr></table></figure>
-<h3 id="Root-文件"><a href="#Root-文件" class="headerlink" title="Root 文件"></a>Root 文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import &#123;</span><br><span class="line">    Platform,</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    ScrollView,</span><br><span class="line">    Image,</span><br><span class="line">    TextInput,</span><br><span class="line">    StatusBar,</span><br><span class="line">    TouchableOpacity,</span><br><span class="line">    ImageBackground</span><br><span class="line">&#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">import CardStackStyleInterpolator from &apos;react-navigation/src/views/CardStack/CardStackStyleInterpolator&apos;;  //这个让路由切换跟IOS效果一样</span><br><span class="line">import sizeutil  from &apos;../Utils/sizeUtil&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const  screenWidth  = sizeutil.screenWidth;</span><br><span class="line"></span><br><span class="line">import Login     from  &apos;./Login/Login&apos;;</span><br><span class="line">import Notice    from  &apos;./Notice/Notice&apos;;</span><br><span class="line">import Mine      from   &apos;./Mine/Mine&apos;;</span><br><span class="line"></span><br><span class="line">import Workbenck from  &apos;./Workbench/Workbench&apos;;</span><br><span class="line"></span><br><span class="line">import apiUtil from &apos;../Utils/apiUtil&apos;;</span><br><span class="line"></span><br><span class="line">//接车</span><br><span class="line">//登记记录</span><br><span class="line">import RegisterRecards   from   &apos;./Workbench/AcceptCar/RegisterRecards&apos;;</span><br><span class="line">import DragDetails       from   &apos;./Workbench/AcceptCar/DragDetails&apos;;</span><br><span class="line">import ConfirmDetails    from    &apos;./Workbench/AcceptCar/ConfirmDetails&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import  &#123;StackNavigator,TabNavigator,Header &#125; from  &apos;react-navigation&apos;;</span><br><span class="line"></span><br><span class="line">//构建主路由</span><br><span class="line">const MainScreenNavigator = TabNavigator(&#123;</span><br><span class="line">    Workbenck: &#123;</span><br><span class="line">        screen: Workbenck,</span><br><span class="line">        navigationOptions: &#123;</span><br><span class="line">            tabBarLabel: &apos;主页&apos;,</span><br><span class="line">            // 将来设置图片用</span><br><span class="line">            tabBarIcon: (&#123;tintColor,focused&#125;) =&gt; (</span><br><span class="line">                focused ?</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_workbench_focus.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">                :</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_workbench_default.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">            ),</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    Notice: &#123;</span><br><span class="line">        screen: Notice,</span><br><span class="line">        navigationOptions: &#123;</span><br><span class="line">            tabBarLabel: &apos;消息&apos;,</span><br><span class="line">        tabBarIcon: (&#123;tintColor,focused&#125;) =&gt; (</span><br><span class="line">            focused ?</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_notice_focus.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">            :</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_notice_default.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        ),</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    Mine: &#123;</span><br><span class="line">        screen: Mine,</span><br><span class="line">        navigationOptions: &#123;</span><br><span class="line">            tabBarLabel: &apos;我的&apos;,</span><br><span class="line">            tabBarIcon: (&#123;tintColor,focused&#125;) =&gt; (</span><br><span class="line">                focused ?</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_mine_focus.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">                :</span><br><span class="line">                &lt;Image</span><br><span class="line">                    source=&#123;require(&apos;../Images/workbench/tab_icon_mine_default.png&apos;)&#125;</span><br><span class="line">                    style=&#123;styles.icon&#125;/&gt;</span><br><span class="line">            ),</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    lazy:true,</span><br><span class="line">    tabBarPosition: &apos;bottom&apos;, // 显示在底端，android 默认是显示在页面顶端的</span><br><span class="line">    animationEnabled: false, //切换页面时显示切换效果</span><br><span class="line">    swipeEnabled: false, // 禁止左右滑动</span><br><span class="line">    backBehavior: &apos;none&apos;, // 按 back 键是否跳转到第一个 Tab， none 为不跳转</span><br><span class="line">    tabBarOptions: &#123;</span><br><span class="line">        activeTintColor: &apos;#0685f9&apos;, // 文字和图片选中颜色</span><br><span class="line">        showIcon: true, //android默认不展示图片，需要设置为true</span><br><span class="line">        inactiveTintColor: &apos;#0685f9&apos;, // 文字和图片默认颜色</span><br><span class="line">        style: &#123;backgroundColor: &apos;#ffffff&apos;,height:58&#125;,</span><br><span class="line">        indicatorStyle: &#123;height: 0&#125;, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line">// const ImageHeader = props =&gt; (</span><br><span class="line">//     &lt;View style=&#123;&#123;backgroundColor: &apos;#eee&apos;&#125;&#125;&gt;</span><br><span class="line">//         &lt;Image</span><br><span class="line">//             style=&#123;[StyleSheet.absoluteFill,&#123;width:screenWidth,height:80&#125;]&#125;</span><br><span class="line">//             source=&#123;require(&apos;../Images/others/bottom_color.png&apos;)&#125;</span><br><span class="line">//         /&gt;</span><br><span class="line">//         &lt;Header &#123;...props&#125;/&gt;</span><br><span class="line">//   &lt;/View&gt;</span><br><span class="line">//   );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">* Android 状态栏高度不计入屏幕高度 (translucent似乎可以使其不计入屏幕高度) , 而IOS 状态栏高度是计入屏幕高度 .</span><br><span class="line">*</span><br><span class="line">* IOS 状态栏高度 StatusBar = 20;</span><br><span class="line">* IPhone X 状态栏高度 StatusBar = 44;</span><br><span class="line">*</span><br><span class="line">* headerHeight为了适配Androd和IOS进行特殊处理。</span><br><span class="line">*/</span><br><span class="line">const headerHeight = Platform.OS===&apos;android&apos;?80:44;</span><br><span class="line"></span><br><span class="line">//嵌套路由----stackNavigator中嵌套 TabNavigator</span><br><span class="line">//&apos;#004FFA&apos;</span><br><span class="line">const Root = StackNavigator(&#123;</span><br><span class="line">    //登录</span><br><span class="line">    Workbenck:&#123; screen: MainScreenNavigator&#125;,</span><br><span class="line">    Login: &#123; screen: Login &#125;,</span><br><span class="line">    //工作台</span><br><span class="line">    // //接车</span><br><span class="line">    RegisterRecards :&#123; screen: RegisterRecards  &#125;,</span><br><span class="line">    DragDetails:&#123; screen: DragDetails &#125;,</span><br><span class="line">    ConfirmDetails:&#123;screen:ConfirmDetails&#125;,</span><br><span class="line">    Symptoms: &#123;screen:Symptoms&#125;,</span><br><span class="line">    PartsList:&#123;screen:PartsList&#125;,</span><br><span class="line">    FaultDesc:&#123;screen:FaultDesc&#125;,</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    navigationOptions: &#123;</span><br><span class="line">        headerBackTitle: null,</span><br><span class="line">        headerTitleStyle: &#123;alignSelf: &apos;center&apos;,color:&apos;#ffffff&apos;&#125;,</span><br><span class="line">        headerStyle: &#123;elevation: 0, shadowOpacity: 0,borderBottomWidth:0,paddingTop:20,height:headerHeight,backgroundColor:&apos;#004FFA&apos;&#125;,</span><br><span class="line">        // header:(props) =&gt; &lt;ImageHeader &#123;...props&#125; /&gt;,</span><br><span class="line">        gesturesEnabled: true,</span><br><span class="line">        headerMode: &apos;float&apos;,</span><br><span class="line">        headerRight:(</span><br><span class="line">            &lt;Text&gt;&lt;/Text&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;,</span><br><span class="line">    transitionConfig: () =&gt; (&#123;</span><br><span class="line">        screenInterpolator: CardStackStyleInterpolator.forHorizontal,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const styles = StyleSheet.create(&#123;</span><br><span class="line">    icon:&#123;</span><br><span class="line">            height: 24,</span><br><span class="line">            width: 24,</span><br><span class="line">            resizeMode: &apos;contain&apos;</span><br><span class="line">         &#125;,</span><br><span class="line">    amount:&#123;</span><br><span class="line">           position:&apos;absolute&apos;,</span><br><span class="line">           color:&apos;#ffffff&apos;,</span><br><span class="line">           width:16,</span><br><span class="line">           height:16,</span><br><span class="line">           right:0,</span><br><span class="line">           top:0,</span><br><span class="line">           fontSize:10,</span><br><span class="line">           backgroundColor:&apos;#FF4200&apos;,</span><br><span class="line">           borderRadius:8,</span><br><span class="line">           textAlign:&apos;center&apos;,</span><br><span class="line">           zIndex:100</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default Root ;</span><br></pre></td></tr></table></figure>
-<h3 id="分析login页面"><a href="#分析login页面" class="headerlink" title="分析login页面"></a>分析login页面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import &#123;</span><br><span class="line">    Platform, //针对不同的平台-   Platform.OS  //android 或者 ios</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    ScrollView,</span><br><span class="line">    Image,</span><br><span class="line">    TextInput,</span><br><span class="line">    StatusBar,</span><br><span class="line">    TouchableOpacity,</span><br><span class="line">    ImageBackground,</span><br><span class="line">    Alert,</span><br><span class="line">    Linking</span><br><span class="line">&#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">import &#123; KeyboardAwareScrollView &#125; from &apos;react-native-keyboard-aware-scroll-view&apos;</span><br><span class="line"></span><br><span class="line">import Toast from &apos;react-native-root-toast&apos;;</span><br><span class="line"></span><br><span class="line">import sizeutil from &apos;../../Utils/sizeUtil&apos;;</span><br><span class="line"></span><br><span class="line">import Spinner from &apos;react-native-loading-spinner-overlay&apos;;</span><br><span class="line"></span><br><span class="line">import HotUpdate  from &apos;../../Commons/Components/HotUpdate&apos;;</span><br><span class="line"></span><br><span class="line">import apiUtil  from &apos;../../Utils/apiUtil&apos;;</span><br><span class="line"></span><br><span class="line">import _updateConfig from &apos;../../../update.json&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123;appKey&#125; = _updateConfig[Platform.OS];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const  screenWidth  = sizeutil.screenWidth;</span><br><span class="line">const  screenHeight = sizeutil.screenHeight;</span><br><span class="line">const  pixel        = sizeutil.pixel;</span><br><span class="line"></span><br><span class="line">//上次登录的账号</span><br><span class="line">let lastAccount=null;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">         测试账号</span><br><span class="line">        dealerCode:&apos;APPMD1&apos;,</span><br><span class="line">        account:&apos;13811111111&apos;,</span><br><span class="line">        password:&apos;123qwe&apos;,</span><br><span class="line">*/</span><br><span class="line">export default class Login extends Component &#123;</span><br><span class="line">    static navigationOptions=&#123;</span><br><span class="line">        header:null</span><br><span class="line">    &#125;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state=&#123;</span><br><span class="line">            dealerCode:&apos;&apos;,</span><br><span class="line">            account:&apos;&apos;,</span><br><span class="line">            password:&apos;&apos;,</span><br><span class="line">            visible: false,</span><br><span class="line">            isLogin:false</span><br><span class="line">        &#125;;</span><br><span class="line">        this.login=this.login.bind(this);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    componentDidMount()&#123;</span><br><span class="line">        //2018年7月12日</span><br><span class="line">        //添加热更新</span><br><span class="line">        HotUpdate.checkUpdate();</span><br><span class="line"></span><br><span class="line">        this.readStorage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     //先读取本地缓存有没有登录数据</span><br><span class="line">    readStorage()&#123;</span><br><span class="line">        storage.load(&#123;</span><br><span class="line">            key: &apos;loginState&apos;,</span><br><span class="line">            autoSync: false,</span><br><span class="line">        &#125;).then(ret =&gt; &#123;</span><br><span class="line">                this.setState(ret);</span><br><span class="line">                lastAccount=ret.account; //保存上一次的账号</span><br><span class="line">        &#125;).catch(err =&gt; &#123;</span><br><span class="line">            switch (err.name) &#123;</span><br><span class="line">                case &apos;NotFoundError&apos;:</span><br><span class="line">                    console.log(&apos;暂未存储&apos;);</span><br><span class="line">                    break;</span><br><span class="line">                case &apos;ExpiredError&apos;:</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    //这里处理登录的逻辑</span><br><span class="line">    login()&#123;</span><br><span class="line">        let &#123;dealerCode,account,password&#125; =this.state;</span><br><span class="line">        let reqData=&#123;</span><br><span class="line">            &quot;serverCode&quot;: &quot;managerDealerLogin&quot;,</span><br><span class="line">            dealerCode,</span><br><span class="line">            account,</span><br><span class="line">            password</span><br><span class="line">        &#125;;</span><br><span class="line">        apiUtil.fetchers(&apos;app/managerDealerLogin&apos;,reqData,10000)</span><br><span class="line">        .then((json)=&gt;&#123;</span><br><span class="line">            let &#123;serverMsg,showMsg&#125;=json;</span><br><span class="line">            if(serverMsg===&quot;success&quot;)&#123;</span><br><span class="line">                //判断...如果却换账号,就清掉上一次账号问诊的本地存储...</span><br><span class="line">                if(lastAccount!==account&amp;&amp;lastAccount!==null)&#123;</span><br><span class="line">                    //清除本地....</span><br><span class="line">                    console.log(&apos;清除上次的缓存&apos;);</span><br><span class="line">                    storage.remove(&#123;</span><br><span class="line">                        key: &apos;InquiryData&apos;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">                this.saveStorage(dealerCode,account,password);</span><br><span class="line">                Toast.show(&apos;登录成功&apos;, &#123;duration: Toast.durations.SHORT&#125;);</span><br><span class="line">                this.props.navigation.navigate(&apos;Workbenck&apos;,&#123;hasLogin:true&#125;);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                Toast.show(showMsg, &#123;duration: Toast.durations.SHORT&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            this.setState(&#123;</span><br><span class="line">                visible:!this.state.visible</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;).catch((e)=&gt;&#123;</span><br><span class="line">            console.log(&quot;请求超时&quot;,e);</span><br><span class="line">            if(e===&apos;timeOut&apos;)&#123;</span><br><span class="line">                Toast.show(&apos;登录超时,请重试&apos;, &#123;duration: Toast.durations.SHORT&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            // Toast.show(&apos;登录超时,请重试&apos;, &#123;duration: Toast.durations.SHORT&#125;);</span><br><span class="line">            this.setState(&#123;</span><br><span class="line">                visible:!this.state.visible</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            visible:!this.state.visible</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //保存登录信息</span><br><span class="line">    saveStorage(dealerCode,account,password)&#123;</span><br><span class="line">        storage.save(&#123;</span><br><span class="line">            key: &apos;loginState&apos;,  // 注意:请不要在key中使用_下划线符号!</span><br><span class="line">            data: &#123;</span><br><span class="line">                dealerCode,</span><br><span class="line">                account,</span><br><span class="line">                password,</span><br><span class="line">                isLogin:true,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line"></span><br><span class="line">        let &#123;dealerCode,account,password,isLogin&#125; =this.state;</span><br><span class="line">        return (</span><br><span class="line">                    &lt;KeyboardAwareScrollView keyboardShouldPersistTaps=&apos;always&apos;&gt;</span><br><span class="line">                        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">                            &lt;StatusBar</span><br><span class="line">                                hidden=&#123;true&#125;</span><br><span class="line">                            /&gt;</span><br><span class="line">                            &lt;ImageBackground style=&#123;&#123;width: screenWidth, height: screenHeight&#125;&#125; source=&#123;require(&apos;../../Images/login_bg_img.png&apos;)&#125;&gt;</span><br><span class="line">                                    &lt;View style=&#123;styles.inputWrapper&#125;&gt;</span><br><span class="line">                                        &lt;View style=&#123;styles.inputGroup&#125;&gt;</span><br><span class="line">                                            &lt;View style=&#123;&#123;flexDirection:&apos;row&apos;&#125;&#125;&gt;</span><br><span class="line">                                                &lt;Image source=&#123;require(&apos;../../Images/login_icon_business.png&apos;)&#125; /&gt;</span><br><span class="line">                                                &lt;TextInput</span><br><span class="line">                                                    style=&#123;[styles.inputText,&#123;marginTop:0&#125;]&#125;</span><br><span class="line">                                                    onChangeText=&#123;(text) =&gt; this.setState(&#123;dealerCode:text&#125;)&#125;</span><br><span class="line">                                                    value=&#123;dealerCode&#125;</span><br><span class="line">                                                    placeholder=&quot;门店代码&quot;</span><br><span class="line">                                                    placeholderTextColor=&quot;#ffffff&quot;</span><br><span class="line">                                                    underlineColorAndroid=&quot;transparent&quot;</span><br><span class="line">                                                /&gt;</span><br><span class="line">                                            &lt;/View&gt;</span><br><span class="line">                                            &lt;View style=&#123;styles.underLine&#125;&gt;</span><br><span class="line">                                            &lt;/View&gt;</span><br><span class="line">                                        &lt;/View&gt;</span><br><span class="line">                                        &lt;View style=&#123;styles.inputGroup&#125;&gt;</span><br><span class="line">                                            &lt;View style=&#123;&#123;flexDirection:&apos;row&apos;&#125;&#125;&gt;</span><br><span class="line">                                                &lt;Image source=&#123;require(&apos;../../Images/-login_icon_-acomber.png&apos;)&#125;/&gt;</span><br><span class="line">                                                &lt;TextInput</span><br><span class="line">                                                    style=&#123;[styles.inputText]&#125;</span><br><span class="line">                                                    onChangeText=&#123;(text) =&gt; this.setState(&#123;account:text&#125;)&#125;</span><br><span class="line">                                                    value=&#123;account&#125;</span><br><span class="line">                                                    maxLength=&#123;11&#125;</span><br><span class="line">                                                    placeholder=&quot;账号&quot;</span><br><span class="line">                                                    placeholderTextColor=&quot;#ffffff&quot;</span><br><span class="line">                                                    underlineColorAndroid=&quot;transparent&quot;</span><br><span class="line">                                                /&gt;</span><br><span class="line">                                            &lt;/View&gt;</span><br><span class="line">                                            &lt;View style=&#123;styles.underLine&#125;&gt;</span><br><span class="line">                                            &lt;/View&gt;</span><br><span class="line">                                        &lt;/View&gt;</span><br><span class="line">                                        &lt;View style=&#123;styles.inputGroup&#125;&gt;</span><br><span class="line">                                            &lt;View style=&#123;&#123;flexDirection:&apos;row&apos;&#125;&#125;&gt;</span><br><span class="line">                                                &lt;Image source=&#123;require(&apos;../../Images/login_icon_password.png&apos;)&#125; /&gt;</span><br><span class="line">                                                &lt;TextInput</span><br><span class="line">                                                    style=&#123;[styles.inputText]&#125;</span><br><span class="line">                                                    onChangeText=&#123;(text) =&gt; this.setState(&#123;password:text&#125;)&#125;</span><br><span class="line">                                                    value=&#123;password&#125;</span><br><span class="line">                                                    placeholder=&quot;密码&quot;</span><br><span class="line">                                                    placeholderTextColor=&quot;#ffffff&quot;</span><br><span class="line">                                                    underlineColorAndroid=&quot;transparent&quot;</span><br><span class="line">                                                    secureTextEntry=&#123;true&#125;</span><br><span class="line">                                                /&gt;</span><br><span class="line">                                            &lt;/View&gt;</span><br><span class="line">                                            &lt;View style=&#123;styles.underLine&#125;&gt;&lt;/View&gt;</span><br><span class="line">                                        &lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                                        &lt;View style=&#123;[styles.inputGroup,&#123;marginTop:28,&#125;]&#125;&gt;</span><br><span class="line">                                            &lt;TouchableOpacity onPress=&#123;this.login&#125;&gt;</span><br><span class="line">                                                &lt;View style=&#123;styles.loginBtn&#125;&gt;</span><br><span class="line">                                                    &lt;Text style=&#123;styles.loginBtnText&#125;&gt;登 录&lt;/Text&gt;</span><br><span class="line">                                                &lt;/View&gt;</span><br><span class="line">                                            &lt;/TouchableOpacity&gt;</span><br><span class="line">                                        &lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                                    &lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                            &lt;/ImageBackground&gt;</span><br><span class="line">                            &lt;Spinner visible=&#123;this.state.visible&#125;/&gt;</span><br><span class="line">                        &lt;/View&gt;</span><br><span class="line">                    &lt;/KeyboardAwareScrollView&gt;</span><br><span class="line">                )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const styles = StyleSheet.create(&#123;</span><br><span class="line">    container:&#123;</span><br><span class="line">        backgroundColor:&apos;rgba(245,245,245,1)&apos;,</span><br><span class="line">        width:screenWidth,</span><br><span class="line">        height:screenHeight</span><br><span class="line">    &#125;,</span><br><span class="line">    inputWrapper:&#123;</span><br><span class="line">        width:screenWidth,</span><br><span class="line">        height:0.5*screenHeight,</span><br><span class="line">        position:&apos;absolute&apos;,</span><br><span class="line">        top:0.43*screenHeight,</span><br><span class="line">    &#125;,</span><br><span class="line">    inputGroup:&#123;</span><br><span class="line">        flex:1,</span><br><span class="line">        height:screenHeight*0.059,</span><br><span class="line">        alignItems:&apos;center&apos;,</span><br><span class="line">        marginTop:0.03*screenHeight,</span><br><span class="line">    &#125;,</span><br><span class="line">    inputText:&#123;</span><br><span class="line">        width:screenWidth*0.6,</span><br><span class="line">        height:screenHeight*0.059,</span><br><span class="line">        color:&apos;#ffffff&apos;,</span><br><span class="line">        paddingLeft:0.05*screenWidth,</span><br><span class="line">    &#125;,</span><br><span class="line">    loginBtn:&#123;</span><br><span class="line">        width:screenWidth*0.68,</span><br><span class="line">        height:screenHeight*0.06,</span><br><span class="line">        justifyContent:&apos;center&apos;,</span><br><span class="line">        alignItems:&apos;center&apos;,</span><br><span class="line">        backgroundColor:&apos;#fcf9e9&apos;,</span><br><span class="line">        borderRadius:40,</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    loginBtnText:&#123;</span><br><span class="line">        fontSize:16,</span><br><span class="line">        color:&apos;#027eff&apos;,</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    underLine:&#123;</span><br><span class="line">        backgroundColor:&apos;#f3f4c7&apos;,</span><br><span class="line">        height:pixel,</span><br><span class="line">        width:0.68*screenWidth,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="为什么用React来构建webApp呢？"><a href="#为什么用React来构建webApp呢？" class="headerlink" title="为什么用React来构建webApp呢？"></a>为什么用React来构建webApp呢？</h2><h2 id="Ant-design-源码读计划…"><a href="#Ant-design-源码读计划…" class="headerlink" title="Ant -design 源码读计划…"></a>Ant -design 源码读计划…</h2><h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h3 id="JSX—描述用户界面"><a href="#JSX—描述用户界面" class="headerlink" title="JSX—描述用户界面"></a>JSX—描述用户界面</h3><p>   jsx 是javascript 的语言扩展 </p>
-<h3 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h3><p>ReactDom.render(<app>,document.getElementById(‘root’));</app></p>
-<h3 id="组件-amp-Props"><a href="#组件-amp-Props" class="headerlink" title="组件&amp;Props"></a>组件&amp;Props</h3><p>组件可是把UI 分割成独立可复用的小部件</p>
-<p>组件的概念，什么是组件，从概念上看就是一个函数，接受传进来的参数，然后返回react 元素</p>
-<h3 id="两种定义组件的方式"><a href="#两种定义组件的方式" class="headerlink" title="两种定义组件的方式"></a><strong>两种定义组件的方式</strong></h3><p>javascript函数定义    es6类定义</p>
-<h3 id="组件名称必须以大写字母开头"><a href="#组件名称必须以大写字母开头" class="headerlink" title="组件名称必须以大写字母开头"></a><strong>组件名称必须以大写字母开头</strong></h3><p><strong>组件的返回值只能有一个根元素。这也是我们要用一个<code>&lt;div&gt;</code>来包裹所有<code>&lt;Welcome /&gt;</code>元素的原因。</strong></p>
-<p><strong>props 只读性</strong></p>
-<p><strong>所有的React组件必须像纯函数那样使用它们的props。</strong></p>
-<h3 id="state-amp-声明周期"><a href="#state-amp-声明周期" class="headerlink" title="state &amp; 声明周期"></a>state &amp; 声明周期</h3><p><strong>构造函数是唯一能够初始化 <code>this.state</code> 的地方。</strong></p>
-<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><h3 id="列表-amp-keys"><a href="#列表-amp-keys" class="headerlink" title="列表 &amp;keys"></a>列表 &amp;keys</h3><p>keys 可以在DOM的某些元素被增加或者删除的时候帮助React 识别哪些元素发生了变化</p>
-<p>不要用索引来当key值 </p>
-<h3 id="JSX-子代是一个函数"><a href="#JSX-子代是一个函数" class="headerlink" title="JSX 子代是一个函数"></a><strong>JSX 子代是一个函数</strong></h3><h3 id="使用-PropTypes-进行类型检查"><a href="#使用-PropTypes-进行类型检查" class="headerlink" title="使用 PropTypes 进行类型检查"></a>使用 PropTypes 进行类型检查</h3><h3 id="Refs-amp-Dom"><a href="#Refs-amp-Dom" class="headerlink" title="Refs &amp;Dom"></a>Refs &amp;Dom</h3><p>Refs 提供了一种方式，用于访问在render方法中创建的 Dom节点或React元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.myRef=React.createRef()</span><br><span class="line"></span><br><span class="line">&lt;input ref=&#123;this.myRef&#125;/&gt;</span><br></pre></td></tr></table></figure>
-<p>使用 <code>ref</code> 回调函数，在实例的属性中存储对 DOM 节点的引用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">this.setTextInputRef = element =&gt; &#123;</span><br><span class="line">     this.textInput = element;</span><br><span class="line">   &#125;;</span><br><span class="line">   </span><br><span class="line">&lt;input</span><br><span class="line">         type=&quot;text&quot;</span><br><span class="line">         ref=&#123;this.setTextInputRef&#125;</span><br><span class="line">       /&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="性能优化—-重点"><a href="#性能优化—-重点" class="headerlink" title="性能优化—-重点"></a>性能优化—-重点</h3><p><strong>map key</strong></p>
-<p><strong>shouldComponentUpdate实战</strong></p>
-<h3 id="Immutable-js-最流行的不可变数据结构"><a href="#Immutable-js-最流行的不可变数据结构" class="headerlink" title="Immutable .js     最流行的不可变数据结构"></a>Immutable .js     最流行的不可变数据结构</h3><p>​    <strong>原生应用类型的坑</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Map()  原生object转Map对象 (只会转换第一层，注意和fromJS区别)</span></span><br><span class="line">immutable.Map(&#123;<span class="attr">name</span>:<span class="string">'danny'</span>, <span class="attr">age</span>:<span class="number">18</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//List()  原生array转List对象 (只会转换第一层，注意和fromJS区别)</span></span><br><span class="line">immutable.List([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">//fromJS()   原生js转immutable对象  (深度转换，会将内部嵌套的对象和数组全部转成immutable)</span></span><br><span class="line">immutable.fromJS([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])    <span class="comment">//将原生array  --&gt; List</span></span><br><span class="line">immutable.fromJS(&#123;<span class="attr">name</span>:<span class="string">'danny'</span>, <span class="attr">age</span>:<span class="number">18</span>&#125;)   <span class="comment">//将原生object  --&gt; Map</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//toJS()  immutable对象转原生js  (深度转换，会将内部嵌套的Map和List全部转换成原生js)</span></span><br><span class="line">immutableData.toJS();</span><br><span class="line"></span><br><span class="line"><span class="comment">//查看List或者map大小  </span></span><br><span class="line">immutableData.size  或者 immutableData.count()</span><br><span class="line"></span><br><span class="line"><span class="comment">// is()   判断两个immutable对象是否相等</span></span><br><span class="line">immutable.is(imA, imB);</span><br><span class="line"></span><br><span class="line"><span class="comment">//merge()  对象合并</span></span><br><span class="line"><span class="keyword">var</span> imA = immutable.fromJS(&#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> imA = immutable.fromJS(&#123;<span class="attr">c</span>:<span class="number">3</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> imC = imA.merge(imB);</span><br><span class="line"><span class="built_in">console</span>.log(imC.toJS())  <span class="comment">//&#123;a:1,b:2,c:3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//增删改查（所有操作都会返回新的值，不会修改原来值）</span></span><br><span class="line"><span class="keyword">var</span> immutableData = immutable.fromJS(&#123;</span><br><span class="line">    a:<span class="number">1</span>,</span><br><span class="line">    b:<span class="number">2</span>，</span><br><span class="line">    c:&#123;</span><br><span class="line">        d:<span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> data1 = immutableData.get(<span class="string">'a'</span>) <span class="comment">//  data1 = 1  </span></span><br><span class="line"><span class="keyword">var</span> data2 = immutableData.getIn([<span class="string">'c'</span>, <span class="string">'d'</span>]) <span class="comment">// data2 = 3   getIn用于深层结构访问</span></span><br><span class="line"><span class="keyword">var</span> data3 = immutableData.set(<span class="string">'a'</span> , <span class="number">2</span>);   <span class="comment">// data3中的 a = 2</span></span><br><span class="line"><span class="keyword">var</span> data4 = immutableData.setIn([<span class="string">'c'</span>, <span class="string">'d'</span>], <span class="number">4</span>);   <span class="comment">//data4中的 d = 4</span></span><br><span class="line"><span class="keyword">var</span> data5 = immutableData.update(<span class="string">'a'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> x+<span class="number">4</span>&#125;)   <span class="comment">//data5中的 a = 5</span></span><br><span class="line"><span class="keyword">var</span> data6 = immutableData.updateIn([<span class="string">'c'</span>, <span class="string">'d'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> x+<span class="number">4</span>&#125;)   <span class="comment">//data6中的 d = 7</span></span><br><span class="line"><span class="keyword">var</span> data7 = immutableData.delete(<span class="string">'a'</span>)   <span class="comment">//data7中的 a 不存在</span></span><br><span class="line"><span class="keyword">var</span> data8 = immutableData.deleteIn([<span class="string">'c'</span>, <span class="string">'d'</span>])   <span class="comment">//data8中的 d 不存在</span></span><br><span class="line"></span><br><span class="line">作者：美团点评点餐</span><br><span class="line">链接：https:<span class="comment">//juejin.im/post/5948985ea0bb9f006bed7472</span></span><br><span class="line">来源：掘金</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-<p><a href="https://juejin.im/post/5948985ea0bb9f006bed7472" target="_blank" rel="noopener">https://juejin.im/post/5948985ea0bb9f006bed7472</a></p>
-<p><a href="https://juejin.im/post/5a12881a6fb9a044fd115dd4" target="_blank" rel="noopener">https://juejin.im/post/5a12881a6fb9a044fd115dd4</a></p>
-<p>创造不可突变元素，原对象和突变部分结合成不可突变对象</p>
-<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>Context 通过组件树提供了一个传递数据的方法，从而避免了在每一个层级手动的传递props</p>
-<p>对组件树认为是全局的数据</p>
-<p>避免中间组件传递props</p>
-<blockquote>
-<p>不要仅仅为了避免在几个层级下的组件传递 props 而使用 context，它是被用于在多个层级的多个组件需要访问相同数据的情景。</p>
-</blockquote>
-<h2 id="Fragments"><a href="#Fragments" class="headerlink" title="Fragments"></a>Fragments</h2><p>React 中一个常见模式是为一个组件返回多个元素。Fragments 可以让你聚合一个子元素列表，并且不在DOM中增加额外节点。</p>
-<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><p><a href="https://github.com/axios/axios" target="_blank" rel="noopener">https://github.com/axios/axios</a></p>
-<p><a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">https://www.kancloud.cn/yunye/axios/234845</a></p>
-<h2 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h2><p><a href="http://www.cnblogs.com/Wolfmanlq/p/8012847.html" target="_blank" rel="noopener">http://www.cnblogs.com/Wolfmanlq/p/8012847.html</a></p>
-<p><a href="https://segmentfault.com/a/1190000008628067" target="_blank" rel="noopener">https://segmentfault.com/a/1190000008628067</a></p>
-<p><a href="https://segmentfault.com/a/1190000009220530" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009220530</a></p>
-<p>匹配器:验证测试的返回值</p>
-<p>toBe() 测试的是值 ，<strong>toEqual</strong> ()是对象</p>
-<p>基本语法:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'1+2等于3'</span>,()=&gt;&#123;</span><br><span class="line">    expect(sum(<span class="number">1</span> , <span class="number">2</span>)).toBe(<span class="number">3</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>测试异步代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">test(<span class="string">'the data is peanut butter'</span>, done =&gt; &#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">    done();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fetchData(callback);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//承诺验证</span></span><br><span class="line">test(<span class="string">'the data is peanut butter'</span>, () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> fetchData().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    expect(data).toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">  &#125;）.catch(<span class="function"><span class="params">e</span> =&gt;</span> expect(e).toMatch(<span class="string">'error'</span>))</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">test(<span class="string">'the data is peanut butter'</span>, () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> expect(fetchData()).resolves.toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//使用async await</span></span><br><span class="line"></span><br><span class="line">test(<span class="string">'the data is peanut butter'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> fetchData();</span><br><span class="line">  expect(data).toBe(<span class="string">'peanut butter'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">'the fetch fails with an error'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  expect.assertions(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> fetchData();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    expect(e).toMatch(<span class="string">'error'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Mock Function(模拟器)</p>
-<p>Enzyme</p>
-<p>全局函数</p>
-<h2 id="冻结列和表格的研究"><a href="#冻结列和表格的研究" class="headerlink" title="冻结列和表格的研究"></a>冻结列和表格的研究</h2><h2 id="节流-与防抖动"><a href="#节流-与防抖动" class="headerlink" title="节流 与防抖动"></a>节流 与防抖动</h2><p><a href="http://caibaojian.com/throttle-debounce.html" target="_blank" rel="noopener">http://caibaojian.com/throttle-debounce.html</a></p>
-<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><h2 id="b-em-strong-标签"><a href="#b-em-strong-标签" class="headerlink" title="b em strong 标签"></a>b em strong 标签</h2><p>b:吸引读者</p>
-<p>em:着重阅读</p>
-<p>strong:十分强调</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/vscode-eslint-learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/31/vscode-eslint-learn/" itemprop="url">vscode-eslint-learn</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-31T22:44:57+08:00">
-                2019-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Visual-Studio-code"><a href="#Visual-Studio-code" class="headerlink" title="Visual Studio code"></a>Visual Studio code</h2><p>近期认真的学习了一下Visual studio code 下面，仅为记录学习所学</p>
-<h3 id="一些快捷键"><a href="#一些快捷键" class="headerlink" title="一些快捷键"></a>一些快捷键</h3><p><code>Ctrl+k v</code>  打开侧边栏预览 markdown 文件<br><code>Ctrl+Shift+W</code> 关闭窗口<br><code>Alt+Shfit+A</code>  块级注释<br><code>Shift+Alt+upArrow</code>  向上复制一行<br><code>Shift+Ctrl+F</code> 在文件中查找<br><code>Ctrl+Shift+H</code> 替换</p>
-<p>关于markDown 的语法，具体参照这篇文章<a href="http://zefey.com/detail.html?id=63" target="_blank" rel="noopener">markdown的基本语法</a></p>
-<hr>
-<h3 id="一些基本的配置"><a href="#一些基本的配置" class="headerlink" title="一些基本的配置"></a>一些基本的配置</h3><p>文件-&gt; 首选项-&gt; 设置<br>里面有个用户设置和工作区设置 ，<a href="&quot;https://zhuanlan.zhihu.com/p/54770077&quot;">“区别点击看这篇文章”</a><br>以下仅列出一些个人所需配置 本人的setting.json 路径 “C:\Users\Administrator\AppData\Roaming\Code\User”</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"editor.fontSize": 18   // 用户设置中配置编辑器中显示的字体大小</span><br><span class="line">"files.exclude": &#123;</span><br><span class="line">  "**/.git": true,</span><br><span class="line">  "**/.svn": true,</span><br><span class="line">  "**/.hg": true,</span><br><span class="line">  "**/CVS": true,</span><br><span class="line">  "**/.DS_Store": true</span><br><span class="line">&#125;  // 配置在工作目录中不显示如下的目录</span><br><span class="line">"editor.formatOnSave": true  //保存文件格式化</span><br><span class="line">"editor.suggestOnTriggerCharacters": true  //提供建议代码</span><br><span class="line">"files.trimTrailingWhitespace": false   //启用后,保存文件时，剪裁尾随空格</span><br></pre></td></tr></table></figure>
-<h3 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h3><p><code>ctrl+shift+</code> `  调出终端<br>有四大tab</p>
-<ul>
-<li>问题          eslint 检查文件出问题会在这里显示</li>
-<li>输出          关于启用一些服务时的输入，如eslint, prettier</li>
-<li>调试控制台   </li>
-<li>终端  </li>
-</ul>
-<h3 id="常用的插件"><a href="#常用的插件" class="headerlink" title="常用的插件"></a>常用的插件</h3><ul>
-<li>vscode-icons<br>一款漂亮的文件图标插件</li>
-<li>Path Intellisense<br> 智能的提示文件的路径</li>
-<li>EditorConfig for vs code<br> 为项目配置单独的编辑设置,覆盖用户设置</li>
-<li>ESLint<br> js代码检验工具</li>
-<li>prettier<br>  不错的格式化代码工具</li>
-</ul>
-<h2 id="ESlint"><a href="#ESlint" class="headerlink" title="ESlint"></a>ESlint</h2><p>一个静态的检查js 代码的工具,它提供一定的规范来检查你的代码，规范可以自定义</p>
-<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>为一个项目使用eslint 首先需先安装,项目目录下执行<br><code>npm init</code>   创建一个package.json<br><code>npm install eslint --save-dev</code><br><code>.\node_modules\.bin\eslint --init</code><br><a href="https://www.npmjs.com/package/eslint-config-airbnb" target="_blank" rel="noopener">eslint-config-airbnb</a></p>
-<p>我选用airbnb 的配置</p>
-<p><code>npm info &quot;eslint-config-airbnb@latest&quot; peerDependencies</code></p>
-<p><code>npx install-peerdeps --dev eslint-config-airbnb</code><br>直接下载所有依赖<br><code>npm install --dev eslint-config-airbnb</code><br><code>npm install --dev eslint-plugin-import</code><br><code>npm install --dev eslint-plugin-react</code><br><code>npm install --dev eslint-plugin-jsx-a11y</code></p>
-<blockquote>
-<p>npm install –save-dev eslint-config-airbnb eslint@^#.#.# eslint-plugin-jsx-a11y@^#.#.# eslint-plugin-import@^#.#.# eslint-plugin-react@^#.#.#</p>
-</blockquote>
-<p>.eslinttrc.js</p>
-<p><code>extends: [&quot;airbnb&quot;]</code></p>
-<h3 id="question"><a href="#question" class="headerlink" title="question"></a>question</h3><p><strong><em>JSX not allowed in files with extension ‘.js’eslint(react/jsx-filename-extension)</em></strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">    <span class="string">"react/jsx-filename-extension"</span>: [</span><br><span class="line">      <span class="number">1</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        extensions: [<span class="string">".js"</span>, <span class="string">".jsx"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong><em>eslint检测报错error Expected linebreaks to be ‘LF’ but found ‘CRLF’ linebreak-style</em></strong></p>
-<p> airbnb 规则下:linebreak-style 用的是 [“erro”,”unix”]; 也就是不用LF 行尾换行的话会报错</p>
-<p>解决之道:</p>
-<p><strong>1: 不校验……</strong></p>
-<p>.eslinttrc.js rules规则下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 统一换行符，&quot;\n&quot; unix(for LF) and &quot;\r\n&quot; for windows(CRLF)，默认unix</span><br><span class="line">// off或0: 禁用规则</span><br><span class="line">&apos;linebreak-style&apos;: &apos;off&apos;</span><br></pre></td></tr></table></figure>
-<p><strong>2:vscode  配置使用 LF 行尾换行符</strong></p>
-<p>这个时候就要出现一个插件</p>
-<p>EditorConfig for vs code </p>
-<blockquote>
-<p>此插件尝试使用.editorconfig文件中的设置覆盖用户/工作区设置，不需要其他或特定于vscode的文件，与任何EditorConfig插件一样，如果未指定root = true，EditorConfig将继续在项目外部查找.editorconfig文件。</p>
-</blockquote>
-<p>简单的一配置文件如下: <strong>.editorconfig</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">charset = utf-8</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = 2</span><br><span class="line">end_of_line = lf</span><br><span class="line">insert_final_newline = true</span><br><span class="line">trim_trailing_whitespace = true</span><br></pre></td></tr></table></figure>
-<h2 id="Prettier"><a href="#Prettier" class="headerlink" title="Prettier"></a>Prettier</h2><p><a href="https://www.jianshu.com/p/d6a69eb08f07" target="_blank" rel="noopener">prettier的介绍与基本用法</a><br>非常好用的格式美化工具,经过一些配置，自动帮你美化代码，如自动插入分号..</p>
-<h3 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h3><p><code>npm install  prettier --dev</code></p>
-<p>也可以配合 eslint 使用<br><code>npm install --dev prettier eslint-plugin-prettier</code></p>
-<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><p><strong><em>prettier 自动化格式出现问题</em></strong></p>
-<p>经过发现是vscode 里面的一个格式化插件冲突了，我有了beauty,再使用prettier 就出问题了,禁用就好了</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><a href="https://segmentfault.com/a/1190000012909159" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012909159</a></p>
-<p>.prettierrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;useTabs&quot;: false,</span><br><span class="line">  &quot;tabWidth&quot;: 2,</span><br><span class="line">  &quot;trailingComma&quot;: &quot;es5&quot;,</span><br><span class="line">  &quot;singleQuote&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1771,7 +1584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1784,7 +1597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

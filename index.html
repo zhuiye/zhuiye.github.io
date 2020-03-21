@@ -242,6 +242,275 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/pay-access/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/21/pay-access/" itemprop="url">前端 微信 支付宝 支付H5 接入</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-21T21:32:51+08:00">
+                2020-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近来项目中有要求接入 微信和支付宝 H5 的支付的接入，由于是第一次接入，也遇到了不少的坑。</p>
+<h2 id="支付宝支付的接入"><a href="#支付宝支付的接入" class="headerlink" title="支付宝支付的接入"></a>支付宝支付的接入</h2><h3 id="前端如何接入，并唤起支付宝客户端进行支付"><a href="#前端如何接入，并唤起支付宝客户端进行支付" class="headerlink" title="前端如何接入，并唤起支付宝客户端进行支付"></a>前端如何接入，并唤起支付宝客户端进行支付</h3><p>  <strong>*前端的接入，有两种方式</strong></p>
+<ol>
+<li>后端返回一个form 表单字符串，我们插入到页面中进行提交即可，页面会跳转到支付宝的一个中间页，由这个中间页来唤起支付宝客户端进行支付</li>
+<li>后端返回一个地址，前端直接如下代码即可<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.location.href=&quot;xxxx&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>一开始，后端返回一个支付相关信息字符串回来，由前端进行form 表单生成并提交。我也如实做了如下的封装</p>
+<p>payInfo 的处理<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">"querystring"</span>);</span><br><span class="line"><span class="keyword">const</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getSearchParamsByUrl</span>(<span class="params">urlString: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="comment">// return</span></span><br><span class="line">  <span class="keyword">const</span> searchString = url.parse(urlString).query;</span><br><span class="line">  <span class="keyword">return</span> querystring.parse(searchString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> submitAliForm = <span class="function">(<span class="params">payInfo: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formStr = <span class="string">`</span></span><br><span class="line"><span class="string">          &lt;form action="https://openapi.alipay.com/gateway.do?charset=<span class="subst">$&#123;payInfo.charset&#125;</span>" target="_blank" method="post" class="form"&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="app_id" value=<span class="subst">$&#123;payInfo.app_id&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="method" value=<span class="subst">$&#123;payInfo.method&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="format" value="JSON"&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="charset" value=<span class="subst">$&#123;payInfo.charset&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="sign" value=<span class="subst">$&#123;payInfo.sign&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="sign_type" value=<span class="subst">$&#123;payInfo.sign_type&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="version" value=<span class="subst">$&#123;payInfo.version&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="notify_url" value=<span class="subst">$&#123;payInfo.notify_url&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="biz_content" value=<span class="subst">$&#123;payInfo.biz_content&#125;</span>&gt;</span></span><br><span class="line"><span class="string">      &lt;/form&gt;`</span>;</span><br><span class="line">  <span class="keyword">const</span> divDom = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"></span><br><span class="line">  divDom.style.display = <span class="string">"none"</span>;</span><br><span class="line">  divDom.innerHTML = formStr;</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(divDom);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 为什么不直接字符串生成？因为，timestamp 由空格 2024-12-4 12:12:12</span></span><br><span class="line">  <span class="keyword">const</span> timeInput = <span class="built_in">document</span>.createElement(<span class="string">"input"</span>);</span><br><span class="line">  timeInput.value = payInfo.timestamp.replace(<span class="string">"+"</span>, <span class="string">" "</span>);</span><br><span class="line">  timeInput.name = <span class="string">"timestamp"</span>;</span><br><span class="line">  <span class="built_in">document</span>.forms[<span class="number">0</span>].appendChild(timeInput);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">document</span>.forms[<span class="number">0</span>].submit();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用后可清楚表单</span></span><br><span class="line">  <span class="comment">// document.forms[0].parentNode?.removeChild(document.forms[0]);</span></span><br><span class="line">  <span class="comment">// document.body.removeChild(document.forms[0]);</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是提交支付宝的支付网关，却报了错，<strong>签名错误</strong>，排除了后端的错误，最后发现是前端的解码出了问题,我也不知道支付宝做了什么处理，找了很多资料也没看到，有人在前端生成表格的，都是在后端生成，前端提交。最后，<strong>我只能采取采用第二种方式提交</strong></p>
+<p>未完待续…</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/react-hoc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/21/react-hoc/" itemprop="url">react 的高阶组件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-21T21:25:45+08:00">
+                2020-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 初学react 之时，对于react 的高阶组件,没有那么深刻的体会，用它只是过滤几个属性？创建几个不同的组件？当时的我由于一把梭，封装组件上少之又上，简直根本用不上。后来学习到组件化，封装越来越多，也深刻体会到它的作用。接下来简单的说下它。</p>
+<h2 id="高阶组件的定义"><a href="#高阶组件的定义" class="headerlink" title="高阶组件的定义"></a>高阶组件的定义</h2><p>说白了，他就是个函数，通过传入”一封装的组件类” 和 一系列用来产生对组件类产生不同行为的<strong>参数</strong>,返回一个React.Class 组件,大致的模式如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createHoc</span>=(<span class="params">ReactClassComponent</span>)=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> withClass extends &#123;</span><br><span class="line"></span><br><span class="line">    componentDidMount &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    render()&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="xml">              ReactClassComponent</span></span><br><span class="line"><span class="xml">             <span class="tag">&lt;/&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="实际运用"><a href="#实际运用" class="headerlink" title="实际运用"></a>实际运用</h2><h3 id="场景1"><a href="#场景1" class="headerlink" title="场景1"></a>场景1</h3><p>近期的项目中,有一些页面需要实现微信的授权。由于我们需要把微信授权的行为封装起来，但是，应该怎么注入到每个页面之中呢？一开始，我本想从react-route 的路由去解决的，就是 “<strong>路由拦截</strong>”,一般大家喜欢称之为“<strong>路由守卫</strong>”，<strong>Vue</strong> 中倒是非常贴心的实现了该功能，但是 react-route 中就需要我们自己封装实现了。因为我的<strong>懒惰</strong>,又搜索了一下，就看到了高阶组件实现的方案。</p>
+<h3 id="运用如下"><a href="#运用如下" class="headerlink" title="运用如下"></a>运用如下</h3><p>高阶组件 withWeiXinAuth</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WeiXinAuth</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      loading: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="comment">// 微信的授权操作代码 这里实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !localStorage.getItem(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">CenterContainer</span>&gt;</span>等待授权中~<span class="tag">&lt;/<span class="name">CenterContainer</span>&gt;</span></span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">          &lt;WrapperComponent /&gt;</span><br><span class="line">        &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>对于需要授权的页面，我们只需要如下代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withWeiXinAuth(AppHome)</span><br></pre></td></tr></table></figure>
+<p>当然，上面的实现还有有一下缺陷</p>
+<p>可以看到，我们并没有把 react-route 的 history 对象进行传递给包裹的组件,解决方案有两种</p>
+<ol>
+<li>好好的传递 history</li>
+<li>使用useHistory() ,真实一大杀器，非 route 组件 也能进行操作，非常的便利</li>
+</ol>
+<h3 id="场景2"><a href="#场景2" class="headerlink" title="场景2"></a>场景2</h3><p>进行后端的管理系统开发的时候，通常会遇到很多相似乎的表格，（如：审核通过表格，未通过表格，审核申请表格，这些表格的字段，大体相同以及筛选条件也相同 ）对于这样的场景，我们自然是把它给抽象出一个组件出来，然后利用一个高阶函数，对这个组件进行包裹，从而产生上述三个不同的表格.</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'umi/router'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, Form, Row, Col, Input, Select &#125; <span class="keyword">from</span> <span class="string">'antd'</span>;</span><br><span class="line"><span class="keyword">import</span> AllTable <span class="keyword">from</span> <span class="string">'@/components/Account/All-Table'</span>;</span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./index.less'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; queryCkPolicyReviewList &#125; <span class="keyword">from</span> <span class="string">'./service'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FormItem = Form.Item;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withReviewPage</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* config.type= unReview|pass|reject</span></span><br><span class="line"><span class="comment">    status:0 1 2</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">const</span> columns = [</span><br><span class="line">    <span class="comment">// 一些相同的列字段</span></span><br><span class="line">    &#123;</span><br><span class="line">      title: <span class="string">'操作'</span>,</span><br><span class="line">      dataIndex: <span class="string">'actions'</span>,</span><br><span class="line">      key: <span class="string">'actions'</span>,</span><br><span class="line">      align: <span class="string">'center'</span>,</span><br><span class="line">      render: <span class="function">(<span class="params">text, record</span>) =&gt;</span> (</span><br><span class="line">        &lt;Button</span><br><span class="line">          size=<span class="string">"small"</span></span><br><span class="line">          onClick=&#123;() =&gt;</span><br><span class="line">            router.push(<span class="string">`/qkt/ckmanage/review/detail/<span class="subst">$&#123;record.id&#125;</span>?status=<span class="subst">$&#123;config.status&#125;</span>`</span>)</span><br><span class="line">          &#125;</span><br><span class="line">        &gt;</span><br><span class="line">          &#123;config.type === <span class="string">'unReview'</span> ? <span class="string">'审核'</span> : <span class="string">'查看详情'</span>&#125;</span><br><span class="line">        &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">      ),</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">  ];</span></span><br><span class="line"><span class="regexp">  if (config.status !== 0) &#123;</span></span><br><span class="line"><span class="regexp">    columns.splice(5, 0, &#123;</span></span><br><span class="line"><span class="regexp">      title: '审核人',</span></span><br><span class="line"><span class="regexp">      dataIndex: 'operator',</span></span><br><span class="line"><span class="regexp">      key: 'operator',</span></span><br><span class="line"><span class="regexp">      align: 'center',</span></span><br><span class="line"><span class="regexp">    &#125;);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  @Form.create()</span></span><br><span class="line"><span class="regexp">  class Page extends Component &#123;</span></span><br><span class="line"><span class="regexp">    state = &#123;</span></span><br><span class="line"><span class="regexp">      data: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">      loading: false,</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    componentDidMount() &#123;</span></span><br><span class="line"><span class="regexp">      this.fetchList(1, 10);</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    handleFormReset = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    fetchList = async (pn, pc) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    handleStandardTableChange = pagination =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      this.fetchList(pagination.current, pagination.pageSize);</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    SearchForm = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      const &#123;</span></span><br><span class="line"><span class="regexp">        form: &#123; getFieldDecorator &#125;,</span></span><br><span class="line"><span class="regexp">      &#125; = this.props;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;Form layout="inline"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;Row gutter=&#123;&#123; md: 8, lg: 24, xl: 48 &#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Col xl=&#123;6&#125; lg=&#123;8&#125; sm=&#123;24&#125;&gt;</span></span><br><span class="line"><span class="regexp">              &lt;FormItem label="xx"&gt;</span></span><br><span class="line"><span class="regexp">                &#123;getFieldDecorator('search')(&lt;Input placeholder="请输入xxx姓名或者手机号码" /</span>&gt;)&#125;</span><br><span class="line">              &lt;<span class="regexp">/FormItem&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Col&gt;</span><br><span class="line">           </span><br><span class="line">            &lt;Col xl=&#123;<span class="number">6</span>&#125; lg=&#123;<span class="number">24</span>&#125; sm=&#123;<span class="number">24</span>&#125;&gt;</span><br><span class="line">              &lt;FormItem&gt;</span><br><span class="line">                &lt;Button</span><br><span class="line">                  onClick=&#123;() =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.fetchList(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">                  &#125;&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                  查询</span><br><span class="line">                &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Button style=&#123;&#123; marginLeft: 8 &#125;&#125; onClick=&#123;this.handleFormReset&#125;&gt;</span></span><br><span class="line"><span class="regexp">                  重置</span></span><br><span class="line"><span class="regexp">                &lt;/</span>Button&gt;</span><br><span class="line">              &lt;<span class="regexp">/FormItem&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Col&gt;</span><br><span class="line">          &lt;<span class="regexp">/Row&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Form&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; data, loading &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;React.Fragment&gt;</span><br><span class="line">          &lt;div className=&#123;styles.tableListForm&#125;&gt;&#123;<span class="keyword">this</span>.SearchForm()&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;br /</span>&gt;</span><br><span class="line">          &lt;AllTable</span><br><span class="line">            columns=&#123;columns&#125;</span><br><span class="line">            rowKey=&#123;record =&gt; record.id&#125;</span><br><span class="line">            data=&#123;data&#125;</span><br><span class="line">            loading=&#123;loading&#125;</span><br><span class="line">            onChange=&#123;<span class="keyword">this</span>.handleStandardTableChange&#125;</span><br><span class="line">            style=&#123;&#123; <span class="attr">minHeight</span>: <span class="number">500</span> &#125;&#125;</span><br><span class="line">            size=<span class="string">"middle"</span></span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/React.Fragment&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  return Page;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>使用，只需如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withReviewPage(&#123;<span class="attr">type</span>:<span class="string">'unReview'</span>,<span class="attr">status</span>:<span class="number">1</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withReviewPage(&#123;<span class="attr">type</span>:<span class="string">'pass'</span>,<span class="attr">status</span>:<span class="number">2</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withReviewPage(&#123;<span class="attr">type</span>:<span class="string">'reject'</span>,<span class="attr">status</span>:<span class="number">3</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>React 高阶组件的场景还有很多，比如redux中对<strong>容器组</strong>件注入 state ,和dispatch,就采用的高阶组件的方式，当然react-route 中的Route 组件 也一样。 可以看出高阶组件对于封装简直是一大利器.后续有实现场景再进行补充</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/react-keep-alive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1421,318 +1690,6 @@ getMin() -- 检索栈中的最小元素。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/11/git/" itemprop="url">git</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-11T17:00:46+08:00">
-                2020-01-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天就好好补充一下，这两年在项目中使用git 的经验，git 是一款非常方便的项目管理工具。公司内部一般搭建一个gitlab 服务用于存放代码。</p>
-<h2 id="本机设置用户名和账号"><a href="#本机设置用户名和账号" class="headerlink" title="本机设置用户名和账号"></a>本机设置用户名和账号</h2><p>进入新公司的第一步，我们一般要更改电脑git 中配置的用户名和邮箱，此为识别操作的用户。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;hengcheng&quot;</span><br><span class="line">git config --global user.email &quot;503181017@qq.com&quot;</span><br></pre></td></tr></table></figure></p>
-<p>查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name </span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
-<p>详情请参考如下:</p>
-<p><a href="https://www.cnblogs.com/gudi/p/6597660.html" target="_blank" rel="noopener">https://www.cnblogs.com/gudi/p/6597660.html</a></p>
-<h2 id="对于新电脑，添加ssh-的公钥于gitlab-账号上"><a href="#对于新电脑，添加ssh-的公钥于gitlab-账号上" class="headerlink" title="对于新电脑，添加ssh 的公钥于gitlab 账号上"></a>对于新电脑，添加ssh 的公钥于gitlab 账号上</h2><ol>
-<li><p>生成ssh 代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;503181017@qq.com&quot;</span><br><span class="line">密码随后输入</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成的 ssh路径可能如下:</p>
-<p> C:\Users\Aiden.ssh</p>
-</li>
-<li><p>在 gitlal的ssh 添加生成的 id_rsa.pub 内容</p>
-</li>
-</ol>
-<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>上述操作，完毕后，我们就可以从gitLab 上拉代码了，一般格式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:zhuiye/zhuiye.github.io.git</span><br></pre></td></tr></table></figure></p>
-<h2 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h2><p>初始化一个git 仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<p>一般我们进行文件修改之后，我们可以使用 如下命令，把我们的文件暂存，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure></p>
-<p>当然我们也可以使用下列命令进行撤销暂存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
-<p>对于工作区的文件，我们可以使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout  --文件名</span><br></pre></td></tr></table></figure>
-<p>当然，对于以上操作，我们都可以借助vscode 来完成，非常方便，不用使用命令来进行繁琐操作</p>
-<p>把文件放入暂存区后，我们想对这次的更改存一次提交，我们就得使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;注释&quot;</span><br></pre></td></tr></table></figure></p>
-<p>如果要撤销这次提交，我们可以使用下列命令<br>，git 会生成一个新的 commit，将指定的 commit 内容从当前分支上撤除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;commit id&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这在项目中非常有用，例如如果你在后续的版本中，发现某一次的commit代码有问题，这个时候就可以revert 一下。那么这次commit 的代码就会被剔除.</p>
-<p><strong>提交到远程库</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase  <span class="comment">// 把远程库上的代码，加到我们commit记录之后</span></span><br><span class="line">git push origin  <span class="comment">// 代码提交至远程</span></span><br></pre></td></tr></table></figure>
-<h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h2><p>当我们在某个分支上进行开发的时候，突然接受到从主分支上代码的更新，我们需要合并到正在开发的分支中，这个时候，又不想git commit 因为我们手头的工作还没完成，不想多提交一个记录，我们就可以使用<br>git stash 相关的命名，把这次的更新都暂时存起来。然后我们先去合并主分支，合并好之后，再 弹出 stash 中存储的内容即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash save &quot;hint&quot;</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure></p>
-<p>详情可以参考这篇文章<br><a href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html" target="_blank" rel="noopener">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
-<h2 id="团队合作"><a href="#团队合作" class="headerlink" title="团队合作"></a>团队合作</h2><p>一般而言，我们并不在master 分支上进行功能开发，多人协作，我们都会在开一个属于自己”功能分支”，创建分支，可以使用如下命令:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b function  // 创建并切换到function分支</span><br><span class="line"></span><br><span class="line">git checkout function  //切换到function 分支</span><br><span class="line"></span><br><span class="line">git branch -D function   //删除function 分支</span><br></pre></td></tr></table></figure>
-<p>当我们正在开发的途中，我们在function 分支，如何同步master 分支的代码呢?如下命令:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">master 分支进行  git pull --rebase </span><br><span class="line"></span><br><span class="line">切换到function分支  git rebase master</span><br></pre></td></tr></table></figure>
-<p>开发完成后，我们就得合并分支到master 上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master 分支下执行 git merger function --rebase</span><br></pre></td></tr></table></figure>
-<p>当我们不想提交一个commit，切换分支的时候，可以使用  git stash</p>
-<p><a href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html" target="_blank" rel="noopener">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
-<h2 id="本地添加远程库"><a href="#本地添加远程库" class="headerlink" title="本地添加远程库"></a>本地添加远程库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git remote add git@github.com:zhuiyeaiden_study_record.git</span><br><span class="line">默认为origin 名，当然我们也可以自定义 </span><br><span class="line">git remote add &quot;name&quot; url</span><br><span class="line"></span><br><span class="line">删除本地远程地址</span><br><span class="line">git remote rm &quot;origin&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="git-cherry-pick-commitid"><a href="#git-cherry-pick-commitid" class="headerlink" title="git cherry-pick commitid"></a>git cherry-pick commitid</h2><p>当我们项目中有两个”主分支”共享一个功能时，这个功能就派上了用场，master1 master2 ,当我们在master1开发完后，把这次的commit 在master2 再次提交一遍就可以了.master2分支中操作如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commit id&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>多人合作中，代码冲突是时有发生的，如何解决冲突呢？</p>
-<ol>
-<li>找到冲突文件，然后选择保存传入的或者是保留已有的代码</li>
-<li>git add .</li>
-<li>git commit -m</li>
-<li>继续后续操作…</li>
-</ol>
-<h2 id="对远程分支操作"><a href="#对远程分支操作" class="headerlink" title="对远程分支操作"></a>对远程分支操作</h2><p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -d origin branch-name</span><br></pre></td></tr></table></figure></p>
-<p>显示(本地)git所知道的所有本地和远程分支。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
-<p>若要更新远程分支的本地列表，请执行以下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote update origin --prune</span><br></pre></td></tr></table></figure>
-<h2 id="给版本打标签"><a href="#给版本打标签" class="headerlink" title="给版本打标签"></a>给版本打标签</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v0.1 -m &apos;注释&apos;</span><br></pre></td></tr></table></figure>
-<p>本地打完标签之后，推送到远程服务器中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
-<h2 id="关于git-window-下-文件lf-与-crlf-的问题"><a href="#关于git-window-下-文件lf-与-crlf-的问题" class="headerlink" title="关于git window 下  文件lf 与 crlf 的问题"></a>关于git window 下  文件lf 与 crlf 的问题</h2><p>文件设置为lf 行尾符，在window 环境下 ,git clone 下来却是 crlf ,原因是 git 的自动转化，我们只需要关闭它就好了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
-<h2 id="git-提交规范"><a href="#git-提交规范" class="headerlink" title="git 提交规范"></a>git 提交规范</h2><ul>
-<li>chore:</li>
-<li>style:</li>
-<li>fix:</li>
-<li>upgrade:</li>
-<li>feat:</li>
-</ul>
-<p><a href="https://blog.csdn.net/weixin_33275327/article/details/81485051" target="_blank" rel="noopener">点击查看更多详情</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/02/node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/02/node/" itemprop="url">node</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-02T23:57:08+08:00">
-                2020-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>近期看了朴灵大神的<strong>深入浅出nodejs</strong>,受益匪浅，至少从表层大致了解后端究竟在执行什么内容，以及后端一些常规操作，测试，监控，部署，维护，负载均衡，进程，线程。</p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>根据书中所述，适用高并发，以及密集度高的io应用，也可以用来做爬虫应用，写一些命令行工具….</p>
-<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>采用chrome 的v8引擎 运行js,底层的架构则是采用c++模块进行构建。</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>单线程，事件驱动，以及异步处理</p>
-<h3 id="异步io"><a href="#异步io" class="headerlink" title="异步io"></a>异步io</h3><p>如果要在单线程中实现异步的话，就需要用到轮询<br>异步io的实现终归是利用线程池</p>
-<h3 id="异步编程的方式"><a href="#异步编程的方式" class="headerlink" title="异步编程的方式"></a>异步编程的方式</h3><p>事件订阅/发布模板<br>promise/defer<br>async await<br>一些异步流程控制库</p>
-<h3 id="node-内存的管理"><a href="#node-内存的管理" class="headerlink" title="node 内存的管理"></a>node 内存的管理</h3><p>v8 引擎申请的内存受到限制，因为垃圾回收机制。</p>
-<h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>二进制数据，占用堆外内存，不由v8分配.在网络/io传输中，利用它能加快速率，与字符串之间的转化，也需要注意，buffer的读取，拼接，然后再转化成字符串，这样的方式最稳妥，解决中文乱码最稳妥的方式</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1785,7 +1742,7 @@ getMin() -- 检索栈中的最小元素。
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1798,7 +1755,7 @@ getMin() -- 检索栈中的最小元素。
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
