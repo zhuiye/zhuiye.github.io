@@ -242,6 +242,251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/react-native-web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/23/react-native-web/" itemprop="url">react-native-web</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-23T21:09:43+08:00">
+                2020-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 最近业务上需要在APP WebView 内的H5 实现图片分享和保持的功能，分享功能那就需要调用APP内的封装方法才行。<br> 至于保存功能，也是一样。暂且不用考虑这些，我们看看WebView 是否由提供保持的功能，搜寻issue,发现android长按<br> 无法调出菜单，（自己实践确实是无法调出）iOS可行，（低于13版本）。<br> 至于如何实现，在react-native-webView 中 也比较简单，下面就贴下简单的代码</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;WebView </span><br><span class="line">  onMessage=&#123;(&#123;nativeEvent&#125;)=&gt;&#123;</span><br><span class="line">    nativeEvent.data  <span class="comment">// &#123;url:'image url',title:'image name'&#125;</span></span><br><span class="line">    <span class="comment">//拿到数据调用原生的代码即可</span></span><br><span class="line">  &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.ReactNativeWebView.postMessage(<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">url</span>:<span class="string">'image url'</span>,<span class="attr">title</span>:<span class="string">'image name'</span>&#125;));</span><br></pre></td></tr></table></figure>
+<h2 id="WebView-中的单页面应用"><a href="#WebView-中的单页面应用" class="headerlink" title="WebView 中的单页面应用"></a>WebView 中的单页面应用</h2><p> 如果webView 中嵌入单页面应用的话会怎么样，如果没经过任何的处理,就会出现<strong>直接按设备物理键返回，会返回APP上级路由页面</strong>。<br> 首先我们得先处理物理设备的返回键，就是进入webView 界面，拦截，监听webView 中路由历史，如果为栈顶，就退出。<br> onNavigationStateChange 属性有个bug 就是 h5 页面的 history api 无法监听其变化，至少在android 上是这样，官方也没有给出<br> 修复，但有如下的讨论<br> <a href="https://github.com/react-native-community/react-native-webview/issues/24" target="_blank" rel="noopener">https://github.com/react-native-community/react-native-webview/issues/24</a></p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;WebView</span><br><span class="line">  ref=&#123;ref =&gt; &#123;</span><br><span class="line">    <span class="keyword">this</span>.webViewRef = ref;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  style=&#123;&#123; <span class="attr">flex</span>: <span class="number">1</span> &#125;&#125;</span><br><span class="line">  source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'http://192.168.10.199:3006/applyHome'</span> &#125;&#125;</span><br><span class="line">  onNavigationStateChange=&#123;navState =&gt; &#123;</span><br><span class="line">    <span class="comment">// Keep track of going back navigation within component</span></span><br><span class="line">    <span class="keyword">this</span>.canGoBack = navState.canGoBack;</span><br><span class="line">    <span class="built_in">console</span>.log(navState);</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  injectedJavaScript=&#123;<span class="string">`</span></span><br><span class="line"><span class="string">    (function() &#123;</span></span><br><span class="line"><span class="string">      function wrap(fn,type) &#123;</span></span><br><span class="line"><span class="string">        return function wrapper() &#123;</span></span><br><span class="line"><span class="string">          var res = fn.apply(this, arguments);</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">            window.ReactNativeWebView.postMessage("&#123;</span></span><br><span class="line"><span class="string">              type:<span class="subst">$&#123;type&#125;</span>,</span></span><br><span class="line"><span class="string">              url:<span class="subst">$&#123;<span class="built_in">window</span>.location.href&#125;</span></span></span><br><span class="line"><span class="string">            &#125;");</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">          return res;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      history.pushState = wrap(history.pushState,'push');</span></span><br><span class="line"><span class="string">      history.back= wrap(history.pushState,'back')</span></span><br><span class="line"><span class="string">      history.replaceState = wrap(history.replaceState,'replace');</span></span><br><span class="line"><span class="string">      window.addEventListener('popstate', function() &#123;</span></span><br><span class="line"><span class="string">        window.ReactNativeWebView.postMessage("&#123;type:"pop",url:<span class="subst">$&#123;<span class="built_in">window</span>.location.href&#125;</span>&#125;");</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &#125;)();</span></span><br><span class="line"><span class="string">    true;</span></span><br><span class="line"><span class="string"> `</span>&#125;</span><br><span class="line">  onMessage=&#123;(&#123; <span class="attr">nativeEvent</span>: state &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> params=<span class="built_in">JSON</span>.parse(state.data)</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> (params.type === <span class="string">'pop'</span>||params.type === <span class="string">'back'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        pushCount: <span class="keyword">this</span>.state.pushCount - <span class="number">1</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(params.type===<span class="string">'push'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        pushCount: <span class="keyword">this</span>.state.pushCount + <span class="number">1</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="WebView-中-与App-中的-cookies-共享"><a href="#WebView-中-与App-中的-cookies-共享" class="headerlink" title="WebView 中 与App 中的 cookies 共享"></a>WebView 中 与App 中的 cookies 共享</h2><p> 做混合开发，经常会遇到webView 中网页要获取app中的登陆状态，但好在react-native-webView 中做了处理<br> 我们并不需要担心，webView 中的页面 我们只要按正常的请求就可以</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/22/redux/" itemprop="url">redux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-22T22:03:14+08:00">
+                2020-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>redux 意欲何为?</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/pay-access/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -314,17 +559,31 @@
         
           
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近来项目中有要求接入 微信和支付宝 H5 的支付的接入，由于是第一次接入，也遇到了不少的坑。</p>
-<h2 id="支付宝支付的接入"><a href="#支付宝支付的接入" class="headerlink" title="支付宝支付的接入"></a>支付宝支付的接入</h2><h3 id="前端如何接入，并唤起支付宝客户端进行支付"><a href="#前端如何接入，并唤起支付宝客户端进行支付" class="headerlink" title="前端如何接入，并唤起支付宝客户端进行支付"></a>前端如何接入，并唤起支付宝客户端进行支付</h3><p>  <strong>*前端的接入，有两种方式</strong></p>
+<h2 id="支付宝支付的接入"><a href="#支付宝支付的接入" class="headerlink" title="支付宝支付的接入"></a>支付宝支付的接入</h2><h3 id="前端如何接入，并唤起支付宝客户端进行支付"><a href="#前端如何接入，并唤起支付宝客户端进行支付" class="headerlink" title="前端如何接入，并唤起支付宝客户端进行支付"></a>前端如何接入，并唤起支付宝客户端进行支付</h3><p>  <strong>前端的接入，有两种方式</strong></p>
 <ol>
 <li>后端返回一个form 表单字符串，我们插入到页面中进行提交即可，页面会跳转到支付宝的一个中间页，由这个中间页来唤起支付宝客户端进行支付</li>
-<li>后端返回一个地址，前端直接如下代码即可<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.location.href=&quot;xxxx&quot;</span><br></pre></td></tr></table></figure>
+<li>后端返回一个地址，前端直接如下代码即可<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"xxxx"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>一开始，后端返回一个支付相关信息字符串回来，由前端进行form 表单生成并提交。我也如实做了如下的封装</p>
 <p>payInfo 的处理<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">"querystring"</span>);</span><br><span class="line"><span class="keyword">const</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getSearchParamsByUrl</span>(<span class="params">urlString: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="comment">// return</span></span><br><span class="line">  <span class="keyword">const</span> searchString = url.parse(urlString).query;</span><br><span class="line">  <span class="keyword">return</span> querystring.parse(searchString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> submitAliForm = <span class="function">(<span class="params">payInfo: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formStr = <span class="string">`</span></span><br><span class="line"><span class="string">          &lt;form action="https://openapi.alipay.com/gateway.do?charset=<span class="subst">$&#123;payInfo.charset&#125;</span>" target="_blank" method="post" class="form"&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="app_id" value=<span class="subst">$&#123;payInfo.app_id&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="method" value=<span class="subst">$&#123;payInfo.method&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="format" value="JSON"&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="charset" value=<span class="subst">$&#123;payInfo.charset&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="sign" value=<span class="subst">$&#123;payInfo.sign&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="sign_type" value=<span class="subst">$&#123;payInfo.sign_type&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="version" value=<span class="subst">$&#123;payInfo.version&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="notify_url" value=<span class="subst">$&#123;payInfo.notify_url&#125;</span>&gt;</span></span><br><span class="line"><span class="string">              &lt;input type="text" name="biz_content" value=<span class="subst">$&#123;payInfo.biz_content&#125;</span>&gt;</span></span><br><span class="line"><span class="string">      &lt;/form&gt;`</span>;</span><br><span class="line">  <span class="keyword">const</span> divDom = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"></span><br><span class="line">  divDom.style.display = <span class="string">"none"</span>;</span><br><span class="line">  divDom.innerHTML = formStr;</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(divDom);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 为什么不直接字符串生成？因为，timestamp 由空格 2024-12-4 12:12:12</span></span><br><span class="line">  <span class="keyword">const</span> timeInput = <span class="built_in">document</span>.createElement(<span class="string">"input"</span>);</span><br><span class="line">  timeInput.value = payInfo.timestamp.replace(<span class="string">"+"</span>, <span class="string">" "</span>);</span><br><span class="line">  timeInput.name = <span class="string">"timestamp"</span>;</span><br><span class="line">  <span class="built_in">document</span>.forms[<span class="number">0</span>].appendChild(timeInput);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">document</span>.forms[<span class="number">0</span>].submit();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用后可清楚表单</span></span><br><span class="line">  <span class="comment">// document.forms[0].parentNode?.removeChild(document.forms[0]);</span></span><br><span class="line">  <span class="comment">// document.body.removeChild(document.forms[0]);</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>但是提交支付宝的支付网关，却报了错，<strong>签名错误</strong>，排除了后端的错误，最后发现是前端的解码出了问题,我也不知道支付宝做了什么处理，找了很多资料也没看到，有人在前端生成表格的，都是在后端生成，前端提交。最后，<strong>我只能采取采用第二种方式提交</strong></p>
-<p>未完待续…</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"https://openapi.alipay.com/gateway.do?charset后端返回的支付宝参数,return_url=前端页面的回调地址"</span>,</span><br></pre></td></tr></table></figure>
+<h2 id="微信jsApi-支付接入"><a href="#微信jsApi-支付接入" class="headerlink" title="微信jsApi 支付接入"></a>微信jsApi 支付接入</h2><ol>
+<li><p>前端发起授权请求,获取code,发送给后端，存到openId 到本地</p>
+</li>
+<li><p>提交订单信息和openId 给后端，换取微信支付信息，然后前端，调用微信客户端暴露出的支付接口</p>
+</li>
+</ol>
+<h3 id="微信授权"><a href="#微信授权" class="headerlink" title="微信授权"></a>微信授权</h3><p>首先页面第一次进入微信的时候，发送 如下链接，然后就会弹出授权框，问你是否需要授权，如果点确定，就会跳转至redirect_uri<br>，然后在redirect_uri中带上code<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> authUrl = <span class="string">`https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="subst">$&#123;appid&#125;</span>&amp;redirect_uri=<span class="subst">$&#123;redirect_uri&#125;</span>&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=123#wechat_redirect`</span>;</span><br><span class="line"><span class="built_in">window</span>.location.href=authUrl</span><br></pre></td></tr></table></figure></p>
+<p>解析跳转地址中 url,获取code，发送给后端，取得openId,存于本地,以便下次进入页面，不需要授权,下面为部分代码</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">"js-cookie"</span>;</span><br><span class="line"><span class="keyword">const</span> queryString = getSearchString(); <span class="comment">//自己封装的方法</span></span><br><span class="line"><span class="keyword">const</span> code=queryString.code,</span><br><span class="line"></span><br><span class="line">getOpenId(code).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">/* 为什么不用localStorage ? 微信中莫名奇妙，清不了。网上查找的方案</span></span><br><span class="line"><span class="comment">  大多是用cookies存，那么我们也用cookie存了 </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  Cookies.set(<span class="string">"openId"</span>, res.openid, &#123; expires: <span class="number">7</span> &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>下次进入页面不需要授权</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!Cookies.get(<span class="string">"openId"</span>))&#123;</span><br><span class="line">  <span class="comment">// 授权......</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 否则正常渲染页面</span></span><br></pre></td></tr></table></figure>
+<h3 id="完整授权参考代码如下"><a href="#完整授权参考代码如下" class="headerlink" title="完整授权参考代码如下:"></a>完整授权参考代码如下:</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">"js-cookie"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> WeiXinAuth <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     为什么要个loading,是为了 授权成功后，保存openId 后，再次调用</span></span><br><span class="line"><span class="comment">     render 函数</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    state = &#123;</span><br><span class="line">      loading: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="keyword">const</span> queryString = getSearchString();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>) &amp;&amp; !queryString.code) &#123;</span><br><span class="line">        <span class="keyword">const</span> appid = <span class="string">"微信appid"</span>;</span><br><span class="line">        <span class="keyword">const</span> redirect_uri = <span class="built_in">encodeURIComponent</span>(<span class="built_in">window</span>.location.href);</span><br><span class="line">        <span class="keyword">const</span> authUrl = <span class="string">`https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="subst">$&#123;appid&#125;</span>&amp;redirect_uri=<span class="subst">$&#123;redirect_uri&#125;</span>&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=123#wechat_redirect`</span>;</span><br><span class="line">        <span class="built_in">window</span>.location.href = authUrl;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; queryString.code) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">          loading: <span class="literal">false</span></span><br><span class="line">        &#125;);</span><br><span class="line">        getOpenId(queryString.code, queryString.oem)</span><br><span class="line">          .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            Cookies.set(<span class="string">"openId"</span>, res.openid, &#123; expires: <span class="number">7</span> &#125;);</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">              loading: <span class="literal">false</span></span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;)</span><br><span class="line">          .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">              loading: <span class="literal">false</span></span><br><span class="line">            &#125;);</span><br><span class="line">            Toast.fail(e.cnmsg);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;CenterContainer&gt;等待授权中~&lt;<span class="regexp">/CenterContainer&gt;;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;&gt;</span></span><br><span class="line"><span class="regexp">          &lt;WrapperComponent &#123;...this.props&#125; /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="微信H5支付"><a href="#微信H5支付" class="headerlink" title="微信H5支付"></a>微信H5支付</h2><p>我们只需要如下操作即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"后端返回的url"</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -1411,285 +1670,6 @@ getMin() -- 检索栈中的最小元素。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/security/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/21/security/" itemprop="url">security</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T21:08:20+08:00">
-                2020-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>网络通信安全非常重要，不注重就会造成重大的损失，今天就来梳理一下https请求的全过程。<br>此处用A代表客户端，B代表服务器端，来模拟一个请求通信的过程</p>
-<p>A: 经历TCP三次握手与后端建立链接信号，信道准备完毕，发送请求，表明自己支持加解密的算法信息</p>
-<p>B：接受信息，处理请求,并响应，发送数字证书回A，</p>
-<p>A：收到B的证书，验证证书，<strong>根证书</strong>（顶级CA机构验证证书的来源是否可靠），如果可靠，则取出公钥，然后在信道上进行加密传输数据，如果证书不可靠，或者过期，会安全提示。</p>
-<h2 id="共享密钥对称加密"><a href="#共享密钥对称加密" class="headerlink" title="共享密钥对称加密"></a>共享密钥对称加密</h2><p>A与B都用相同的加密解密方法，且<strong>密钥相同</strong>,对双方来往的数据加密解密的一种方式。<br>双发发送消息，A与B都要事先知道加密方式和密钥，就免不了密钥传输的过程。如此，就可以能被<br>窃取到密钥（网络传输过程），窃取者然后，猜测用何种方式加密数据，然后进行把数据解密，也并非无这个可能，<br>然后就可以当中间人进行假冒，可以冒充A，也可以冒充B回应A。</p>
-<p>常见的 对称加密 算法主要有 DES、3DES、AES 等…</p>
-<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>A：用B生成的公钥加密</p>
-<p>B：用私钥进行解密</p>
-<p>C：得到公钥，也无法解密，但可以假冒B，给A发送公钥，A无法确定公钥是B的，所以中招.</p>
-<p>为防止此等情况，出现了<br>由第三方CA机构颁发的数字签名以防止此等情况</p>
-<p>常见的 非对称算法 主要有 RSA、DSA 等.</p>
-<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>B用公钥进行向CA申请，得到数字签名，里面是一个包含公钥，服务器信息得文件，发送给A，A本地有个CA得根证书，可以检测<br>该证书得真伪,这样就知道A接受到的公钥，是不是来自于正确的B端.</p>
-<h2 id="散列算法"><a href="#散列算法" class="headerlink" title="散列算法"></a>散列算法</h2><p>此算法用来加密一些数据，如密码等…</p>
-<p>散列算法 主要有 SHA-1、MD5 等。</p>
-<h2 id="项目中加密实际的运用"><a href="#项目中加密实际的运用" class="headerlink" title="项目中加密实际的运用"></a>项目中加密实际的运用</h2><ol>
-<li>对于request 请求体，用RSA公钥加密，同时传递 “AES或者DES”产生的公钥传于后端，</li>
-<li>后端接受数据后，私钥解密，后端用共享密钥对Response 体中的数据加密处理.然后返回给客户端。</li>
-</ol>
-<h2 id="前端-RSA-与AES-DES-库如下："><a href="#前端-RSA-与AES-DES-库如下：" class="headerlink" title="前端 RSA 与AES,DES 库如下："></a>前端 RSA 与AES,DES 库如下：</h2><p>crypto-js: <a href="https://github.com/brix/crypto-js" target="_blank" rel="noopener">https://github.com/brix/crypto-js</a></p>
-<p>RSA: <a href="https://github.com/travist/jsencrypt" target="_blank" rel="noopener">https://github.com/travist/jsencrypt</a></p>
-<p>AES: <a href="https://github.com/ricmoo/aes-js" target="_blank" rel="noopener">https://github.com/ricmoo/aes-js</a></p>
-<p><a href="https://www.jianshu.com/p/a47477e8126a" target="_blank" rel="noopener">https://www.jianshu.com/p/a47477e8126a</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/project-summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/16/project-summary/" itemprop="url">project-summary</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-16T21:52:01+08:00">
-                2020-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。</p>
-<h2 id="前端作业"><a href="#前端作业" class="headerlink" title="前端作业"></a>前端作业</h2><p>前端主要是干什么呢？一言蔽之：获取数据，渲染数据。但如何优雅的走完整个流程呢，这又需要一个极大技巧性。</p>
-<h2 id="前端项目工程化"><a href="#前端项目工程化" class="headerlink" title="前端项目工程化"></a>前端项目工程化</h2><p>前端发展至今，前端项目工程化越来越成熟，开发效率也越来越高，当今主流的框架有react,vue,angular ,我们只需选择其中一个框架就能构建一个现代化的application ，前端组件化的过程，更是提高了搬砖的效率，刀耕火种的时代已不复存在，现在说说这两年中RN构建现代化项目的过程,</p>
-<h2 id="TypeScript-amp-React-Native"><a href="#TypeScript-amp-React-Native" class="headerlink" title="TypeScript &amp; React Native"></a>TypeScript &amp; React Native</h2><p>TypeScript: js的超集，有完善的类型系统的一门静态强类型语言，以前不知道语言类型的好处，现在才深刻明白，编辑器提示是多么令人幸福的一件事情。</p>
-<p>React Native: 构建iOS/Android app 的技术，如果业务不复杂，推荐用此，开发效率高</p>
-<h2 id="项目的目录结构"><a href="#项目的目录结构" class="headerlink" title="项目的目录结构"></a>项目的目录结构</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">src</span><br><span class="line">  components --组件目录</span><br><span class="line">  screens   --- 页面目录</span><br><span class="line">  values   --- 样式，一些常用值</span><br><span class="line">  utils    ---- 工具目录如 网络请求，</span><br><span class="line">  assets   --- 资源目录，图片。</span><br></pre></td></tr></table></figure>
-<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>提高代码的复用率和开发效率，组件化这对项目来说是必不可少的，那么什么是组件化呢？编程的思维理解就是一个可以复用的函数，你传进去一些值，经过系列的操作，可以返回你想要的东西，前端的组件化，在于界面，增加的hook之后，连逻辑都可以抽象出来，这个后续再说。先说界面，</p>
-<h2 id="项目中的配置"><a href="#项目中的配置" class="headerlink" title="项目中的配置"></a>项目中的配置</h2><p>项目中的配置，零散 散落在各个文件，我们可以借助一些工具进行集中管理，在RN中，用react-native-config</p>
-<p>## </p>
-<h2 id="交叉测试"><a href="#交叉测试" class="headerlink" title="交叉测试"></a>交叉测试</h2><h2 id="如何编写代码"><a href="#如何编写代码" class="headerlink" title="如何编写代码"></a>如何编写代码</h2><p>一般的流程如下：获取数据，整合数据，渲染数据，用户交互，整合数据，验证，提交 </p>
-<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><p>命名，重中之中，一个好的命名，看着也舒心，当然最主要易于项目的维护。</p>
-<ol>
-<li><p>文件命名<br>对于页面，一般为页面的标题，组件文件则取通用名字，特殊业务组件跟服务的页面相联系</p>
-</li>
-<li><p>函数命名</p>
-</li>
-</ol>
-<p>具体行为,动作，如:push,change,go,apply, fetch,load ,init 尽量通俗易懂，不要语义不明。 </p>
-<p>ねがい</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1742,7 +1722,7 @@ getMin() -- 检索栈中的最小元素。
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1755,7 +1735,7 @@ getMin() -- 检索栈中的最小元素。
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
