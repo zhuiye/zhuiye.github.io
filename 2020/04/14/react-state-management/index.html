@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="summary,">
+  <meta name="keywords" content="react,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前言前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。 前端作业前端主要">
-<meta name="keywords" content="summary">
+<meta name="description" content="前言在 React 编程中,初学之初,我们会把变化的 state 存于类组件中 this.state 中,如下 12345class Test extends React.Component &amp;#123;  this.state=&amp;#123;       ...  &amp;#125;&amp;#125; 接触 hook 之后,我们可以在函数组件存储关于类的 state,如下: 123function Test(">
+<meta name="keywords" content="react">
 <meta property="og:type" content="article">
-<meta property="og:title" content="project-summary">
-<meta property="og:url" content="http://yoursite.com/2020/01/16/project-summary/index.html">
+<meta property="og:title" content="React 中的 state 管理">
+<meta property="og:url" content="http://yoursite.com/2020/04/14/react-state-management/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="前言前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。 前端作业前端主要">
+<meta property="og:description" content="前言在 React 编程中,初学之初,我们会把变化的 state 存于类组件中 this.state 中,如下 12345class Test extends React.Component &amp;#123;  this.state=&amp;#123;       ...  &amp;#125;&amp;#125; 接触 hook 之后,我们可以在函数组件存储关于类的 state,如下: 123function Test(">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2020-01-21T13:08:23.525Z">
+<meta property="og:updated_time" content="2020-04-14T12:55:46.921Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="project-summary">
-<meta name="twitter:description" content="前言前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。 前端作业前端主要">
+<meta name="twitter:title" content="React 中的 state 管理">
+<meta name="twitter:description" content="前言在 React 编程中,初学之初,我们会把变化的 state 存于类组件中 this.state 中,如下 12345class Test extends React.Component &amp;#123;  this.state=&amp;#123;       ...  &amp;#125;&amp;#125; 接触 hook 之后,我们可以在函数组件存储关于类的 state,如下: 123function Test(">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/16/project-summary/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/14/react-state-management/">
 
 
 
 
 
-  <title>project-summary | chen heng cheng</title>
+  <title>React 中的 state 管理 | chen heng cheng</title>
   
 
 
@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/project-summary/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/react-state-management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="恒承">
@@ -260,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">project-summary</h1>
+          <h1 class="post-title" itemprop="name headline">React 中的 state 管理</h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-16T21:52:01+08:00">
-                2020-01-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T20:51:49+08:00">
+                2020-04-14
               </time>
             
 
@@ -310,25 +310,25 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。</p>
-<h2 id="前端作业"><a href="#前端作业" class="headerlink" title="前端作业"></a>前端作业</h2><p>前端主要是干什么呢？一言蔽之：获取数据，渲染数据。但如何优雅的走完整个流程呢，这又需要一个极大技巧性。</p>
-<h2 id="前端项目工程化"><a href="#前端项目工程化" class="headerlink" title="前端项目工程化"></a>前端项目工程化</h2><p>前端发展至今，前端项目工程化越来越成熟，开发效率也越来越高，当今主流的框架有react,vue,angular ,我们只需选择其中一个框架就能构建一个现代化的application ，前端组件化的过程，更是提高了搬砖的效率，刀耕火种的时代已不复存在，现在说说这两年中RN构建现代化项目的过程,</p>
-<h2 id="TypeScript-amp-React-Native"><a href="#TypeScript-amp-React-Native" class="headerlink" title="TypeScript &amp; React Native"></a>TypeScript &amp; React Native</h2><p>TypeScript: js的超集，有完善的类型系统的一门静态强类型语言，以前不知道语言类型的好处，现在才深刻明白，编辑器提示是多么令人幸福的一件事情。</p>
-<p>React Native: 构建iOS/Android app 的技术，如果业务不复杂，推荐用此，开发效率高</p>
-<h2 id="项目的目录结构"><a href="#项目的目录结构" class="headerlink" title="项目的目录结构"></a>项目的目录结构</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">src</span><br><span class="line">  components --组件目录</span><br><span class="line">  screens   --- 页面目录</span><br><span class="line">  values   --- 样式，一些常用值</span><br><span class="line">  utils    ---- 工具目录如 网络请求，</span><br><span class="line">  assets   --- 资源目录，图片。</span><br></pre></td></tr></table></figure>
-<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>提高代码的复用率和开发效率，组件化这对项目来说是必不可少的，那么什么是组件化呢？编程的思维理解就是一个可以复用的函数，你传进去一些值，经过系列的操作，可以返回你想要的东西，前端的组件化，在于界面，增加的hook之后，连逻辑都可以抽象出来，这个后续再说。先说界面，</p>
-<h2 id="项目中的配置"><a href="#项目中的配置" class="headerlink" title="项目中的配置"></a>项目中的配置</h2><p>项目中的配置，零散 散落在各个文件，我们可以借助一些工具进行集中管理，在RN中，用react-native-config</p>
-<p>## </p>
-<h2 id="交叉测试"><a href="#交叉测试" class="headerlink" title="交叉测试"></a>交叉测试</h2><h2 id="如何编写代码"><a href="#如何编写代码" class="headerlink" title="如何编写代码"></a>如何编写代码</h2><p>一般的流程如下：获取数据，整合数据，渲染数据，用户交互，整合数据，验证，提交 </p>
-<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><p>命名，重中之中，一个好的命名，看着也舒心，当然最主要易于项目的维护。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 React 编程中,初学之初,我们会把变化的 state 存于类组件中 this.state 中,如下</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Test <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line">  <span class="keyword">this</span>.state=&#123;</span><br><span class="line">       ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接触 hook 之后,我们可以在函数组件存储关于类的 state,如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = useState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着,我们可以利用 Redux 中管理我们的 state,通过 dispatch,这种唯一的方式,来更改我们的 state,部分代码类式如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"--"</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, ...action.value &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"++"</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, ...action.value &#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 更改store</span></span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"--"</span>, <span class="attr">value</span>: &#123;&#125; &#125;);</span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"++"</span>, <span class="attr">value</span>: &#123;&#125; &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="组件的状态交由-react-管理"><a href="#组件的状态交由-react-管理" class="headerlink" title="组件的状态交由 react 管理"></a>组件的状态交由 react 管理</h2><p>先说类组件,改变 state 的状态只能是通过 this.setState(),这是硬性规定,对于不复杂的组件,或者页面来说,状态交由 react 来管理已经足够了,而且,当组件卸载时,状态也随之抛弃,而 hook 的出现也让函数组件有了管理 state 的能力,当然,还有解决了 state 复用的问题,至于组件的 state 的在组件树种深层次传递的问题,我们可以用 context 进行解决</p>
+<h2 id="何时使用-Redux"><a href="#何时使用-Redux" class="headerlink" title="何时使用 Redux"></a>何时使用 Redux</h2><p>Redux 并没有特别神奇的,原理大致如下:</p>
+<p>通过 <strong>createStore()</strong>生成一个 store 对象,里面存着我们 App 的 state(<strong>私有变量,通过 getState 获取</strong>),以及更新 state 的<strong>dispatch</strong>函数.</p>
+<p>如何配合 React 使用, react-redux 这个库解决了这个问题,原理大致如下:</p>
 <ol>
-<li><p>文件命名<br>对于页面，一般为页面的标题，组件文件则取通用名字，特殊业务组件跟服务的页面相联系</p>
-</li>
-<li><p>函数命名</p>
-</li>
+<li>context 从树的顶端传递 store 的 state ,以及 dispatch 函数,</li>
+<li>对于需要的组件,或者页面,利用其提供的 connect 函数,从而获取所需的 state,以及 dispatch</li>
+<li>dispatch(action)之后,react-redux 会自动处理那部分需要重新渲染</li>
 </ol>
-<p>具体行为,动作，如:push,change,go,apply, fetch,load ,init 尽量通俗易懂，不要语义不明。 </p>
-<p>ねがい</p>
+<p>文档也说了,能用 react 解决的,就不需要强制用到 react,那么也说说 redux 到底解决了什么场景</p>
+<h3 id="实现数据缓存"><a href="#实现数据缓存" class="headerlink" title="实现数据缓存"></a>实现数据缓存</h3><p>利用 redux+react-redux,实现数据全局缓存,就算组件卸载,下次重新挂载的时候,也能会恢复状态</p>
+<h3 id="可预测-维护性-扩展性-时间旅行-撤销更容易实现"><a href="#可预测-维护性-扩展性-时间旅行-撤销更容易实现" class="headerlink" title="可预测,维护性,扩展性 时间旅行,撤销更容易实现"></a>可预测,维护性,扩展性 时间旅行,撤销更容易实现</h3><p>state 可预测,维护性,扩展性,对于每个 state 的变化,都有迹可循,对于一些 state 繁多的场景,我们可以有序的进行管理.<strong>就好比一个灵活的 APP 配置模板页面,里面大致有轮播图模块,按钮链接模块,轮播的通知模块,商品配置模块…</strong>,里面涉及的增删改查何其之多,还涉及深层处的组件树传值,此时就有了 redux 用武之地</p>
+<h2 id="究竟是该用-redux-还是由-React-来管理"><a href="#究竟是该用-redux-还是由-React-来管理" class="headerlink" title="究竟是该用 redux 还是由 React 来管理"></a>究竟是该用 redux 还是由 React 来管理</h2><p>轻度使用 redux,大部分的 state 还是交由 react</p>
 
       
     </div>
@@ -346,7 +346,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/summary/" rel="tag"># summary</a>
+            <a href="/tags/react/" rel="tag"># react</a>
           
         </div>
       
@@ -359,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/11/git/" rel="next" title="git">
-                <i class="fa fa-chevron-left"></i> git
+              <a href="/2020/04/14/reactive-extensions/" rel="next" title="Reactive Extensions 响应式编程">
+                <i class="fa fa-chevron-left"></i> Reactive Extensions 响应式编程
               </a>
             
           </div>
@@ -368,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/21/security/" rel="prev" title="security">
-                security <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -496,7 +492,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端作业"><span class="nav-number">2.</span> <span class="nav-text">前端作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端项目工程化"><span class="nav-number">3.</span> <span class="nav-text">前端项目工程化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-amp-React-Native"><span class="nav-number">4.</span> <span class="nav-text">TypeScript &amp; React Native</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目的目录结构"><span class="nav-number">5.</span> <span class="nav-text">项目的目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">6.</span> <span class="nav-text">组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中的配置"><span class="nav-number">7.</span> <span class="nav-text">项目中的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉测试"><span class="nav-number">8.</span> <span class="nav-text">交叉测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何编写代码"><span class="nav-number">9.</span> <span class="nav-text">如何编写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名"><span class="nav-number">10.</span> <span class="nav-text">命名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的状态交由-react-管理"><span class="nav-number">2.</span> <span class="nav-text">组件的状态交由 react 管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时使用-Redux"><span class="nav-number">3.</span> <span class="nav-text">何时使用 Redux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现数据缓存"><span class="nav-number">3.1.</span> <span class="nav-text">实现数据缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可预测-维护性-扩展性-时间旅行-撤销更容易实现"><span class="nav-number">3.2.</span> <span class="nav-text">可预测,维护性,扩展性 时间旅行,撤销更容易实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#究竟是该用-redux-还是由-React-来管理"><span class="nav-number">4.</span> <span class="nav-text">究竟是该用 redux 还是由 React 来管理</span></a></li></ol></div>
             
 
           </div>

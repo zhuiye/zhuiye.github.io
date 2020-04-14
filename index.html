@@ -242,6 +242,280 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/react-state-management/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/react-state-management/" itemprop="url">React 中的 state 管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T20:51:49+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 React 编程中,初学之初,我们会把变化的 state 存于类组件中 this.state 中,如下</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Test <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line">  <span class="keyword">this</span>.state=&#123;</span><br><span class="line">       ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接触 hook 之后,我们可以在函数组件存储关于类的 state,如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = useState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着,我们可以利用 Redux 中管理我们的 state,通过 dispatch,这种唯一的方式,来更改我们的 state,部分代码类式如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"--"</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, ...action.value &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"++"</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, ...action.value &#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 更改store</span></span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"--"</span>, <span class="attr">value</span>: &#123;&#125; &#125;);</span><br><span class="line">dispatch(&#123; <span class="attr">type</span>: <span class="string">"++"</span>, <span class="attr">value</span>: &#123;&#125; &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="组件的状态交由-react-管理"><a href="#组件的状态交由-react-管理" class="headerlink" title="组件的状态交由 react 管理"></a>组件的状态交由 react 管理</h2><p>先说类组件,改变 state 的状态只能是通过 this.setState(),这是硬性规定,对于不复杂的组件,或者页面来说,状态交由 react 来管理已经足够了,而且,当组件卸载时,状态也随之抛弃,而 hook 的出现也让函数组件有了管理 state 的能力,当然,还有解决了 state 复用的问题,至于组件的 state 的在组件树种深层次传递的问题,我们可以用 context 进行解决</p>
+<h2 id="何时使用-Redux"><a href="#何时使用-Redux" class="headerlink" title="何时使用 Redux"></a>何时使用 Redux</h2><p>Redux 并没有特别神奇的,原理大致如下:</p>
+<p>通过 <strong>createStore()</strong>生成一个 store 对象,里面存着我们 App 的 state(<strong>私有变量,通过 getState 获取</strong>),以及更新 state 的<strong>dispatch</strong>函数.</p>
+<p>如何配合 React 使用, react-redux 这个库解决了这个问题,原理大致如下:</p>
+<ol>
+<li>context 从树的顶端传递 store 的 state ,以及 dispatch 函数,</li>
+<li>对于需要的组件,或者页面,利用其提供的 connect 函数,从而获取所需的 state,以及 dispatch</li>
+<li>dispatch(action)之后,react-redux 会自动处理那部分需要重新渲染</li>
+</ol>
+<p>文档也说了,能用 react 解决的,就不需要强制用到 react,那么也说说 redux 到底解决了什么场景</p>
+<h3 id="实现数据缓存"><a href="#实现数据缓存" class="headerlink" title="实现数据缓存"></a>实现数据缓存</h3><p>利用 redux+react-redux,实现数据全局缓存,就算组件卸载,下次重新挂载的时候,也能会恢复状态</p>
+<h3 id="可预测-维护性-扩展性-时间旅行-撤销更容易实现"><a href="#可预测-维护性-扩展性-时间旅行-撤销更容易实现" class="headerlink" title="可预测,维护性,扩展性 时间旅行,撤销更容易实现"></a>可预测,维护性,扩展性 时间旅行,撤销更容易实现</h3><p>state 可预测,维护性,扩展性,对于每个 state 的变化,都有迹可循,对于一些 state 繁多的场景,我们可以有序的进行管理.<strong>就好比一个灵活的 APP 配置模板页面,里面大致有轮播图模块,按钮链接模块,轮播的通知模块,商品配置模块…</strong>,里面涉及的增删改查何其之多,还涉及深层处的组件树传值,此时就有了 redux 用武之地</p>
+<h2 id="究竟是该用-redux-还是由-React-来管理"><a href="#究竟是该用-redux-还是由-React-来管理" class="headerlink" title="究竟是该用 redux 还是由 React 来管理"></a>究竟是该用 redux 还是由 React 来管理</h2><p>轻度使用 redux,大部分的 state 还是交由 react</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/reactive-extensions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/reactive-extensions/" itemprop="url">Reactive Extensions 响应式编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T20:51:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>偶然看到隔壁的小伙伴在用 RxJS,他说这是一款不错的 处理<strong>异步事件流</strong>一个工具,对于 RxJS 的认识,也就是只听说过一个名词而已,对于具体处理什么<br>业务场景确实不得而知了.故此花了一定的时间来入门了解一下.</p>
+<h2 id="响应式编程"><a href="#响应式编程" class="headerlink" title="响应式编程"></a>响应式编程</h2><p>RxJS 是针对响应式编程 实现的一个库,什么是响应式编程?它与<strong>面向对象</strong>,<strong>命令式编程</strong> 地位与之并列,是一种利用<strong>异步事件流的</strong>方式进行编程, 具体长什么样的,先来一段 JS 代码来看看</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Observable &#125; = rxjs;</span><br><span class="line"><span class="keyword">const</span> stringStream = <span class="keyword">new</span> Observable(<span class="function"><span class="keyword">function</span> (<span class="params">subscriber</span>) </span>&#123;</span><br><span class="line">  subscriber.next(<span class="string">"hello world"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">stringStream.subscribe(&#123;</span><br><span class="line">  next: <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data); <span class="comment">// hello world</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这就好像 一般的 <strong>Event Bus</strong> 或者看着像 <strong>Promise</strong>,不错,你可以认为这是他们的升级版,但这样看不出写的好处在哪,反而有一点繁琐. 是的,单凭上面小小的例子看不出什么门道,但里面却贯穿着一个无比重要的思想 <strong>everything is stream</strong></p>
+<h2 id="everything-is-stream"><a href="#everything-is-stream" class="headerlink" title="everything is stream"></a>everything is stream</h2><p>响应式编程的魔咒,从现在开始,我们要抛弃<strong>命令式的思维</strong>去编写程序,重新从另一个角度去看待事件.<br><strong>everything is stream</strong>,一切皆是流,怎么理解这就话,页面的点击,用户的输入,请求的过程,编程的一切都从流开始,用户的输入的字符串就是一个流,这个流(所带的数据)可以被更改,删除,替换,在一定的阶段,我们可以(消费)获取到这个流来做一些事情.下面给出几个简单的例子加深一下理解</p>
+<h3 id="监听用户的点击按钮-并获取按钮上的-id-值"><a href="#监听用户的点击按钮-并获取按钮上的-id-值" class="headerlink" title="监听用户的点击按钮,并获取按钮上的 id 值"></a>监听用户的点击按钮,并获取按钮上的 id 值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; fromEvent &#125; = rxjs;</span><br><span class="line"><span class="keyword">const</span> &#123; map &#125; = rxjs.operators;</span><br><span class="line"><span class="keyword">const</span> btnDom = <span class="built_in">document</span>.querySelector(<span class="string">"#btn"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取到点击事件流</span></span><br><span class="line"><span class="keyword">const</span> buttonClickStream = fromEvent(btnDom, <span class="string">"click"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个点击事件流所带的数据就是event</span></span><br><span class="line"></span><br><span class="line">buttonClickStream.subscribe(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  对这个点击事件流进行处理</span></span><br><span class="line"><span class="comment">  pipe 与 map 方式,只是单纯的接收这个buttonClickStream流,经过处理返回一个新流,</span></span><br><span class="line"><span class="comment">  这个流带着 id 的值,然后,我们"订阅"到这个值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">buttonClickStream.pipe(map(<span class="function">(<span class="params">event</span>) =&gt;</span> event.target.id)).subscribe(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// btn</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="对输入框进行防抖处理"><a href="#对输入框进行防抖处理" class="headerlink" title="对输入框进行防抖处理"></a>对输入框进行防抖处理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; fromEvent &#125; = rxjs;</span><br><span class="line"><span class="keyword">const</span> &#123; debounceTime &#125; = rxjs.operators;</span><br><span class="line"><span class="keyword">const</span> searchInputDom = <span class="built_in">document</span>.querySelector(<span class="string">"#searchInput"</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  监听change事件流,然后对这个事件流进行防抖处理,最后订阅该值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">fromEvent(searchInputDom, <span class="string">"change"</span>)</span><br><span class="line">  .pipe(debounceTime(<span class="number">1000</span>))</span><br><span class="line">  .subscribe(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.target.value); <span class="comment">// btn</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>从上面连个小例子不难看出,我们编程首先要切换到 <strong>“流式思想”</strong>,然后对这个流进行各种处理,得到我们想到的 值,最后我们消费该值,当然,转换流式思想有一定的难度,这就需要在项目中不断的实践,还要经常去查看 RxJS 提供的操作符,如何优雅辨别流之间的关系,以及组合,这是后续学习的一个难点.说这这么久,还没说它到底有什么业务场景需要使用,使用不多,我只能从网上摘出几点</p>
+<ol>
+<li>让异步编程以同步的方式编写</li>
+<li>加深代码抽象的程度，让你可以更专注于定义与事件相互依赖的业务逻辑，而不是把大量精力放在实现细节上，同时，使用响应式编程还能让你的代码变得更加简洁</li>
+</ol>
+<p>学习成本还是很高的,但就目前而言,大多数场景都用不上,但开拓思维还是不错的</p>
+<h2 id="一个完成的登陆例子"><a href="#一个完成的登陆例子" class="headerlink" title="一个完成的登陆例子"></a>一个完成的登陆例子</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>点击一下按钮<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"xxxx"</span> <span class="attr">id</span>=<span class="string">"phone"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: red;"</span> <span class="attr">id</span>=<span class="string">"error"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"password"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"submitBtn"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> &#123; range, fromEvent, Observable, <span class="keyword">from</span>, <span class="keyword">of</span>, interval &#125; = rxjs;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> &#123;</span></span><br><span class="line"><span class="undefined">          map,</span></span><br><span class="line"><span class="undefined">          filter,</span></span><br><span class="line"><span class="undefined">          scan,</span></span><br><span class="line"><span class="undefined">          throttle,</span></span><br><span class="line"><span class="undefined">          debounceTime,</span></span><br><span class="line"><span class="undefined">          flatMap,</span></span><br><span class="line"><span class="undefined">        &#125; = rxjs.operators;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> query = <span class="built_in">document</span>.querySelector;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> phoneDom = query(<span class="string">"#phone"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> passwordDom = query(<span class="string">"#password"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> errorDom = query(<span class="string">"#error"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> submitBtn = query(<span class="string">"#submitBtn"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> form = query(<span class="string">"#form"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> passwordStream = fromEvent(passwordDom, <span class="string">"change"</span>);</span></span><br><span class="line"><span class="javascript">        passwordStream.subscribe(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(e.target.value);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> checkPhoneBlurStream = fromEvent(phoneDom, <span class="string">"blur"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> checkPhone = <span class="function">(<span class="params">value</span>) =&gt;</span></span></span><br><span class="line"><span class="undefined">          /0?(13|14|15|18|17)[0-9]&#123;9&#125;/g.test(value) &amp;&amp; value.length === 11;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        checkPhoneBlurStream</span></span><br><span class="line"><span class="javascript">          .pipe(map(<span class="function">(<span class="params">event</span>) =&gt;</span> checkPhone(event.target.value)))</span></span><br><span class="line"><span class="javascript">          .subscribe(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (!value) &#123;</span></span><br><span class="line"><span class="javascript">              errorDom.innerHTML = <span class="string">"请输入合法的字符"</span>;</span></span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">              errorDom.innerHTML = <span class="string">""</span>;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> formStream = fromEvent(form, <span class="string">"submit"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        formStream</span></span><br><span class="line"><span class="undefined">          .pipe(</span></span><br><span class="line"><span class="javascript">            map(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="undefined">              event.preventDefault();</span></span><br><span class="line"><span class="javascript">              <span class="keyword">if</span> (checkPhone(phoneDom.value)) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">                  phone: phoneDom.value,</span></span><br><span class="line"><span class="undefined">                  password: phoneDom.password,</span></span><br><span class="line"><span class="undefined">                &#125;;</span></span><br><span class="line"><span class="undefined">              &#125;</span></span><br><span class="line"><span class="javascript">              <span class="keyword">return</span> <span class="literal">null</span>;</span></span><br><span class="line"><span class="undefined">            &#125;),</span></span><br><span class="line"><span class="javascript">            filter(<span class="function">(<span class="params">value</span>) =&gt;</span> value !== <span class="literal">null</span>)</span></span><br><span class="line"><span class="undefined">          )</span></span><br><span class="line"><span class="javascript">          .subscribe(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="undefined">            loginStream(data);</span></span><br><span class="line"><span class="undefined">          &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> loginApi = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">              resolve([&#123; <span class="attr">success</span>: <span class="string">"成功"</span>, <span class="attr">data</span>: data &#125;]);</span></span><br><span class="line"><span class="undefined">            &#125;, 2000);</span></span><br><span class="line"><span class="undefined">          &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">loginStream</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> loginDataStream = <span class="keyword">of</span>(data);</span></span><br><span class="line"><span class="undefined">          loginDataStream</span></span><br><span class="line"><span class="javascript">            .pipe(flatMap(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="keyword">from</span>(loginApi(data))))</span></span><br><span class="line"><span class="javascript">            .subscribe(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">              <span class="built_in">console</span>.log(value);</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h2><p><a href="https://rxjs.dev/" target="_blank" rel="noopener">https://rxjs.dev/</a></p>
+<p><a href="https://github.com/benjycui/introrx-chinese-edition" target="_blank" rel="noopener">https://github.com/benjycui/introrx-chinese-edition</a></p>
+<p><a href="https://hijiangtao.github.io/2020/01/13/RxJS-Introduction-and-Actions/" target="_blank" rel="noopener">https://hijiangtao.github.io/2020/01/13/RxJS-Introduction-and-Actions/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/react-native-web/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,126 +593,6 @@
 <h2 id="WebView-中的单页面应用"><a href="#WebView-中的单页面应用" class="headerlink" title="WebView 中的单页面应用"></a>WebView 中的单页面应用</h2><p> 如果webView 中嵌入单页面应用的话会怎么样，如果没经过任何的处理,就会出现<strong>直接按设备物理键返回，会返回APP上级路由页面</strong>。<br> 首先我们得先处理物理设备的返回键，就是进入webView 界面，拦截，监听webView 中路由历史，如果为栈顶，就退出。<br> onNavigationStateChange 属性有个bug 就是 h5 页面的 history api 无法监听其变化，至少在android 上是这样，官方也没有给出<br> 修复，但有如下的讨论<br> <a href="https://github.com/react-native-community/react-native-webview/issues/24" target="_blank" rel="noopener">https://github.com/react-native-community/react-native-webview/issues/24</a></p>
  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;WebView</span><br><span class="line">  ref=&#123;ref =&gt; &#123;</span><br><span class="line">    <span class="keyword">this</span>.webViewRef = ref;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  style=&#123;&#123; <span class="attr">flex</span>: <span class="number">1</span> &#125;&#125;</span><br><span class="line">  source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'http://192.168.10.199:3006/applyHome'</span> &#125;&#125;</span><br><span class="line">  onNavigationStateChange=&#123;navState =&gt; &#123;</span><br><span class="line">    <span class="comment">// Keep track of going back navigation within component</span></span><br><span class="line">    <span class="keyword">this</span>.canGoBack = navState.canGoBack;</span><br><span class="line">    <span class="built_in">console</span>.log(navState);</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  injectedJavaScript=&#123;<span class="string">`</span></span><br><span class="line"><span class="string">    (function() &#123;</span></span><br><span class="line"><span class="string">      function wrap(fn,type) &#123;</span></span><br><span class="line"><span class="string">        return function wrapper() &#123;</span></span><br><span class="line"><span class="string">          var res = fn.apply(this, arguments);</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">            window.ReactNativeWebView.postMessage("&#123;</span></span><br><span class="line"><span class="string">              type:<span class="subst">$&#123;type&#125;</span>,</span></span><br><span class="line"><span class="string">              url:<span class="subst">$&#123;<span class="built_in">window</span>.location.href&#125;</span></span></span><br><span class="line"><span class="string">            &#125;");</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">          return res;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      history.pushState = wrap(history.pushState,'push');</span></span><br><span class="line"><span class="string">      history.back= wrap(history.pushState,'back')</span></span><br><span class="line"><span class="string">      history.replaceState = wrap(history.replaceState,'replace');</span></span><br><span class="line"><span class="string">      window.addEventListener('popstate', function() &#123;</span></span><br><span class="line"><span class="string">        window.ReactNativeWebView.postMessage("&#123;type:"pop",url:<span class="subst">$&#123;<span class="built_in">window</span>.location.href&#125;</span>&#125;");</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">    &#125;)();</span></span><br><span class="line"><span class="string">    true;</span></span><br><span class="line"><span class="string"> `</span>&#125;</span><br><span class="line">  onMessage=&#123;(&#123; <span class="attr">nativeEvent</span>: state &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> params=<span class="built_in">JSON</span>.parse(state.data)</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> (params.type === <span class="string">'pop'</span>||params.type === <span class="string">'back'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        pushCount: <span class="keyword">this</span>.state.pushCount - <span class="number">1</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(params.type===<span class="string">'push'</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        pushCount: <span class="keyword">this</span>.state.pushCount + <span class="number">1</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="WebView-中-与App-中的-cookies-共享"><a href="#WebView-中-与App-中的-cookies-共享" class="headerlink" title="WebView 中 与App 中的 cookies 共享"></a>WebView 中 与App 中的 cookies 共享</h2><p> 做混合开发，经常会遇到webView 中网页要获取app中的登陆状态，但好在react-native-webView 中做了处理<br> 我们并不需要担心，webView 中的页面 我们只要按正常的请求就可以</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/redux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/22/redux/" itemprop="url">redux</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-22T22:03:14+08:00">
-                2020-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>redux 意欲何为?</p>
 
           
         
@@ -581,7 +735,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">"js-cookie"</span>;</span><br><span class="line"><span class="keyword">const</span> queryString = getSearchString(); <span class="comment">//自己封装的方法</span></span><br><span class="line"><span class="keyword">const</span> code=queryString.code,</span><br><span class="line"></span><br><span class="line">getOpenId(code).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">/* 为什么不用localStorage ? 微信中莫名奇妙，清不了。网上查找的方案</span></span><br><span class="line"><span class="comment">  大多是用cookies存，那么我们也用cookie存了 </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  Cookies.set(<span class="string">"openId"</span>, res.openid, &#123; expires: <span class="number">7</span> &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>下次进入页面不需要授权</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!Cookies.get(<span class="string">"openId"</span>))&#123;</span><br><span class="line">  <span class="comment">// 授权......</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 否则正常渲染页面</span></span><br></pre></td></tr></table></figure>
-<h3 id="完整授权参考代码如下"><a href="#完整授权参考代码如下" class="headerlink" title="完整授权参考代码如下:"></a>完整授权参考代码如下:</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">"js-cookie"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> WeiXinAuth <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     为什么要个loading,是为了 授权成功后，保存openId 后，再次调用</span></span><br><span class="line"><span class="comment">     render 函数</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    state = &#123;</span><br><span class="line">      loading: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="keyword">const</span> queryString = getSearchString();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>) &amp;&amp; !queryString.code) &#123;</span><br><span class="line">        <span class="keyword">const</span> appid = <span class="string">"微信appid"</span>;</span><br><span class="line">        <span class="keyword">const</span> redirect_uri = <span class="built_in">encodeURIComponent</span>(<span class="built_in">window</span>.location.href);</span><br><span class="line">        <span class="keyword">const</span> authUrl = <span class="string">`https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="subst">$&#123;appid&#125;</span>&amp;redirect_uri=<span class="subst">$&#123;redirect_uri&#125;</span>&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=123#wechat_redirect`</span>;</span><br><span class="line">        <span class="built_in">window</span>.location.href = authUrl;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; queryString.code) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">          loading: <span class="literal">false</span></span><br><span class="line">        &#125;);</span><br><span class="line">        getOpenId(queryString.code, queryString.oem)</span><br><span class="line">          .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            Cookies.set(<span class="string">"openId"</span>, res.openid, &#123; expires: <span class="number">7</span> &#125;);</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">              loading: <span class="literal">false</span></span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;)</span><br><span class="line">          .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">              loading: <span class="literal">false</span></span><br><span class="line">            &#125;);</span><br><span class="line">            Toast.fail(e.cnmsg);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;CenterContainer&gt;等待授权中~&lt;<span class="regexp">/CenterContainer&gt;;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;&gt;</span></span><br><span class="line"><span class="regexp">          &lt;WrapperComponent &#123;...this.props&#125; /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="完整授权参考代码如下"><a href="#完整授权参考代码如下" class="headerlink" title="完整授权参考代码如下:"></a>完整授权参考代码如下:</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"><span class="keyword">import</span> Cookies <span class="keyword">from</span> <span class="string">"js-cookie"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> WeiXinAuth <span class="keyword">extends</span> React.Component &#123;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="keyword">const</span> queryString = getSearchString();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>) &amp;&amp; !queryString.code) &#123;</span><br><span class="line">        <span class="keyword">const</span> appid = <span class="string">"微信appid"</span>;</span><br><span class="line">        <span class="keyword">const</span> redirect_uri = <span class="built_in">encodeURIComponent</span>(<span class="built_in">window</span>.location.href);</span><br><span class="line">        <span class="keyword">const</span> authUrl = <span class="string">`https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="subst">$&#123;appid&#125;</span>&amp;redirect_uri=<span class="subst">$&#123;redirect_uri&#125;</span>&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=123#wechat_redirect`</span>;</span><br><span class="line">        <span class="built_in">window</span>.location.href = authUrl;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; queryString.code) &#123;</span><br><span class="line">      </span><br><span class="line">        getOpenId(queryString.code, queryString.oem)</span><br><span class="line">          .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            Cookies.set(<span class="string">"openId"</span>, res.openid, &#123; expires: <span class="number">7</span> &#125;);</span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">              loading: <span class="literal">false</span></span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;)</span><br><span class="line">          .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.forceUpdate()</span><br><span class="line">            Toast.fail(e.cnmsg);</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !Cookies.get(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;CenterContainer&gt;等待授权中~&lt;<span class="regexp">/CenterContainer&gt;;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;&gt;</span></span><br><span class="line"><span class="regexp">          &lt;WrapperComponent &#123;...this.props&#125; /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="微信H5支付"><a href="#微信H5支付" class="headerlink" title="微信H5支付"></a>微信H5支付</h2><p>我们只需要如下操作即可</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"后端返回的url"</span></span><br></pre></td></tr></table></figure>
 
@@ -708,15 +862,9 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createHoc</span>=(<span class="params">ReactClassComponent</span>)=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> withClass extends &#123;</span><br><span class="line"></span><br><span class="line">    componentDidMount &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    render()&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="xml">              ReactClassComponent</span></span><br><span class="line"><span class="xml">             <span class="tag">&lt;/&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="实际运用"><a href="#实际运用" class="headerlink" title="实际运用"></a>实际运用</h2><h3 id="场景1"><a href="#场景1" class="headerlink" title="场景1"></a>场景1</h3><p>近期的项目中,有一些页面需要实现微信的授权。由于我们需要把微信授权的行为封装起来，但是，应该怎么注入到每个页面之中呢？一开始，我本想从react-route 的路由去解决的，就是 “<strong>路由拦截</strong>”,一般大家喜欢称之为“<strong>路由守卫</strong>”，<strong>Vue</strong> 中倒是非常贴心的实现了该功能，但是 react-route 中就需要我们自己封装实现了。因为我的<strong>懒惰</strong>,又搜索了一下，就看到了高阶组件实现的方案。</p>
 <h3 id="运用如下"><a href="#运用如下" class="headerlink" title="运用如下"></a>运用如下</h3><p>高阶组件 withWeiXinAuth</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WeiXinAuth</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      loading: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="comment">// 微信的授权操作代码 这里实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !localStorage.getItem(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">CenterContainer</span>&gt;</span>等待授权中~<span class="tag">&lt;/<span class="name">CenterContainer</span>&gt;</span></span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">          &lt;WrapperComponent /&gt;</span><br><span class="line">        &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; isWeiXin &#125; <span class="keyword">from</span> <span class="string">"utils/envCheck"</span>;</span><br><span class="line"><span class="keyword">import</span> getSearchString <span class="keyword">from</span> <span class="string">"utils/searchString"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getOpenId &#125; <span class="keyword">from</span> <span class="string">"./apply/service"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Toast &#125; <span class="keyword">from</span> <span class="string">"antd-mobile"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CenterContainer &#125; <span class="keyword">from</span> <span class="string">"components"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withWeiXinAuth</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  WrapperComponent: React.FunctionComponent</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WeiXinAuth</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      loading: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="comment">// 微信的授权操作代码 这里实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (isWeiXin &amp;&amp; !localStorage.getItem(<span class="string">"openId"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">CenterContainer</span>&gt;</span>等待授权中~<span class="tag">&lt;/<span class="name">CenterContainer</span>&gt;</span></span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">       </span><br><span class="line">          &lt;WrapperComponent &#123;...this.props&#125; /&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于需要授权的页面，我们只需要如下代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withWeiXinAuth(AppHome)</span><br></pre></td></tr></table></figure>
-<p>当然，上面的实现还有有一下缺陷</p>
-<p>可以看到，我们并没有把 react-route 的 history 对象进行传递给包裹的组件,解决方案有两种</p>
-<ol>
-<li>好好的传递 history</li>
-<li>使用useHistory() ,真实一大杀器，非 route 组件 也能进行操作，非常的便利</li>
-</ol>
 <h3 id="场景2"><a href="#场景2" class="headerlink" title="场景2"></a>场景2</h3><p>进行后端的管理系统开发的时候，通常会遇到很多相似乎的表格，（如：审核通过表格，未通过表格，审核申请表格，这些表格的字段，大体相同以及筛选条件也相同 ）对于这样的场景，我们自然是把它给抽象出一个组件出来，然后利用一个高阶函数，对这个组件进行包裹，从而产生上述三个不同的表格.</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'umi/router'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, Form, Row, Col, Input, Select &#125; <span class="keyword">from</span> <span class="string">'antd'</span>;</span><br><span class="line"><span class="keyword">import</span> AllTable <span class="keyword">from</span> <span class="string">'@/components/Account/All-Table'</span>;</span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./index.less'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; queryCkPolicyReviewList &#125; <span class="keyword">from</span> <span class="string">'./service'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FormItem = Form.Item;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">withReviewPage</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* config.type= unReview|pass|reject</span></span><br><span class="line"><span class="comment">    status:0 1 2</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">const</span> columns = [</span><br><span class="line">    <span class="comment">// 一些相同的列字段</span></span><br><span class="line">    &#123;</span><br><span class="line">      title: <span class="string">'操作'</span>,</span><br><span class="line">      dataIndex: <span class="string">'actions'</span>,</span><br><span class="line">      key: <span class="string">'actions'</span>,</span><br><span class="line">      align: <span class="string">'center'</span>,</span><br><span class="line">      render: <span class="function">(<span class="params">text, record</span>) =&gt;</span> (</span><br><span class="line">        &lt;Button</span><br><span class="line">          size=<span class="string">"small"</span></span><br><span class="line">          onClick=&#123;() =&gt;</span><br><span class="line">            router.push(<span class="string">`/qkt/ckmanage/review/detail/<span class="subst">$&#123;record.id&#125;</span>?status=<span class="subst">$&#123;config.status&#125;</span>`</span>)</span><br><span class="line">          &#125;</span><br><span class="line">        &gt;</span><br><span class="line">          &#123;config.type === <span class="string">'unReview'</span> ? <span class="string">'审核'</span> : <span class="string">'查看详情'</span>&#125;</span><br><span class="line">        &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">      ),</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">  ];</span></span><br><span class="line"><span class="regexp">  if (config.status !== 0) &#123;</span></span><br><span class="line"><span class="regexp">    columns.splice(5, 0, &#123;</span></span><br><span class="line"><span class="regexp">      title: '审核人',</span></span><br><span class="line"><span class="regexp">      dataIndex: 'operator',</span></span><br><span class="line"><span class="regexp">      key: 'operator',</span></span><br><span class="line"><span class="regexp">      align: 'center',</span></span><br><span class="line"><span class="regexp">    &#125;);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  @Form.create()</span></span><br><span class="line"><span class="regexp">  class Page extends Component &#123;</span></span><br><span class="line"><span class="regexp">    state = &#123;</span></span><br><span class="line"><span class="regexp">      data: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">      loading: false,</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    componentDidMount() &#123;</span></span><br><span class="line"><span class="regexp">      this.fetchList(1, 10);</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    handleFormReset = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    fetchList = async (pn, pc) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    handleStandardTableChange = pagination =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      this.fetchList(pagination.current, pagination.pageSize);</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    SearchForm = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      const &#123;</span></span><br><span class="line"><span class="regexp">        form: &#123; getFieldDecorator &#125;,</span></span><br><span class="line"><span class="regexp">      &#125; = this.props;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;Form layout="inline"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;Row gutter=&#123;&#123; md: 8, lg: 24, xl: 48 &#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Col xl=&#123;6&#125; lg=&#123;8&#125; sm=&#123;24&#125;&gt;</span></span><br><span class="line"><span class="regexp">              &lt;FormItem label="xx"&gt;</span></span><br><span class="line"><span class="regexp">                &#123;getFieldDecorator('search')(&lt;Input placeholder="请输入xxx姓名或者手机号码" /</span>&gt;)&#125;</span><br><span class="line">              &lt;<span class="regexp">/FormItem&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Col&gt;</span><br><span class="line">           </span><br><span class="line">            &lt;Col xl=&#123;<span class="number">6</span>&#125; lg=&#123;<span class="number">24</span>&#125; sm=&#123;<span class="number">24</span>&#125;&gt;</span><br><span class="line">              &lt;FormItem&gt;</span><br><span class="line">                &lt;Button</span><br><span class="line">                  onClick=&#123;() =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.fetchList(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">                  &#125;&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                  查询</span><br><span class="line">                &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Button style=&#123;&#123; marginLeft: 8 &#125;&#125; onClick=&#123;this.handleFormReset&#125;&gt;</span></span><br><span class="line"><span class="regexp">                  重置</span></span><br><span class="line"><span class="regexp">                &lt;/</span>Button&gt;</span><br><span class="line">              &lt;<span class="regexp">/FormItem&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Col&gt;</span><br><span class="line">          &lt;<span class="regexp">/Row&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Form&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; data, loading &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;React.Fragment&gt;</span><br><span class="line">          &lt;div className=&#123;styles.tableListForm&#125;&gt;&#123;<span class="keyword">this</span>.SearchForm()&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;br /</span>&gt;</span><br><span class="line">          &lt;AllTable</span><br><span class="line">            columns=&#123;columns&#125;</span><br><span class="line">            rowKey=&#123;record =&gt; record.id&#125;</span><br><span class="line">            data=&#123;data&#125;</span><br><span class="line">            loading=&#123;loading&#125;</span><br><span class="line">            onChange=&#123;<span class="keyword">this</span>.handleStandardTableChange&#125;</span><br><span class="line">            style=&#123;&#123; <span class="attr">minHeight</span>: <span class="number">500</span> &#125;&#125;</span><br><span class="line">            size=<span class="string">"middle"</span></span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/React.Fragment&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  return Page;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>使用，只需如下</p>
@@ -1551,125 +1699,6 @@ getMin() -- 检索栈中的最小元素。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/Dynamic-programming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/21/Dynamic-programming/" itemprop="url">Dynamic programming</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T21:15:11+08:00">
-                2020-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1722,7 +1751,7 @@ getMin() -- 检索栈中的最小元素。
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1735,7 +1764,7 @@ getMin() -- 检索栈中的最小元素。
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
