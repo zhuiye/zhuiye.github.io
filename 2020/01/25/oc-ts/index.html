@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="OC &amp; Typescipt  hello worldObjective-c12345678#import &lt;Foundation&#x2F;Foundation.h&gt;int main (int argc,const char* argv[])&amp;#123;    @autoreleasepool &amp;#123;        NSString *sayWorld&#x3D;@&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oc-ts">
+<meta property="og:url" content="http://yoursite.com/2020/01/25/oc-ts/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="OC &amp; Typescipt  hello worldObjective-c12345678#import &lt;Foundation&#x2F;Foundation.h&gt;int main (int argc,const char* argv[])&amp;#123;    @autoreleasepool &amp;#123;        NSString *sayWorld&#x3D;@&amp;q">
+<meta property="og:locale" content="cn">
+<meta property="article:published_time" content="2020-01-25T04:06:19.000Z">
+<meta property="article:modified_time" content="2020-02-03T02:09:42.160Z">
+<meta property="article:author" content="恒承">
+<meta property="article:tag" content="objective-c">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/25/oc-ts/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>oc-ts | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/25/oc-ts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          oc-ts
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-01-25 12:06:19" itemprop="dateCreated datePublished" datetime="2020-01-25T12:06:19+08:00">2020-01-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-02-03 10:09:42" itemprop="dateModified" datetime="2020-02-03T10:09:42+08:00">2020-02-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="OC-amp-Typescipt-hello-world"><a href="#OC-amp-Typescipt-hello-world" class="headerlink" title="OC &amp; Typescipt  hello world"></a>OC &amp; Typescipt  hello world</h2><h3 id="Objective-c"><a href="#Objective-c" class="headerlink" title="Objective-c"></a>Objective-c</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">int main (int argc,const char* argv[])&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        NSString *sayWorld&#x3D;@&quot;hello world&quot;;</span><br><span class="line">        NSLog(sayWorld)</span><br><span class="line">    &#125;</span><br><span class="line">    return 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Typescript"><a href="#Typescript" class="headerlink" title="Typescript"></a>Typescript</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayWorld:<span class="built_in">string</span>=<span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">string</span>);</span><br></pre></td></tr></table></figure>
+
+<p>对比</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>OC</th>
+<th>TS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>导入包</td>
+<td>#import &lt;Foundation/Foundation.h&gt;</td>
+<td>import ‘page-name’</td>
+</tr>
+<tr>
+<td>主入口</td>
+<td>main 函数</td>
+<td>直接在v8上执行，执行从上到下</td>
+</tr>
+<tr>
+<td>声明</td>
+<td>比较麻烦，是一个对象，</td>
+<td>当然在ts</td>
+</tr>
+<tr>
+<td>函数调用</td>
+<td>普通一样</td>
+<td></td>
+</tr>
+<tr>
+<td>内存管理</td>
+<td>@autoreleasepool  ARC</td>
+<td>V8的垃圾回收机制</td>
+</tr>
+</tbody></table>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>OC</th>
+<th>TS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>方法调用</td>
+<td>[class methodName:param]   [recevier message]</td>
+<td>class.methodName(param)</td>
+</tr>
+<tr>
+<td>声明类</td>
+<td>1.定义(即使这个类的接口)  2.实现</td>
+<td>直接实现即可</td>
+</tr>
+<tr>
+<td>当前对象</td>
+<td>self</td>
+<td>this</td>
+</tr>
+<tr>
+<td>生成器</td>
+<td>@property  的属性是私有变量 @systhesize</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="强制类型转化"><a href="#强制类型转化" class="headerlink" title="强制类型转化"></a>强制类型转化</h3><table>
+<thead>
+<tr>
+<th>OC</th>
+<th>TS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(int) xxx,(float) xxx   (TestClass *)value</td>
+<td>Number()，paseInt()  floatInt()</td>
+</tr>
+<tr>
+<td>id 类型 表示不确定类型的对象</td>
+<td>any</td>
+</tr>
+<tr>
+<td>类型运算符将一般id类型的对象转化特定的类型</td>
+<td>(test as TestClass)</td>
+</tr>
+</tbody></table>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><table>
+<thead>
+<tr>
+<th>OC</th>
+<th>TS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分类机制 相当于 JS 中的property 原型机制</td>
+<td>JQuery中的extends</td>
+</tr>
+<tr>
+<td>@class 指令  @class  ClassName 或者   #import  “ClassName”</td>
+<td>类型定义文件  import Test from ‘index.d.ts’</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="枚举类型可以当成一种特殊的对象"><a href="#枚举类型可以当成一种特殊的对象" class="headerlink" title="枚举类型可以当成一种特殊的对象"></a>枚举类型可以当成一种特殊的对象</h3><h3 id="预处理程序-defined"><a href="#预处理程序-defined" class="headerlink" title="预处理程序#defined"></a>预处理程序#defined</h3><p>可以定义真正意义上的“全局常量”，在我的理解中，用来定义项目的常量配置最好不过，如：第三方key,或者RAS key 等等</p>
+<p>特点：不同于变量，只要定义了，程序任何地方都可以使用</p>
+<p>宏：可以看作是预定义函数，待有自定义变量</p>
+<h3 id="块"><a href="#块" class="headerlink" title="块"></a>块</h3><p>可以当成一个匿名函数,一般当作函数或者方法的参数，可以理解为JS中的回调函数，格式有点像匿名函数，函数表达式可以，赋值给一个变量。能让系统分配给其它处理器或者应用的其它线程执行。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><table>
+<thead>
+<tr>
+<th>OC</th>
+<th>TS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据组织在一起，就跟JS的对象一样</td>
+<td>对象</td>
+</tr>
+<tr>
+<td>. 语法 赋值 和访问</td>
+<td>—</td>
+</tr>
+<tr>
+<td>与对象的区别 ,变量名前缺少 * 号</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>用途 :用来遍历展示数据，组装所需要得数据格式，</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/objective-c/" rel="tag"># objective-c</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/21/security/" rel="prev" title="security">
+      <i class="fa fa-chevron-left"></i> security
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/05/algorithm-Stack/" rel="next" title="Stack">
+      Stack <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OC-amp-Typescipt-hello-world"><span class="nav-number">1.</span> <span class="nav-text">OC &amp; Typescipt  hello world</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-c"><span class="nav-number">1.1.</span> <span class="nav-text">Objective-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Typescript"><span class="nav-number">1.2.</span> <span class="nav-text">Typescript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类"><span class="nav-number">1.3.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制类型转化"><span class="nav-number">1.4.</span> <span class="nav-text">强制类型转化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">1.5.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类型可以当成一种特殊的对象"><span class="nav-number">1.6.</span> <span class="nav-text">枚举类型可以当成一种特殊的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理程序-defined"><span class="nav-number">1.7.</span> <span class="nav-text">预处理程序#defined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块"><span class="nav-number">1.8.</span> <span class="nav-text">块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">1.9.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">1.10.</span> <span class="nav-text">循环</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

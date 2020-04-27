@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="E6的块级绑定 所声明的变量在指定的作用域外无法访问    let var const    不变量提升,块级作用域 变量提升 不变量提升,块级作用域   重复禁止声明  重复禁止声明   let 声明的变量成为window的属性  设置完成后不能被改变     JS所声明的常量对象属性的值可以改变   暂时性死区： 在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6-learn">
+<meta property="og:url" content="http://yoursite.com/2019/03/23/es6-learn/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="E6的块级绑定 所声明的变量在指定的作用域外无法访问    let var const    不变量提升,块级作用域 变量提升 不变量提升,块级作用域   重复禁止声明  重复禁止声明   let 声明的变量成为window的属性  设置完成后不能被改变     JS所声明的常量对象属性的值可以改变   暂时性死区： 在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的">
+<meta property="og:locale" content="cn">
+<meta property="article:published_time" content="2019-03-23T02:00:39.000Z">
+<meta property="article:modified_time" content="2019-03-23T02:06:48.896Z">
+<meta property="article:author" content="恒承">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/23/es6-learn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>es6-learn | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/es6-learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          es6-learn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2019-03-23 10:00:39 / عُدل: 10:06:48" itemprop="dateCreated datePublished" datetime="2019-03-23T10:00:39+08:00">2019-03-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>E6的块级绑定</p>
+<p>所声明的变量在指定的作用域外无法访问</p>
+<table>
+<thead>
+<tr>
+<th>let</th>
+<th>var</th>
+<th>const</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不变量提升,块级作用域</td>
+<td>变量提升</td>
+<td>不变量提升,块级作用域</td>
+</tr>
+<tr>
+<td>重复禁止声明</td>
+<td></td>
+<td>重复禁止声明</td>
+</tr>
+<tr>
+<td>let 声明的变量成为window的属性</td>
+<td></td>
+<td>设置完成后不能被改变</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>JS所声明的常量对象属性的值可以改变</td>
+</tr>
+</tbody></table>
+<p>暂时性死区：</p>
+<p>在使用let 或者const 声明的变量，在达到声明处之前访问变量都是无法访问的,访问会导致一个引用错误</p>
+<p>ES6模块</p>
+<p>由于JS共享一切的特性,容易产生命名冲突.安全等问题,代码的模块划分很有必要</p>
+<table>
+<thead>
+<tr>
+<th>模块加载方式</th>
+<th>JS脚本加载方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>严格模式下运行</td>
+<td></td>
+</tr>
+<tr>
+<td>模块顶级作用域创建的变量不会自动添加到全局作用域中</td>
+<td></td>
+</tr>
+<tr>
+<td>顶级作用域this 为undefinde</td>
+<td></td>
+</tr>
+<tr>
+<td>对于需要让模块外部访问的代码内容，模块必须导出他们</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>导出的方式</p>
+<table>
+<thead>
+<tr>
+<th>export</th>
+<th>相对应的导入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>导出的函数，类必修有名字 export  {aaa};</td>
+<td>import {aaa} from xxx;</td>
+</tr>
+<tr>
+<td></td>
+<td>命名空间导入:完全导入一个模块,import * as     example     from “./example.js”; example.sum()</td>
+</tr>
+<tr>
+<td>重命名导出： export    {    sum    as    add    };</td>
+<td>重命名导入 import    {    add    as    sum    }    from    “./example.js”;</td>
+</tr>
+</tbody></table>
+<p>默认导出</p>
+<table>
+<thead>
+<tr>
+<th>导出默认值</th>
+<th>导入默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>export  default  xxx;</td>
+<td>import    sum    from    “./example.js”;</td>
+</tr>
+</tbody></table>
+<p>加载模块</p>
+<table>
+<thead>
+<tr>
+<th>script 外部加载</th>
+<th>script 脚本加载</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type=”module” src=”example.js”</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>script 行内加载</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>import {sum} from ‘’</td>
+<td></td>
+</tr>
+<tr>
+<td>按顺序执行加载，像应用了defer 的script</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>函数</p>
+<p>剩余参数…arg,扩展运算符</p>
+<p>箭头函数–解决this 的追踪问题</p>
+<table>
+<thead>
+<tr>
+<th>箭头函数</th>
+<th>普通函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>没有this super argument ,没有this 绑定</td>
+<td></td>
+</tr>
+<tr>
+<td>不能被new 调用</td>
+<td></td>
+</tr>
+<tr>
+<td>不能更改this,没有arguments 对象</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Set-和Map"><a href="#Set-和Map" class="headerlink" title="Set 和Map"></a>Set 和Map</h2><table>
+<thead>
+<tr>
+<th>set</th>
+<th>weakSet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不包含重复值的有序列表</td>
+<td>自动解除set中得引用，如果其他引用没有了</td>
+</tr>
+<tr>
+<td>new set([arr]） set.size  set.add(value) set.has(value)  set.delete(value) set.clear();</td>
+<td>初始化只能接受对象得值</td>
+</tr>
+<tr>
+<td>forEach((value,key,ownset)=&gt;{}) 按顺序处理每一项</td>
+<td>无size ,forEach,迭代器得方法也没有</td>
+</tr>
+<tr>
+<td>转换为数组:let    set    =    new    Set([1,    2,    3,    3,    3,    4,    5]),                array    =    […set];</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Map</th>
+<th>weakMap</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>键值对有序列表,键和值都是任意类型得</td>
+<td></td>
+</tr>
+<tr>
+<td>map.set(“”,””)  map.get(“”) map.size</td>
+<td></td>
+</tr>
+<tr>
+<td>has() delete()  clear</td>
+<td></td>
+</tr>
+<tr>
+<td>初始化:let  map    =    new    Map([[“name”,    “Nicholas”],    [“age”,    25]]); 双数组</td>
+<td></td>
+</tr>
+<tr>
+<td>forEach</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/02/18/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/31/vscode-eslint-learn/" rel="next" title="vscode-eslint-learn">
+      vscode-eslint-learn <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-和Map"><span class="nav-number">1.</span> <span class="nav-text">Set 和Map</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

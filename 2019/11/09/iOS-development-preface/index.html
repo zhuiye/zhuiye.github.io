@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="iOS development  preface  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS development  preface">
+<meta property="og:url" content="http://yoursite.com/2019/11/09/iOS-development-preface/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="iOS development  preface  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原">
+<meta property="og:locale" content="cn">
+<meta property="article:published_time" content="2019-11-09T14:28:19.000Z">
+<meta property="article:modified_time" content="2020-01-25T04:06:57.799Z">
+<meta property="article:author" content="恒承">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/09/iOS-development-preface/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>iOS development  preface | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/iOS-development-preface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS development  preface
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2019-11-09 22:28:19" itemprop="dateCreated datePublished" datetime="2019-11-09T22:28:19+08:00">2019-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-01-25 12:06:57" itemprop="dateModified" datetime="2020-01-25T12:06:57+08:00">2020-01-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="iOS-development-preface"><a href="#iOS-development-preface" class="headerlink" title="iOS development  preface"></a>iOS development  preface</h1><p>  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.<br>  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原因，苹果在2014年又推出了新的开发语言Swift,用来开发 iOS 应用，目前苹果官方也是极力推Swift,对于OC,则是”维护”的状态。由于国内项目多采用OC,对于新的swift项目也在实践当中，故此，我从OC开始学起，从网上搜寻得来两本书，&lt;Objective-C.程序设计&gt;,&lt;Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方&gt;</p>
+<p>  语言都有思想的共性，无非是写的方式不同，学习一门新的语言，首先从语法开始学习，不得不说，OC的语法,啰嗦，而且怪异，可能是我写脚本语言JS较多的缘故吧。OC 跟大都数面对对象的语言一样，拥有类的概念，继承，多态等等，还有C的内存管理,后续学习的过程中，我会和JS参照对比</p>
+<h2 id="OC"><a href="#OC" class="headerlink" title="OC"></a>OC</h2><p>  OC 以smallTalk-80 为基础，在C语言的基础在扩展（就好比typescript是js 的超集），支持对象的创建，是一门面向对象编程的静态语言.</p>
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/7/77/Unix_history-simple.svg" target="_blank" rel="noopener">https://upload.wikimedia.org/wikipedia/commons/7/77/Unix_history-simple.svg</a></p>
+<p>  得改变想法，先设计，再编码？</p>
+<p>  C 代码编译<br>  编译器 和链接器</p>
+<p>  C语言的来源：为开发unix，设计面向编程人员的一种高级程序语言，<br>  大多数操作系统的底层核心都有用到C编写，C高效，较自由？但内存管理有问题？</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/09/react-native-module/" rel="prev" title="react-native-module">
+      <i class="fa fa-chevron-left"></i> react-native-module
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/18/react-native-swiper/" rel="next" title="react-native-swiper">
+      react-native-swiper <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-development-preface"><span class="nav-number">1.</span> <span class="nav-text">iOS development  preface</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OC"><span class="nav-number">1.1.</span> <span class="nav-text">OC</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="基本使用某些情况下,我们需要获取组件的实例,或者 react 元素的 Dom 节点,,这个时候就得用到 ref,关于 ref 的基本使用方法有两种:  this.ref&#x3D;createRef() &lt;ReactDom ref&#x3D;{(ref)&#x3D;&gt;{this.ref&#x3D;ref }}&#x2F;&gt;  基本使用 : https:&#x2F;&#x2F;zh-hans.reactjs.org&#x2F;docs&#x2F;refs-and-the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Ref">
+<meta property="og:url" content="http://yoursite.com/2019/12/14/react-Ref/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="基本使用某些情况下,我们需要获取组件的实例,或者 react 元素的 Dom 节点,,这个时候就得用到 ref,关于 ref 的基本使用方法有两种:  this.ref&#x3D;createRef() &lt;ReactDom ref&#x3D;{(ref)&#x3D;&gt;{this.ref&#x3D;ref }}&#x2F;&gt;  基本使用 : https:&#x2F;&#x2F;zh-hans.reactjs.org&#x2F;docs&#x2F;refs-and-the">
+<meta property="og:locale" content="cn">
+<meta property="article:published_time" content="2019-12-14T06:36:10.000Z">
+<meta property="article:modified_time" content="2020-04-14T12:55:20.461Z">
+<meta property="article:author" content="恒承">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/14/react-Ref/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>React Ref | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/react-Ref/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React Ref
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2019-12-14 14:36:10" itemprop="dateCreated datePublished" datetime="2019-12-14T14:36:10+08:00">2019-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-04-14 20:55:20" itemprop="dateModified" datetime="2020-04-14T20:55:20+08:00">2020-04-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>某些情况下,我们需要获取组件的实例,或者 react 元素的 Dom 节点,,这个时候就得用到 ref,关于 ref 的基本使用方法有两种:</p>
+<ol>
+<li><code>this.ref=createRef()</code></li>
+<li><code>&lt;ReactDom ref={(ref)=&gt;{this.ref=ref }}/&gt;</code></li>
+</ol>
+<p>基本使用 : <a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html" target="_blank" rel="noopener">https://zh-hans.reactjs.org/docs/refs-and-the-dom.html</a></p>
+<h2 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h2><p>最近在做的项目的时候,遇到一个需求.十几个输入框或者选择框组成一个表单域,然后整体对这个”表单域”进行增加.正常思维就是把这个”表单域”封装为一个组件,我就起名为了 SchemeForm ,然后组件内就声明一个方法获取数据 ,就叫getFormData(),类的结构大致如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchemeForm</span>  <span class="keyword">extends</span> <span class="title">component</span> </span>&#123;</span><br><span class="line">    getFormData()&#123;</span><br><span class="line">        <span class="comment">// 此方法进行表单验证,以及获取数据,</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>App.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    data: [&#123; <span class="attr">name</span>: <span class="string">'aa'</span> &#125;],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  formRefs = [];</span><br><span class="line"></span><br><span class="line">  getFormData() &#123;</span><br><span class="line">    <span class="comment">// 此方法进行表单验证,以及获取数据,</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  add = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.formRefs = [];</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      data: data.concat(&#123; <span class="attr">name</span>: <span class="string">'bbb'</span> &#125;),</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  getRef(refs, item) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'执行...'</span>, refs, item);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (refs) &#123;</span><br><span class="line">      <span class="keyword">this</span>.formRefs.push(refs);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">     此执行结果也一样</span></span><br><span class="line"><span class="comment">    &lt;SchemeForm key=&#123;index&#125; ref=&#123;this.getRef.bind(this,item)&#125;/&gt;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="comment">// 保险起见,每次render 函数被调用都重置formRefs</span></span><br><span class="line">    <span class="keyword">this</span>.formRefs = [];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &#123;data.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> (</span><br><span class="line">          &lt;SchemeForm</span><br><span class="line">            key=&#123;index&#125;</span><br><span class="line">            ref=&#123;ref =&gt; &#123;</span><br><span class="line">              <span class="built_in">console</span>.log(ref, item);</span><br><span class="line">              <span class="keyword">if</span> (ref) &#123;</span><br><span class="line">                <span class="keyword">this</span>.formRefs.push(ref);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">        &lt;button onClick=&#123;<span class="keyword">this</span>.add&#125;&gt;+&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>日志输出如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">初入渲染:</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">点击+按钮:</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">再次点击:</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (<span class="literal">null</span>,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'aa'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br><span class="line">  输出 (组件的ref,&#123;<span class="attr">name</span>:<span class="string">'bb'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>经过观察,里面的回调函数,会执行上一次 render 里面 ref 绑定的回调函数.是在怪哉,不明,但终归动态的获取到了组件的 ref 数组</p>
+<h3 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h3><p>经过折腾得知,ref 里面的回调函数,是在 render 函数之后才执行的,在 componentDidMount 和 compnentDidUpdate 可以获取得到 。ref的用法，在项目中也经常可见，如,在最APP中根元素，放置一个Modal组件,然后把ref保持出来存在一个类中，这样，我们就可以在项目其它地方可以调用 ref.show(config),把模态框展现出来。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/02/css-adaptation/" rel="prev" title="CSS适配">
+      <i class="fa fa-chevron-left"></i> CSS适配
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/15/react-life-cycle/" rel="next" title="react-life-cycle">
+      react-life-cycle <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中的使用"><span class="nav-number">2.</span> <span class="nav-text">项目中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#收获"><span class="nav-number">2.1.</span> <span class="nav-text">收获</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
