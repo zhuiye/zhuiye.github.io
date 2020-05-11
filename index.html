@@ -158,6 +158,280 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/11/%E8%B0%88%E8%B0%88%E8%8F%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E6%B8%B2%E6%9F%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/11/%E8%B0%88%E8%B0%88%E8%8F%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E6%B8%B2%E6%9F%93/" class="post-title-link" itemprop="url">谈谈菜单数据结构的渲染</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-11 21:38:17 / 修改时间：22:40:19" itemprop="dateCreated datePublished" datetime="2020-05-11T21:38:17+08:00">2020-05-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>菜单，常见于中台系统中，如表现形式：在侧边一般放置系统中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，<br>它的渲染流程一般如下:</p>
+<ol>
+<li>从服务器中获取菜单数据结构</li>
+<li>服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component</li>
+<li>渲染 有component 得菜单数据结构</li>
+</ol>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>菜单的数据结构，一般如下：</p>
+<h3 id="来自服务器端得数据"><a href="#来自服务器端得数据" class="headerlink" title="来自服务器端得数据"></a>来自服务器端得数据</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> fakeServiceMenu: <span class="built_in">any</span> = [</span><br><span class="line">    &#123; name: <span class="string">"首页"</span>, path: <span class="string">"home"</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">"系统设置"</span>,</span><br><span class="line">        path: <span class="string">"system-management"</span>,</span><br><span class="line">        children: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">"用户管理"</span>,</span><br><span class="line">            path: <span class="string">"user"</span>,</span><br><span class="line">            children: [</span><br><span class="line">            &#123;</span><br><span class="line">                path: <span class="string">"account"</span>,</span><br><span class="line">                name: <span class="string">"账户管理"</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                path: <span class="string">"role"</span>,</span><br><span class="line">                name: <span class="string">"角色管理"</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地的数据"><a href="#本地的数据" class="headerlink" title="本地的数据"></a>本地的数据</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本地的数据</span></span><br><span class="line">   <span class="keyword">const</span> localMenu: <span class="built_in">any</span> = [</span><br><span class="line">       &#123;</span><br><span class="line">           path: <span class="string">"home"</span>,</span><br><span class="line">           name: <span class="string">"首页"</span>,</span><br><span class="line">           component: Home,</span><br><span class="line">       &#125;,</span><br><span class="line">       &#123;</span><br><span class="line">           path: <span class="string">"system-management"</span>,</span><br><span class="line">           name: <span class="string">"系统设置"</span>,</span><br><span class="line">           children: [</span><br><span class="line">           &#123;</span><br><span class="line">               path: <span class="string">"user"</span>,</span><br><span class="line">               name: <span class="string">"用户管理"</span>,</span><br><span class="line">               children: [</span><br><span class="line">               &#123;</span><br><span class="line">                   path: <span class="string">"account"</span>,</span><br><span class="line">                   name: <span class="string">"账户管理"</span>,</span><br><span class="line">                   component: Account,</span><br><span class="line">               &#125;,</span><br><span class="line">               &#123;</span><br><span class="line">                   path: <span class="string">"role"</span>,</span><br><span class="line">                   name: <span class="string">"角色管理"</span>,</span><br><span class="line">                   component: Role,</span><br><span class="line">               &#125;,</span><br><span class="line">               ],</span><br><span class="line">           &#125;,</span><br><span class="line">           ],</span><br><span class="line">       &#125;,</span><br><span class="line">       &#123;</span><br><span class="line">           path: <span class="string">"changke-management"</span>,</span><br><span class="line">           name: <span class="string">"畅客管理"</span>,</span><br><span class="line">           children: [</span><br><span class="line">           &#123;</span><br><span class="line">               path: <span class="string">"transaction"</span>,</span><br><span class="line">               name: <span class="string">"交易管理"</span>,</span><br><span class="line">               children: [</span><br><span class="line">               &#123;</span><br><span class="line">                   path: <span class="string">"transaction-statistic"</span>,</span><br><span class="line">                   name: <span class="string">"数据统计"</span>,</span><br><span class="line">                   component: TransactionStatisticHome,</span><br><span class="line">               &#125;,</span><br><span class="line">               ],</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">               path: <span class="string">"device"</span>,</span><br><span class="line">               name: <span class="string">"机具管理"</span>,</span><br><span class="line">               children: [</span><br><span class="line">               &#123;</span><br><span class="line">                   path: <span class="string">"device-statistic"</span>,</span><br><span class="line">                   name: <span class="string">"数据统计"</span>,</span><br><span class="line">                   component: DeviceStatisticHome,</span><br><span class="line">               &#125;,</span><br><span class="line">               ],</span><br><span class="line">           &#125;,</span><br><span class="line">           ],</span><br><span class="line">       &#125;,</span><br><span class="line"> ];</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，它是一个树状的结构，我们可以通过迭代去遍历它,但如何组合呢，最后得到我们类似与本地localMenu的<br>数据呢？不难看出，我们只要过滤LocalMenu就行了。但我们可以换一种方式来组合我们需要的数据,步骤如下:</p>
+<ul>
+<li>先通过服务器端的出现的key 查找对应的component</li>
+<li>遍历 服务器端的menu， 填充 component 即可</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="getComponentByPath-方法"><a href="#getComponentByPath-方法" class="headerlink" title="getComponentByPath()方法"></a>getComponentByPath()方法</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">getComponentByPath</span>(<span class="params">localMenu: <span class="built_in">any</span>,path: <span class="built_in">string</span>,isReturnObject?: <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> component = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; localMenu.length; i++) &#123;</span><br><span class="line">            component = getComponent(localMenu[i], path, isReturnObject);</span><br><span class="line">            <span class="keyword">if</span> (component) &#123;</span><br><span class="line">                <span class="keyword">return</span> component;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="keyword">return</span> component;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 递归函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getComponent</span>(<span class="params">item: <span class="built_in">any</span>, path: <span class="built_in">string</span>, isReturnObject?: <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">      如果查找到，并且 children为空，返回  item.component,</span></span><br><span class="line"><span class="comment">      也就是递归结束的条件</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">if</span> (item.path === path &amp;&amp; !item.children) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isReturnObject) &#123;</span><br><span class="line">      <span class="keyword">return</span> item;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> item.component;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    如果有children ,我们就遍历遍历children，</span></span><br><span class="line"><span class="comment">    然后继续递归调用，如果找到，component ，我们就直接返回，如果没有找到那就是</span></span><br><span class="line"><span class="comment">    undefined</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">if</span> (item.children) &#123;</span><br><span class="line">    <span class="keyword">let</span> component = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; item.children.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> component: <span class="built_in">any</span> = getComponent(item.children[i], path, isReturnObject);</span><br><span class="line">      <span class="keyword">if</span> (component) &#123;</span><br><span class="line">        <span class="keyword">return</span> component;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> component;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 不符合，返回undefined</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="组合获取带有component的menuData"><a href="#组合获取带有component的menuData" class="headerlink" title="组合获取带有component的menuData"></a>组合获取带有component的menuData</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">filterMenuTree</span>(<span class="params">serverMenu: <span class="built_in">any</span>, localMenu: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 迭代 serverMenu</span></span><br><span class="line">  <span class="keyword">const</span> composeComponent = <span class="function">(<span class="params">item: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 如果没有children 加上 component 属性</span></span><br><span class="line">    <span class="keyword">if</span> (!item.children) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...item, component: getComponentByPath(localMenu, item.path) &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 否则 遍历 children 下面的元素</span></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...item,</span><br><span class="line">        children: item.children.map(<span class="function">(<span class="params">items: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> composeComponent(items);</span><br><span class="line">        &#125;),</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> serverMenu.map(<span class="function">(<span class="params">item: <span class="built_in">any</span></span>) =&gt;</span> composeComponent(item));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="最后-渲染我们的filterMenus"><a href="#最后-渲染我们的filterMenus" class="headerlink" title="最后 渲染我们的filterMenus"></a>最后 渲染我们的filterMenus</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*后续补上.....*&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>由于近期刷些算法题，才不至于对递归 晕头转向，递归对此数据类型简直是利器，但也要考虑调用栈溢出的问题，轻度使用便好</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/" class="post-title-link" itemprop="url">重读-javascript高级程序设计三</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-01 10:13:46" itemprop="dateCreated datePublished" datetime="2020-05-01T10:13:46+08:00">2020-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-08 15:10:36" itemprop="dateModified" datetime="2020-05-08T15:10:36+08:00">2020-05-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>俗话说，<strong>温故而知新,可以为师矣</strong>，对于前半句话，深有体会，每一次重读，都会获得新的体会，然后那种收获感让来非常的愉悦，可以为师矣，当别人的老师，就我目前而言，不要误人子弟了。来简单说说这本书，被称之为js 界的圣经之一，尽管现在已经是ES6的时代，但其中的知识，确实丝毫不过时，对js 语言的基本特性，都做了较全面的介绍，而且也不枯燥。想到在学校期间啃这本书，就犹如天书，啃了好几次，终于有些明悟。然后工作期间也看了一两遍，实践慢慢的验证书本的知识，有了更深的理解和理会，对于书本的知识，自诩吃透了百分之80以上，如何再次重读，我将做一些总结性工作，诉说这些知识点在项目中的运用。</p>
+<h2 id="JavaScript-简介"><a href="#JavaScript-简介" class="headerlink" title="JavaScript 简介"></a>JavaScript 简介</h2><ul>
+<li>最初为网页上的表单验证而出现的脚本语言(注：运行时，才进行解释，编译，然后执行)</li>
+</ul>
+<p>通过与网页交互，无需要重新刷新页面，即可动态概念页面内容，通俗讲就是,可是对表单验证，实现炫酷交互动画效果。如今js 并不只争对浏览器了，它还可以用于桌面应用软件开发（如 Electron）,移动应用开发如react-native,还有依托于超级APP内的应用,微信小程序，也是由js 开发</p>
+<ul>
+<li><p>浏览器端的javascript = ECMAScript(制定语言基本特性，如语法,对象,类型…)+BOM+DOM</p>
+</li>
+<li><p>node 端的javascript = Commonjs(指定js 与文档交互接口等等) +ECMAScript</p>
+</li>
+</ul>
+<p>早期 由于浏览器之争，产生了许多不兼容问题，一个功能，就可能hack多套代码，如今，时代变了，ie早已被淘汰，现代大浏览器大致都在按照标准去实现,兼容已经不是主要的问题。至于DOM，JQuery时代也早已过去，现代前端开发，也不需要再精心关注DOM 的操作流程，如 获取DOM,填充数据到DOM 节点，然后再插入到文档中，这些都有如今现代前端框架 react,vue,angular 自动帮我做好，我们唯一只要做的是就是，获取数据，组合数据，仍给他们就行了。</p>
+<h2 id="第二章-在HTML-中使用-JavaScript"><a href="#第二章-在HTML-中使用-JavaScript" class="headerlink" title="第二章 在HTML 中使用 JavaScript"></a>第二章 在HTML 中使用 JavaScript</h2><ul>
+<li>内部通过script 插入标签使用</li>
+<li>外部引用 <code>&lt;script scr=&quot;xxxxx&quot;&gt;&lt;script/&gt;</code></li>
+</ul>
+<p>对于script 标签的defer 属性，权当了解，async 属性..这些属性..后续了解</p>
+<p>现代化开发，以前的网站模式衍化成了 webApp 模式，现代化的开发主要是<strong>单页面</strong>为主流，对于需要seo的应用，我们则界面框架生成多页面应用，比如我最近学习的next.js。 况且我们现在也不会过多的关注html中JS引入的位置，因为这一切都由工具去生成，这就是前端工程化</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>这章主要是提语法，控制流，关键字，数据类型，这些都是老生常谈的内容，<strong>严格模式</strong> 倒是可以一说.</p>
+<p>总的来说，该模式就是让你的代码更安全，更高效，非严格模式下的静默错误，在严格模式下会暴露出来，<br>如 给不可变对象的属性，赋值，现在化打包工具webPack 打包而成的代码，都开启着JS的严格模式,为保证代码质量，也可加入eslint 插件纠正我们的代码,提交代码质量。关于严格模式更详细说明请参阅下方链接.</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="noopener">MDN 严格模式</a></p>
+<p>说说变量的声明方式，es6时代,不变的数据用const ,需要变化的数据用 let ,仅此而已</p>
+<p>用全等号做比较,switch 中case 的比较是全等比较</p>
+<p>位运算符的运算，这里我具体也没有使用过，仅作记录</p>
+<ul>
+<li><p>按位非~ ,为操作数的负数-1</p>
+<p>~25=-25-1=-26 实质是:25的反码 -1</p>
+<ul>
+<li>按位与&amp; ,二进制数 ，一一对其， 1-1= 1 1-0=0  0-0=0</li>
+</ul>
+<p>result=25&amp;3   // 1   先两个数转二进制 ，然后执行上述规则</p>
+<ul>
+<li>按位或 | ,二进制数 ，一一对其， 1-1= 1 1-0=1  0-0=0</li>
+</ul>
+<p>result=25|3   // 27   先两个数转二进制 ，然后执行上述规则</p>
+<ul>
+<li>按位异或 ^,<strong>对同一个数异步，结果这个数消失</strong> ,1-1=0 1-0=1 0-0=0</li>
+</ul>
+<p>利用这个特性，可以解决力扣的”缺失数 问题”</p>
+<ul>
+<li>左移，右移，都是针对二进制数进行操作</li>
+</ul>
+</li>
+</ul>
+<p>布尔逻辑操作</p>
+<ul>
+<li>逻辑与  &amp;&amp;</li>
+<li>逻辑非 ||</li>
+</ul>
+<p>两者都属于短路操作符，在react中JSX经常使用,</p>
+<p>如 ：<code>{loading&amp;&amp;&lt;div&gt;loading&lt;/div&gt;}</code></p>
+<p>对于数字的 运算和 比较 ，<strong>最好要明确的调用转化数字函数转化为数字类型</strong>，不要由运算操作符转化。<strong>这样不明确,规则太多，反而杂乱，除非你特别熟悉转化规则.</strong></p>
+<p>todo :</p>
+<ul>
+<li>对对象的迭代方式</li>
+</ul>
+<h2 id="变量-作用域和内存问题"><a href="#变量-作用域和内存问题" class="headerlink" title="变量 作用域和内存问题"></a>变量 作用域和内存问题</h2><p>尽管js很灵活，一旦一个具有特定类型的变量声明下来，也很少去重新更改为别类型的值，如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">'i am string'</span>;</span><br><span class="line">name=<span class="number">0</span>;  <span class="comment">// 这样的事没有必要</span></span><br></pre></td></tr></table></figure>
+
+<p>所有的函数的参数都是按值传递的</p>
+<p>就算在项目中，也很少遇到要求判断对象的类型的需求</p>
+<p>不可变值，不带副作用的函数称之为纯函数</p>
+<h2 id="第五章-引用类型"><a href="#第五章-引用类型" class="headerlink" title="第五章 引用类型"></a>第五章 引用类型</h2><p>js中的数组，尽管可以保持不同的类型数据，但在实际的项目中，一般都是保存同一个类型数据结构，比如一个某个新闻的数据列表如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> news=[&#123;</span><br><span class="line">    id:<span class="number">1</span>,</span><br><span class="line">    title:<span class="string">'xxx'</span>,</span><br><span class="line">    imageUrl:<span class="string">'https:....png'</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">    id:<span class="number">2</span>,</span><br><span class="line">    title:<span class="string">'xxxxx'</span>,</span><br><span class="line">    imageUrl:<span class="string">'https:....png'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<p>下面挑选几个常用的数组方法，进行说明</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>组合数据最常用的手段，react 中 经常使用它,生成 jsx 元素数据，并把数据填充进去,如下:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;].map(</span><br><span class="line">    (item,index)=&gt;(<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span>&gt;</span>&#123;item.name&#125;&#123;item.age&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>这个也经常使用，用于筛选，过滤不符合条件的数据，就比如，我要得到年纪大于或者等于18岁的人</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> filterResult=[&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;].filter(<span class="function">(<span class="params">&#123;age&#125;</span>)=&gt;</span>age&gt;=<span class="number">18</span>)</span><br><span class="line"><span class="comment">// filterResult=[&#123;name:'xxx',age:18&#125;]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3><p>如果返回的值，一个为true,就返回true,使用场景有如，比如在如果某个值存在，就为真的结果</p>
+<h3 id="every"><a href="#every" class="headerlink" title="every"></a>every</h3><p>这个只有当所有的结果返回true，才返回true ,这个我倒是在做多表单验证的时候用到，如果表单都通过验证，那么就返回true，然后，判断这个值，提交表单的值</p>
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h3><p>这方法就比较高级了，组合数据的高超手段，在redux 提供的compose 函数可见它的 威力,具体可参如下链接</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" target="_blank" rel="noopener">MDN reduce</a></p>
+<h3 id="Date-数据类型"><a href="#Date-数据类型" class="headerlink" title="Date 数据类型"></a>Date 数据类型</h3><p>这个在项目中经常使用，常见需求由 转化为时间戳，一个就是格式化时间，这些我们都可以借助<br>第三方成熟的库进行处理,如:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" rel="noopener">MDN Date</a></li>
+<li><a href="http://momentjs.cn/" target="_blank" rel="noopener">moment.js</a></li>
+<li><a href="https://day.js.org/" target="_blank" rel="noopener">day.js</a></li>
+</ul>
+<h3 id="关于正则表达式"><a href="#关于正则表达式" class="headerlink" title="关于正则表达式"></a>关于正则表达式</h3><p>这个如果不经常使用，也就忘记，一般在项目中也就轻度使用，如手机号验证,只能输入数字金额要求</p>
+<h3 id="函数的apply-和call"><a href="#函数的apply-和call" class="headerlink" title="函数的apply 和call"></a>函数的apply 和call</h3><p>在特定的作用域中调用函数 ,设置函数体内this 对象的值,两者的不同之处，仅仅是传参数不同,apply是类数组对象,call是数组 实际的项目中很少用，不用有个bind方法<br>也是具有相同的作用,react  class组件 类中的函数绑定一般如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">   <span class="keyword">super</span>(props)</span><br><span class="line">   <span class="keyword">this</span>.handleClick=<span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handleClick()&#123;</span><br><span class="line">    <span class="comment">// 正常调用 this.setState()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="encodeURI-与encodeURIComponent"><a href="#encodeURI-与encodeURIComponent" class="headerlink" title="encodeURI 与encodeURIComponent"></a>encodeURI 与encodeURIComponent</h3><p>对url进行编码，以便让浏览器识别，不同之处，一个是针对整个URL ,一个大部分针对URL查询参数字符串</p>
+<h3 id="global全局对象-与window-对象-关系"><a href="#global全局对象-与window-对象-关系" class="headerlink" title="global全局对象 与window 对象 关系"></a>global全局对象 与window 对象 关系</h3><p>浏览器中的 global 对象的实现就是window对象，可以这样理解,全局函数,如<br>parseInt() 可以在window 对象上找到</p>
+<h2 id="面向对象的程序设计"><a href="#面向对象的程序设计" class="headerlink" title="面向对象的程序设计"></a>面向对象的程序设计</h2><ul>
+<li><p>对象的创建</p>
+<ul>
+<li>构造函数模式</li>
+<li>工厂模式 (就是一个函数，用new Object()生成对象)</li>
+</ul>
+</li>
+<li><p>对象的属性</p>
+<ul>
+<li>可读，可写，可枚举，配置</li>
+<li>访问器属性</li>
+<li>Object.defineProperty() &amp;&amp; Object.defineProperties()</li>
+</ul>
+</li>
+<li><p>对象的原型</p>
+<ul>
+<li>原型的识别 isPrototypeOf()</li>
+<li>每个函数都有一个prototype 属性,指向函数原型</li>
+<li>作用：让同一类型的对象 共享同一个函数</li>
+</ul>
+</li>
+<li><p>继承</p>
+<ul>
+<li>原型链继承</li>
+<li>借用构造函数继承</li>
+<li>组合继承</li>
+<li>寄生组合继承</li>
+</ul>
+</li>
+</ul>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>定义了操作浏览器相关API的接口，由于window对象 ,navigator ,浏览器历史,浏览器窗口</p>
+<ul>
+<li><p>navigator</p>
+<p>此对象下的userAgent比较有用，用来识别不同的客户端代理，如是微信，还是支付宝,还是ios,还是android 设备</p>
+</li>
+<li><p>location</p>
+<ul>
+<li>获取页面的信息，如 url ,searchQuery,hash,domain 等等</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/algorithm-divide-recursion/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -846,167 +1120,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/iOS-mvc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/05/iOS-mvc/" class="post-title-link" itemprop="url">iOS-mvc</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-05 15:37:02 / 修改时间：16:37:37" itemprop="dateCreated datePublished" datetime="2020-02-05T15:37:02+08:00">2020-02-05</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>阅读链接:</p>
-<p><a href="http://www.cocoachina.com/articles/24340" target="_blank" rel="noopener">http://www.cocoachina.com/articles/24340</a></p>
-<p><a href="https://github.com/miniLV/MVC-Demo" target="_blank" rel="noopener">https://github.com/miniLV/MVC-Demo</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/algorithm-Stack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/05/algorithm-Stack/" class="post-title-link" itemprop="url">Stack</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-05 11:06:38" itemprop="dateCreated datePublished" datetime="2020-02-05T11:06:38+08:00">2020-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-25 20:05:15" itemprop="dateModified" datetime="2020-04-25T20:05:15+08:00">2020-04-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天就来总结一下最近学习栈的内容，栈：<strong>后进先出的一种数据结构</strong>，就像叠书本一样，一层一层叠加，每次取最顶层的书，也是最后一次放入的书。栈的实现有很多种，有队列模拟,数组储存出入栈数据，hash 栈实现(猜想)。</p>
-<h2 id="栈的实现方式"><a href="#栈的实现方式" class="headerlink" title="栈的实现方式"></a>栈的实现方式</h2><p>根据栈的特性,栈要实现的方法如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pop()  <span class="comment">// 出栈,并返回出栈的元素</span></span><br><span class="line">push(el)  <span class="comment">//入栈</span></span><br><span class="line">size()  <span class="comment">// 栈数量</span></span><br><span class="line">clear()  <span class="comment">//清栈</span></span><br><span class="line">isEmpty()  <span class="comment">//栈是否为空</span></span><br><span class="line">peek()   <span class="comment">// 返回栈顶元素</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="存储元素采用数组"><a href="#存储元素采用数组" class="headerlink" title="存储元素采用数组"></a>存储元素采用数组</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.elements = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    push(el) &#123;</span><br><span class="line">      <span class="keyword">this</span>.elements.push(el)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pop() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.elements.pop()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    clear() &#123;</span><br><span class="line">      <span class="keyword">this</span>.elements = []</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    size() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.elements.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    peek() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.elements[<span class="keyword">this</span>.size() - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isEmpty() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.size() === <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print() &#123;</span><br><span class="line">      <span class="built_in">console</span>.dir(<span class="keyword">this</span>.elements)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>还有其它栈的实现方式，用队列实现也有，有空再深入探究.</p>
-<h2 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h2><p>栈的数据结构比较简单，但在项目实战中，我没有<strong>显式</strong>使用过它解决过问题。栈 是一种数据结构，首先要明确这一点，重点关注的是<strong>通过出栈的方式，取栈顶的值</strong>，运用此特性，可以解决 <strong>进制转换</strong>,<strong>字符串匹配</strong>,<strong>图的遍历</strong>等等</p>
-<h2 id="leetCode"><a href="#leetCode" class="headerlink" title="leetCode"></a>leetCode</h2><h3 id="有效的括号"><a href="#有效的括号" class="headerlink" title="有效的括号"></a><a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">有效的括号</a></h3><blockquote>
-<p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
-</blockquote>
-<p>有效字符串需满足：</p>
-<pre><code>左括号必须用相同类型的右括号闭合。
-左括号必须以正确的顺序闭合。</code></pre><p><strong>注意空字符串可被认为是有效字符串</strong>。</p>
-<p>此题目可谓是非常经典，栈的特性起手运用,哪种情况值入栈，出栈，stack的内元素的数量判断。简述下解题的思路。</p>
-<ol>
-<li>创建一个栈</li>
-<li>遍历字符串，争对 6个特殊字符进行第三步处理</li>
-<li>假设 遇到 “( “ ,加入栈，假设下一个字符为” ) “,然后比较 （ 于 )匹配, 出栈 ( , 如果 下一个字符 为 其它字符，则加入 栈中 ，后续一直持续此操作</li>
-<li>遍历结束，判断栈是否为空，如果空就 true ,不为空就false</li>
-</ol>
-<p>js 实现如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isValid = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">let</span> result = <span class="literal">true</span>;</span><br><span class="line">   <span class="keyword">if</span> (!s) &#123;</span><br><span class="line">     <span class="keyword">return</span> result</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> stack = <span class="keyword">new</span> Stack();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">let</span> char <span class="keyword">of</span> s) &#123;</span><br><span class="line">     <span class="keyword">if</span> (char === <span class="string">'('</span> || char === <span class="string">'['</span> || char === <span class="string">'&#123;'</span>) &#123;</span><br><span class="line">       stack.push(char)</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">let</span> top = stack.peek(); <span class="comment">// 取栈顶元素</span></span><br><span class="line">       <span class="keyword">if</span> (top === <span class="string">'('</span> &amp;&amp; char === <span class="string">')'</span> || top === <span class="string">'['</span> &amp;&amp; char === <span class="string">']'</span> || top === <span class="string">'&#123;'</span> &amp;&amp; char === <span class="string">'&#125;'</span>) &#123;</span><br><span class="line">         stack.pop()</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         stack.push(char)</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> stack.isEmpty()</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">console</span>.log(isValid(<span class="string">"()[]&#123;&#125;"</span>))</span><br><span class="line"> <span class="built_in">console</span>.log(isValid(<span class="string">"(]"</span>))</span><br><span class="line"> <span class="built_in">console</span>.log(isValid(<span class="string">"([)]"</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="最小栈-辅助栈-空间换取时间"><a href="#最小栈-辅助栈-空间换取时间" class="headerlink" title="最小栈 (辅助栈 空间换取时间)"></a><a href="https://leetcode-cn.com/problems/min-stack/" target="_blank" rel="noopener">最小栈 (辅助栈 空间换取时间)</a></h3><p>设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。</p>
-<pre><code>push(x) -- 将元素 x 推入栈中。
-pop() -- 删除栈顶的元素。
-top() -- 获取栈顶元素。
-getMin() -- 检索栈中的最小元素。</code></pre><p>此题要用到辅助栈的概念,以牺牲一定的空间换取时间.接替的思路如下：</p>
-<ol>
-<li>创建一个数据栈和辅助栈</li>
-<li>每push 一个元素，就要与辅助栈的栈顶元素做比较，如果大于等于，就把栈顶元素加入辅助栈中，否则，就把该值加入辅助栈中。<br>可以看出，辅助栈的数据 与 数据栈的数据是<strong>同步</strong>的，辅助栈数据的意思，是 每轮加入的最小值.</li>
-</ol>
-<p>实现代码:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.data = <span class="keyword">new</span> Stack();</span><br><span class="line">      <span class="keyword">this</span>.helper = <span class="keyword">new</span> Stack();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    push(x) &#123;</span><br><span class="line">      <span class="keyword">this</span>.data.push(x);</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">        这段代码实现比较精妙，保持数据栈与辅助栈互相对应每一轮中的最小值</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        比如说:</span></span><br><span class="line"><span class="comment">        如果入栈 1 2 -1</span></span><br><span class="line"><span class="comment">        辅助栈经过处理为 1 1 -1</span></span><br><span class="line"><span class="comment">        我们来看一下执行过程,</span></span><br><span class="line"><span class="comment">       1 入栈，辅助栈为空，自身只有一个值最小，也就是第一轮，最小值为1,直接入栈,</span></span><br><span class="line"><span class="comment">       辅助栈数据为1</span></span><br><span class="line"><span class="comment">       2 入栈，第二轮，与辅助栈的栈顶比较，得出第二轮得最小值，入栈 1&lt;2 ,1入栈</span></span><br><span class="line"><span class="comment">       -1 入栈，与辅助栈栈顶1比较，因为1&gt;-1所以这第三轮中得最小值为-1</span></span><br><span class="line"><span class="comment">       </span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.helper.isEmpty() || x &lt;= <span class="keyword">this</span>.helper.peek()) &#123;</span><br><span class="line">        <span class="keyword">this</span>.helper.push(x)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.helper.push(<span class="keyword">this</span>.helper.peek())</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pop() &#123;</span><br><span class="line">      <span class="keyword">this</span>.helper.pop();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.data.pop()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    top() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.data.peek()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getMin() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.helper.peek();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="队列实现栈"><a href="#队列实现栈" class="headerlink" title="队列实现栈"></a><a href="https://leetcode-cn.com/problems/implement-stack-using-queues/" target="_blank" rel="noopener">队列实现栈</a></h3><p>此题解法甚是巧妙，思路如下:队列入队 1 2 3 ,我们只需要转化成队列 3 2 1 即可 模拟栈了,<br>在push 中转化顺序 甚为精妙,如下所示:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">MyStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.queue = <span class="keyword">new</span> Queue();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  pop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.queue.shift()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  push(el) &#123;</span><br><span class="line">    <span class="comment">// 这步的操作很巧妙...</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.queue.isEmpty()) &#123;</span><br><span class="line">      <span class="keyword">this</span>.queue.push(el)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.queue.push(el)</span><br><span class="line">      <span class="keyword">let</span> len = <span class="keyword">this</span>.queue.size(); <span class="comment">// 3</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">           把自己的头加到自己的尾部</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">this</span>.queue.push(<span class="keyword">this</span>.queue.shift())</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  top() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.queue.front()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1078,14 +1191,14 @@ getMin() -- 检索栈中的最小元素。</code></pre><p>此题要用到辅助�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

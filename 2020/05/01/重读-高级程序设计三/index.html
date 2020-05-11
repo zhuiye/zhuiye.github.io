@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言俗话说，温故而知新,可以为师矣，对于前半句话，深有体会，每一次重读，都会获得新的体会，然后那种收获感让来非常的愉悦，可以为师矣，当别人的老师，就我目前而言，不要误人子弟了。来简单说说这本书，被称之为js 界的圣经之一，尽管现在已经是ES6的时代，但其中的知识，确实丝毫不过时，对js 语言的基本特性，都做了较全面的介绍，而且也不枯燥。想到在学校期间啃这本书，就犹如天书，啃了好几次，终于有些明悟。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重读-javascript高级程序设计三">
+<meta property="og:url" content="http://yoursite.com/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="前言俗话说，温故而知新,可以为师矣，对于前半句话，深有体会，每一次重读，都会获得新的体会，然后那种收获感让来非常的愉悦，可以为师矣，当别人的老师，就我目前而言，不要误人子弟了。来简单说说这本书，被称之为js 界的圣经之一，尽管现在已经是ES6的时代，但其中的知识，确实丝毫不过时，对js 语言的基本特性，都做了较全面的介绍，而且也不枯燥。想到在学校期间啃这本书，就犹如天书，啃了好几次，终于有些明悟。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-01T02:13:46.000Z">
+<meta property="article:modified_time" content="2020-05-08T07:10:36.269Z">
+<meta property="article:author" content="恒承">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>重读-javascript高级程序设计三 | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重读-javascript高级程序设计三
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-01 10:13:46" itemprop="dateCreated datePublished" datetime="2020-05-01T10:13:46+08:00">2020-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-08 15:10:36" itemprop="dateModified" datetime="2020-05-08T15:10:36+08:00">2020-05-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>俗话说，<strong>温故而知新,可以为师矣</strong>，对于前半句话，深有体会，每一次重读，都会获得新的体会，然后那种收获感让来非常的愉悦，可以为师矣，当别人的老师，就我目前而言，不要误人子弟了。来简单说说这本书，被称之为js 界的圣经之一，尽管现在已经是ES6的时代，但其中的知识，确实丝毫不过时，对js 语言的基本特性，都做了较全面的介绍，而且也不枯燥。想到在学校期间啃这本书，就犹如天书，啃了好几次，终于有些明悟。然后工作期间也看了一两遍，实践慢慢的验证书本的知识，有了更深的理解和理会，对于书本的知识，自诩吃透了百分之80以上，如何再次重读，我将做一些总结性工作，诉说这些知识点在项目中的运用。</p>
+<h2 id="JavaScript-简介"><a href="#JavaScript-简介" class="headerlink" title="JavaScript 简介"></a>JavaScript 简介</h2><ul>
+<li>最初为网页上的表单验证而出现的脚本语言(注：运行时，才进行解释，编译，然后执行)</li>
+</ul>
+<p>通过与网页交互，无需要重新刷新页面，即可动态概念页面内容，通俗讲就是,可是对表单验证，实现炫酷交互动画效果。如今js 并不只争对浏览器了，它还可以用于桌面应用软件开发（如 Electron）,移动应用开发如react-native,还有依托于超级APP内的应用,微信小程序，也是由js 开发</p>
+<ul>
+<li><p>浏览器端的javascript = ECMAScript(制定语言基本特性，如语法,对象,类型…)+BOM+DOM</p>
+</li>
+<li><p>node 端的javascript = Commonjs(指定js 与文档交互接口等等) +ECMAScript</p>
+</li>
+</ul>
+<p>早期 由于浏览器之争，产生了许多不兼容问题，一个功能，就可能hack多套代码，如今，时代变了，ie早已被淘汰，现代大浏览器大致都在按照标准去实现,兼容已经不是主要的问题。至于DOM，JQuery时代也早已过去，现代前端开发，也不需要再精心关注DOM 的操作流程，如 获取DOM,填充数据到DOM 节点，然后再插入到文档中，这些都有如今现代前端框架 react,vue,angular 自动帮我做好，我们唯一只要做的是就是，获取数据，组合数据，仍给他们就行了。</p>
+<h2 id="第二章-在HTML-中使用-JavaScript"><a href="#第二章-在HTML-中使用-JavaScript" class="headerlink" title="第二章 在HTML 中使用 JavaScript"></a>第二章 在HTML 中使用 JavaScript</h2><ul>
+<li>内部通过script 插入标签使用</li>
+<li>外部引用 <code>&lt;script scr=&quot;xxxxx&quot;&gt;&lt;script/&gt;</code></li>
+</ul>
+<p>对于script 标签的defer 属性，权当了解，async 属性..这些属性..后续了解</p>
+<p>现代化开发，以前的网站模式衍化成了 webApp 模式，现代化的开发主要是<strong>单页面</strong>为主流，对于需要seo的应用，我们则界面框架生成多页面应用，比如我最近学习的next.js。 况且我们现在也不会过多的关注html中JS引入的位置，因为这一切都由工具去生成，这就是前端工程化</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>这章主要是提语法，控制流，关键字，数据类型，这些都是老生常谈的内容，<strong>严格模式</strong> 倒是可以一说.</p>
+<p>总的来说，该模式就是让你的代码更安全，更高效，非严格模式下的静默错误，在严格模式下会暴露出来，<br>如 给不可变对象的属性，赋值，现在化打包工具webPack 打包而成的代码，都开启着JS的严格模式,为保证代码质量，也可加入eslint 插件纠正我们的代码,提交代码质量。关于严格模式更详细说明请参阅下方链接.</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="noopener">MDN 严格模式</a></p>
+<p>说说变量的声明方式，es6时代,不变的数据用const ,需要变化的数据用 let ,仅此而已</p>
+<p>用全等号做比较,switch 中case 的比较是全等比较</p>
+<p>位运算符的运算，这里我具体也没有使用过，仅作记录</p>
+<ul>
+<li><p>按位非~ ,为操作数的负数-1</p>
+<p>~25=-25-1=-26 实质是:25的反码 -1</p>
+<ul>
+<li>按位与&amp; ,二进制数 ，一一对其， 1-1= 1 1-0=0  0-0=0</li>
+</ul>
+<p>result=25&amp;3   // 1   先两个数转二进制 ，然后执行上述规则</p>
+<ul>
+<li>按位或 | ,二进制数 ，一一对其， 1-1= 1 1-0=1  0-0=0</li>
+</ul>
+<p>result=25|3   // 27   先两个数转二进制 ，然后执行上述规则</p>
+<ul>
+<li>按位异或 ^,<strong>对同一个数异步，结果这个数消失</strong> ,1-1=0 1-0=1 0-0=0</li>
+</ul>
+<p>利用这个特性，可以解决力扣的”缺失数 问题”</p>
+<ul>
+<li>左移，右移，都是针对二进制数进行操作</li>
+</ul>
+</li>
+</ul>
+<p>布尔逻辑操作</p>
+<ul>
+<li>逻辑与  &amp;&amp;</li>
+<li>逻辑非 ||</li>
+</ul>
+<p>两者都属于短路操作符，在react中JSX经常使用,</p>
+<p>如 ：<code>{loading&amp;&amp;&lt;div&gt;loading&lt;/div&gt;}</code></p>
+<p>对于数字的 运算和 比较 ，<strong>最好要明确的调用转化数字函数转化为数字类型</strong>，不要由运算操作符转化。<strong>这样不明确,规则太多，反而杂乱，除非你特别熟悉转化规则.</strong></p>
+<p>todo :</p>
+<ul>
+<li>对对象的迭代方式</li>
+</ul>
+<h2 id="变量-作用域和内存问题"><a href="#变量-作用域和内存问题" class="headerlink" title="变量 作用域和内存问题"></a>变量 作用域和内存问题</h2><p>尽管js很灵活，一旦一个具有特定类型的变量声明下来，也很少去重新更改为别类型的值，如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">'i am string'</span>;</span><br><span class="line">name=<span class="number">0</span>;  <span class="comment">// 这样的事没有必要</span></span><br></pre></td></tr></table></figure>
+
+<p>所有的函数的参数都是按值传递的</p>
+<p>就算在项目中，也很少遇到要求判断对象的类型的需求</p>
+<p>不可变值，不带副作用的函数称之为纯函数</p>
+<h2 id="第五章-引用类型"><a href="#第五章-引用类型" class="headerlink" title="第五章 引用类型"></a>第五章 引用类型</h2><p>js中的数组，尽管可以保持不同的类型数据，但在实际的项目中，一般都是保存同一个类型数据结构，比如一个某个新闻的数据列表如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> news=[&#123;</span><br><span class="line">    id:<span class="number">1</span>,</span><br><span class="line">    title:<span class="string">'xxx'</span>,</span><br><span class="line">    imageUrl:<span class="string">'https:....png'</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">    id:<span class="number">2</span>,</span><br><span class="line">    title:<span class="string">'xxxxx'</span>,</span><br><span class="line">    imageUrl:<span class="string">'https:....png'</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<p>下面挑选几个常用的数组方法，进行说明</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>组合数据最常用的手段，react 中 经常使用它,生成 jsx 元素数据，并把数据填充进去,如下:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;].map(</span><br><span class="line">    (item,index)=&gt;(<span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span>&gt;</span>&#123;item.name&#125;&#123;item.age&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>这个也经常使用，用于筛选，过滤不符合条件的数据，就比如，我要得到年纪大于或者等于18岁的人</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> filterResult=[&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">12</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">'xxx'</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;].filter(<span class="function">(<span class="params">&#123;age&#125;</span>)=&gt;</span>age&gt;=<span class="number">18</span>)</span><br><span class="line"><span class="comment">// filterResult=[&#123;name:'xxx',age:18&#125;]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3><p>如果返回的值，一个为true,就返回true,使用场景有如，比如在如果某个值存在，就为真的结果</p>
+<h3 id="every"><a href="#every" class="headerlink" title="every"></a>every</h3><p>这个只有当所有的结果返回true，才返回true ,这个我倒是在做多表单验证的时候用到，如果表单都通过验证，那么就返回true，然后，判断这个值，提交表单的值</p>
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h3><p>这方法就比较高级了，组合数据的高超手段，在redux 提供的compose 函数可见它的 威力,具体可参如下链接</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" target="_blank" rel="noopener">MDN reduce</a></p>
+<h3 id="Date-数据类型"><a href="#Date-数据类型" class="headerlink" title="Date 数据类型"></a>Date 数据类型</h3><p>这个在项目中经常使用，常见需求由 转化为时间戳，一个就是格式化时间，这些我们都可以借助<br>第三方成熟的库进行处理,如:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" rel="noopener">MDN Date</a></li>
+<li><a href="http://momentjs.cn/" target="_blank" rel="noopener">moment.js</a></li>
+<li><a href="https://day.js.org/" target="_blank" rel="noopener">day.js</a></li>
+</ul>
+<h3 id="关于正则表达式"><a href="#关于正则表达式" class="headerlink" title="关于正则表达式"></a>关于正则表达式</h3><p>这个如果不经常使用，也就忘记，一般在项目中也就轻度使用，如手机号验证,只能输入数字金额要求</p>
+<h3 id="函数的apply-和call"><a href="#函数的apply-和call" class="headerlink" title="函数的apply 和call"></a>函数的apply 和call</h3><p>在特定的作用域中调用函数 ,设置函数体内this 对象的值,两者的不同之处，仅仅是传参数不同,apply是类数组对象,call是数组 实际的项目中很少用，不用有个bind方法<br>也是具有相同的作用,react  class组件 类中的函数绑定一般如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">   <span class="keyword">super</span>(props)</span><br><span class="line">   <span class="keyword">this</span>.handleClick=<span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handleClick()&#123;</span><br><span class="line">    <span class="comment">// 正常调用 this.setState()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="encodeURI-与encodeURIComponent"><a href="#encodeURI-与encodeURIComponent" class="headerlink" title="encodeURI 与encodeURIComponent"></a>encodeURI 与encodeURIComponent</h3><p>对url进行编码，以便让浏览器识别，不同之处，一个是针对整个URL ,一个大部分针对URL查询参数字符串</p>
+<h3 id="global全局对象-与window-对象-关系"><a href="#global全局对象-与window-对象-关系" class="headerlink" title="global全局对象 与window 对象 关系"></a>global全局对象 与window 对象 关系</h3><p>浏览器中的 global 对象的实现就是window对象，可以这样理解,全局函数,如<br>parseInt() 可以在window 对象上找到</p>
+<h2 id="面向对象的程序设计"><a href="#面向对象的程序设计" class="headerlink" title="面向对象的程序设计"></a>面向对象的程序设计</h2><ul>
+<li><p>对象的创建</p>
+<ul>
+<li>构造函数模式</li>
+<li>工厂模式 (就是一个函数，用new Object()生成对象)</li>
+</ul>
+</li>
+<li><p>对象的属性</p>
+<ul>
+<li>可读，可写，可枚举，配置</li>
+<li>访问器属性</li>
+<li>Object.defineProperty() &amp;&amp; Object.defineProperties()</li>
+</ul>
+</li>
+<li><p>对象的原型</p>
+<ul>
+<li>原型的识别 isPrototypeOf()</li>
+<li>每个函数都有一个prototype 属性,指向函数原型</li>
+<li>作用：让同一类型的对象 共享同一个函数</li>
+</ul>
+</li>
+<li><p>继承</p>
+<ul>
+<li>原型链继承</li>
+<li>借用构造函数继承</li>
+<li>组合继承</li>
+<li>寄生组合继承</li>
+</ul>
+</li>
+</ul>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>定义了操作浏览器相关API的接口，由于window对象 ,navigator ,浏览器历史,浏览器窗口</p>
+<ul>
+<li><p>navigator</p>
+<p>此对象下的userAgent比较有用，用来识别不同的客户端代理，如是微信，还是支付宝,还是ios,还是android 设备</p>
+</li>
+<li><p>location</p>
+<ul>
+<li>获取页面的信息，如 url ,searchQuery,hash,domain 等等</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/js/" rel="tag"># js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/25/algorithm-divide-recursion/" rel="prev" title="分治与递归">
+      <i class="fa fa-chevron-left"></i> 分治与递归
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/11/%E8%B0%88%E8%B0%88%E8%8F%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E6%B8%B2%E6%9F%93/" rel="next" title="谈谈菜单数据结构的渲染">
+      谈谈菜单数据结构的渲染 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-简介"><span class="nav-number">2.</span> <span class="nav-text">JavaScript 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-在HTML-中使用-JavaScript"><span class="nav-number">3.</span> <span class="nav-text">第二章 在HTML 中使用 JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量-作用域和内存问题"><span class="nav-number">5.</span> <span class="nav-text">变量 作用域和内存问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-引用类型"><span class="nav-number">6.</span> <span class="nav-text">第五章 引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">6.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter"><span class="nav-number">6.2.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some"><span class="nav-number">6.3.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every"><span class="nav-number">6.4.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce"><span class="nav-number">6.5.</span> <span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-数据类型"><span class="nav-number">6.6.</span> <span class="nav-text">Date 数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于正则表达式"><span class="nav-number">6.7.</span> <span class="nav-text">关于正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的apply-和call"><span class="nav-number">6.8.</span> <span class="nav-text">函数的apply 和call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encodeURI-与encodeURIComponent"><span class="nav-number">6.9.</span> <span class="nav-text">encodeURI 与encodeURIComponent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#global全局对象-与window-对象-关系"><span class="nav-number">6.10.</span> <span class="nav-text">global全局对象 与window 对象 关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的程序设计"><span class="nav-number">7.</span> <span class="nav-text">面向对象的程序设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM"><span class="nav-number">8.</span> <span class="nav-text">BOM</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="恒承"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
