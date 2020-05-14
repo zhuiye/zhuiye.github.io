@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言近期由于产品需要重构了后台项目中的导航架构，点击导航菜单动态生态一系列的 Tab 标签页面,类似于下图(侵权请联系我,并告知删除)我目前的架构是 采取 antd 的 Tab 以及 Menu 组件 动态的生成 tab 标签页面,由于 tab 页面可能有多个,故此我们要为其实现一个页面路由系统，它比较简单，并不涉及浏览器。 定义 TabRoute 组件第一步，我们先首先定义我们 TabRoute">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈Tab标签中的路由实现">
+<meta property="og:url" content="http://yoursite.com/2020/05/14/%E8%B0%88%E8%B0%88Tab%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="chen heng cheng">
+<meta property="og:description" content="前言近期由于产品需要重构了后台项目中的导航架构，点击导航菜单动态生态一系列的 Tab 标签页面,类似于下图(侵权请联系我,并告知删除)我目前的架构是 采取 antd 的 Tab 以及 Menu 组件 动态的生成 tab 标签页面,由于 tab 页面可能有多个,故此我们要为其实现一个页面路由系统，它比较简单，并不涉及浏览器。 定义 TabRoute 组件第一步，我们先首先定义我们 TabRoute">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/05/14/images/structure.png">
+<meta property="article:published_time" content="2020-05-14T14:06:15.000Z">
+<meta property="article:modified_time" content="2020-05-14T15:30:30.075Z">
+<meta property="article:author" content="恒承">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/14/images/structure.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/14/%E8%B0%88%E8%B0%88Tab%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>谈谈Tab标签中的路由实现 | chen heng cheng</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chen heng cheng</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">知识的匮乏，让人心生恐惧</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/%E8%B0%88%E8%B0%88Tab%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          谈谈Tab标签中的路由实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-14 22:06:15 / 修改时间：23:30:30" itemprop="dateCreated datePublished" datetime="2020-05-14T22:06:15+08:00">2020-05-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期由于产品需要重构了后台项目中的导航架构，点击导航菜单动态生态一系列的 Tab 标签页面,类似于下图<br>(侵权请联系我,并告知删除)<br><img src="../images/structure.png"/><br>我目前的架构是 采取 antd 的 Tab 以及 Menu 组件 动态的生成 tab 标签页面,由于 tab 页面可能有多个,故此我们要为其实现一个页面路由系统，它比较简单，并不涉及浏览器。</p>
+<h2 id="定义-TabRoute-组件"><a href="#定义-TabRoute-组件" class="headerlink" title="定义 TabRoute 组件"></a>定义 TabRoute 组件</h2><p>第一步，我们先首先定义我们 TabRoute 组件的配置方式,首先，我们肯定需要一个 routes 属性，数据类型为数组对象,<br>里面放着我们所有的 Tab 页面路由的相关信息，然后我们也可以传入一个初始的 initRoutesKey,代表着我们的初始页面是哪个。<br>其表现形式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 需要有一个 routes 属性，传入Tab内的页面数组</span><br><span class="line">&lt;TabRoute</span><br><span class="line">  initRoutesKey&#x3D;&quot;role&quot;</span><br><span class="line">  routes&#x3D;&#123;[</span><br><span class="line">    &#123; key: &quot;role&quot;, component: RolePage &#125;,</span><br><span class="line">    &#123; key: &quot;authRole&quot;, component: AuthRole &#125;,</span><br><span class="line">  ]&#125;</span><br><span class="line">&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现-TabRoute-组件"><a href="#实现-TabRoute-组件" class="headerlink" title="实现 TabRoute 组件"></a>实现 TabRoute 组件</h2><p>TabRoute 的实现，具体如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState &#125; from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">interface RouteItem &#123;</span><br><span class="line">  key: string; &#x2F;&#x2F; 唯一key</span><br><span class="line">  component: any; &#x2F;&#x2F; 对应的页面组件</span><br><span class="line">  name?: string; &#x2F;&#x2F; 用于面包屑的显示</span><br><span class="line">  routeParams?: object; &#x2F;&#x2F; 也可静态传入参数进入页面中</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 组件属性的定义</span><br><span class="line">interface TabRouteProps &#123;</span><br><span class="line">  routes: RouteItem[];</span><br><span class="line">  initRoutesKey?: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function TabRoute(&#123; routes, initRoutesKey &#125;: TabRouteProps) &#123;</span><br><span class="line">  &#x2F;*</span><br><span class="line">    定义一个路由栈，如果没有传initRoutesKey，取routes数组中的第一个为初始页面</span><br><span class="line">  *&#x2F;</span><br><span class="line">  const [routeStack, setRouteStack] &#x3D; useState&lt;any&gt;(</span><br><span class="line">    initRoutesKey</span><br><span class="line">      ? routes.filter((item) &#x3D;&gt; &#123;</span><br><span class="line">          return item.key &#x3D;&#x3D;&#x3D; initRoutesKey;</span><br><span class="line">        &#125;)</span><br><span class="line">      : [routes[0]]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  &#x2F;*</span><br><span class="line">    定义一个导航跳转方法，用于每个Tab 内的页面切换。</span><br><span class="line">  *&#x2F;</span><br><span class="line">  const navigate &#x3D; (key: string, params?: object) &#x3D;&gt; &#123;</span><br><span class="line">    let position &#x3D; -1;</span><br><span class="line">    routeStack.forEach((item: any, index: number) &#x3D;&gt; &#123;</span><br><span class="line">      if (item.key &#x3D;&#x3D;&#x3D; key) &#123;</span><br><span class="line">        position &#x3D; index;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    if (position &#x3D;&#x3D;&#x3D; -1) &#123;</span><br><span class="line">      &#x2F;&#x2F; 未存在路由栈中，则加入，并传入params参数,更新路由栈</span><br><span class="line">      routes.forEach((item) &#x3D;&gt; &#123;</span><br><span class="line">        if (key &#x3D;&#x3D;&#x3D; item.key) &#123;</span><br><span class="line">          setRouteStack(</span><br><span class="line">            routeStack.concat([</span><br><span class="line">              &#123;</span><br><span class="line">                ...item,</span><br><span class="line">                routeParams: params,</span><br><span class="line">              &#125;,</span><br><span class="line">            ])</span><br><span class="line">          );</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F; 如果路由已存在导航栈中，去除目标路由之后的数据</span><br><span class="line">      let newStack &#x3D; routeStack.slice(0, position + 1);</span><br><span class="line">      newStack[newStack.length - 1].routeParams &#x3D; params;</span><br><span class="line">      setRouteStack(newStack);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  &#x2F;*</span><br><span class="line">    定义 返回方法,也就是弹出栈顶元素</span><br><span class="line">  *&#x2F;</span><br><span class="line">  const goBack &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    if (routeStack.length &gt; 1) &#123;</span><br><span class="line">      const newStack &#x3D; routeStack.slice();</span><br><span class="line">      newStack.pop();</span><br><span class="line">      setRouteStack(newStack);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 选择渲染栈顶元素,即代表当前渲染的页面</span><br><span class="line"></span><br><span class="line">  const &#123; component: ShowComponent, routeParams &#x3D; &#123;&#125; &#125; &#x3D; routeStack[</span><br><span class="line">    routeStack.length - 1</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  &#x2F;* </span><br><span class="line">  给页面的组件中传入 navigate,goBack,routeParams,routeStackLength 属性</span><br><span class="line">*&#x2F;</span><br><span class="line">  return (</span><br><span class="line">    &lt;ShowComponent</span><br><span class="line">      routeStackLength&#x3D;&#123;routeStack.length&#125;</span><br><span class="line">      navigate&#x3D;&#123;navigate&#125;</span><br><span class="line">      goBack&#x3D;&#123;goBack&#125;</span><br><span class="line">      routeParams&#x3D;&#123;&#123; ...routeParams &#125;&#125;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default TabRoute;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用的例子"><a href="#使用的例子" class="headerlink" title="使用的例子"></a>使用的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import React from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">function Test1(&#123; navigate &#125;) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span&gt;我是test1 页面&lt;&#x2F;span&gt;</span><br><span class="line">      &lt;button</span><br><span class="line">        onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">          navigate(&quot;test2&quot;, &#123; info: &quot;我是来自Test1页面的数据&quot; &#125;);</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        跳转带Test2页面</span><br><span class="line">      &lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Test2(&#123; goBack, routeParams: &#123; info &#125; &#125;) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;button</span><br><span class="line">        onClick&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">          goBack();</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        返回</span><br><span class="line">      &lt;&#x2F;button&gt;</span><br><span class="line">      我是Test2页面，</span><br><span class="line">      &#123;info&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Index() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;TabRoute</span><br><span class="line">      initRoutesKey&#x3D;&quot;test1&quot;</span><br><span class="line">      routes&#x3D;&#123;[</span><br><span class="line">        &#123; key: &quot;test1&quot;, component: Test1 &#125;,</span><br><span class="line">        &#123; key: &quot;test2&quot;, component: Test2 &#125;,</span><br><span class="line">      ]&#125;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>这个 TabRoute，每次进行一次 路由切换的时候，都会重新卸载和挂载组件，所有的数据都会丢失，可能对于某些需要缓存的场景来说<br>不太好，这里如果有空的化，后续会实现跟 Tab 组件一样的效果，利用 display 隐藏 路由页面</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/11/%E8%B0%88%E8%B0%88%E8%8F%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E6%B8%B2%E6%9F%93/" rel="prev" title="谈谈菜单数据结构的渲染">
+      <i class="fa fa-chevron-left"></i> 谈谈菜单数据结构的渲染
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-TabRoute-组件"><span class="nav-number">2.</span> <span class="nav-text">定义 TabRoute 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现-TabRoute-组件"><span class="nav-number">3.</span> <span class="nav-text">实现 TabRoute 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用的例子"><span class="nav-number">3.1.</span> <span class="nav-text">使用的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="恒承"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">恒承</p>
+  <div class="site-description" itemprop="description">知识的匮乏，让人心生恐惧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">恒承</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

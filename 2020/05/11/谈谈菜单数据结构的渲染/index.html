@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言菜单，常见于中台系统中，如表现形式：在侧边一般放置系统中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，它的渲染流程一般如下:  从服务器中获取菜单数据结构 服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component 渲染 有component 得菜单数据结构  数据结构菜单的数据结构，一般如下： 来自服务器端得数据1234567">
+  <meta name="description" content="前言菜单，常见于中台系统中，表现形式如：在网页的侧边栏中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，它的渲染流程一般如下:  从服务器中获取菜单数据结构 服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component 渲染 有component 得菜单数据结构  数据结构菜单的数据结构，一般如下： 来自服务器端得数据123456789">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈菜单数据结构的渲染">
 <meta property="og:url" content="http://yoursite.com/2020/05/11/%E8%B0%88%E8%B0%88%E8%8F%9C%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E6%B8%B2%E6%9F%93/index.html">
 <meta property="og:site_name" content="chen heng cheng">
-<meta property="og:description" content="前言菜单，常见于中台系统中，如表现形式：在侧边一般放置系统中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，它的渲染流程一般如下:  从服务器中获取菜单数据结构 服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component 渲染 有component 得菜单数据结构  数据结构菜单的数据结构，一般如下： 来自服务器端得数据1234567">
+<meta property="og:description" content="前言菜单，常见于中台系统中，表现形式如：在网页的侧边栏中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，它的渲染流程一般如下:  从服务器中获取菜单数据结构 服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component 渲染 有component 得菜单数据结构  数据结构菜单的数据结构，一般如下： 来自服务器端得数据123456789">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-11T13:38:17.000Z">
-<meta property="article:modified_time" content="2020-05-11T14:40:19.353Z">
+<meta property="article:modified_time" content="2020-05-14T14:02:43.953Z">
 <meta property="article:author" content="恒承">
 <meta name="twitter:card" content="summary">
 
@@ -183,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-11 21:38:17 / 修改时间：22:40:19" itemprop="dateCreated datePublished" datetime="2020-05-11T21:38:17+08:00">2020-05-11</time>
+              <time title="创建时间：2020-05-11 21:38:17" itemprop="dateCreated datePublished" datetime="2020-05-11T21:38:17+08:00">2020-05-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-14 22:02:43" itemprop="dateModified" datetime="2020-05-14T22:02:43+08:00">2020-05-14</time>
+              </span>
 
           
 
@@ -199,7 +205,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>菜单，常见于中台系统中，如表现形式：在侧边一般放置系统中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，<br>它的渲染流程一般如下:</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>菜单，常见于中台系统中，表现形式如：在网页的侧边栏中的导航菜单，今天，我们不说如何实现一个手风琴的菜单，我们就来谈谈它的渲染，<br>它的渲染流程一般如下:</p>
 <ol>
 <li>从服务器中获取菜单数据结构</li>
 <li>服务器中的菜单数据 通过与本地的菜单，进行组合，得到一个新得菜单数据结构，带有component</li>
@@ -219,7 +225,7 @@
 
 <h3 id="组合获取带有component的menuData"><a href="#组合获取带有component的menuData" class="headerlink" title="组合获取带有component的menuData"></a>组合获取带有component的menuData</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">filterMenuTree</span>(<span class="params">serverMenu: <span class="built_in">any</span>, localMenu: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 迭代 serverMenu</span></span><br><span class="line">  <span class="keyword">const</span> composeComponent = <span class="function">(<span class="params">item: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 如果没有children 加上 component 属性</span></span><br><span class="line">    <span class="keyword">if</span> (!item.children) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...item, component: getComponentByPath(localMenu, item.path) &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 否则 遍历 children 下面的元素</span></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...item,</span><br><span class="line">        children: item.children.map(<span class="function">(<span class="params">items: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> composeComponent(items);</span><br><span class="line">        &#125;),</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> serverMenu.map(<span class="function">(<span class="params">item: <span class="built_in">any</span></span>) =&gt;</span> composeComponent(item));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="最后-渲染我们的filterMenus"><a href="#最后-渲染我们的filterMenus" class="headerlink" title="最后 渲染我们的filterMenus"></a>最后 渲染我们的filterMenus</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*后续补上.....*&#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="最后-渲染我们的filterMenus"><a href="#最后-渲染我们的filterMenus" class="headerlink" title="最后 渲染我们的filterMenus"></a>最后 渲染我们的filterMenus</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import React from &quot;react&quot;;</span><br><span class="line">import &#123; Layout, Menu, Breadcrumb &#125; from &quot;antd&quot;;</span><br><span class="line">import &#123; UserOutlined &#125; from &quot;@ant-design&#x2F;icons&quot;;</span><br><span class="line">import &#123; fakeServiceMenu, localMenu &#125; from &quot;..&#x2F;configs&#x2F;route&quot;;</span><br><span class="line">import &#123; filterMenuTree &#125; from &quot;utils&#x2F;tree&quot;;</span><br><span class="line">const &#123; SubMenu &#125; &#x3D; Menu;</span><br><span class="line"></span><br><span class="line">interface MenuBarProps &#123;</span><br><span class="line">  onClick: (param?: any) &#x3D;&gt; void;</span><br><span class="line">  defaultSelectedKeys?: string[] | undefined;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function MenuBar(&#123; onClick, defaultSelectedKeys &#125;: MenuBarProps) &#123;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 假的服务器端数据...</span><br><span class="line">  const filterMenu &#x3D; filterMenuTree(fakeServiceMenu, localMenu);</span><br><span class="line"></span><br><span class="line">  const helper &#x3D; (item: any) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F; 递归停止条件</span><br><span class="line">    if (!item.children) &#123;</span><br><span class="line">      return &lt;Menu.Item key&#x3D;&#123;item.path&#125;&gt;&#123;item.name&#125;&lt;&#x2F;Menu.Item&gt;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return (</span><br><span class="line">        &lt;SubMenu key&#x3D;&#123;item.path&#125; icon&#x3D;&#123;&lt;UserOutlined &#x2F;&gt;&#125; title&#x3D;&#123;item.name&#125;&gt;</span><br><span class="line">          &#123;item.children.map((items: any) &#x3D;&gt; &#123;</span><br><span class="line">            return helper(items);</span><br><span class="line">          &#125;)&#125;</span><br><span class="line">        &lt;&#x2F;SubMenu&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const renderMenuItem &#x3D; () &#x3D;&gt; filterMenu.map((item: any) &#x3D;&gt; helper(item));</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;Menu</span><br><span class="line">      mode&#x3D;&quot;inline&quot;</span><br><span class="line">      theme&#x3D;&quot;dark&quot;</span><br><span class="line">      defaultSelectedKeys&#x3D;&#123;defaultSelectedKeys&#125;</span><br><span class="line">      style&#x3D;&#123;&#123; height: &quot;100%&quot;, borderRight: 0 &#125;&#125;</span><br><span class="line">      onClick&#x3D;&#123;onClick&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;renderMenuItem()&#125;</span><br><span class="line">    &lt;&#x2F;Menu&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default MenuBar;</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>由于近期刷些算法题，才不至于对递归 晕头转向，递归对此数据类型简直是利器，但也要考虑调用栈溢出的问题，轻度使用便好</p>
@@ -241,7 +247,10 @@
     <a href="/2020/05/01/%E9%87%8D%E8%AF%BB-%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%89/" rel="prev" title="重读-javascript高级程序设计三">
       <i class="fa fa-chevron-left"></i> 重读-javascript高级程序设计三
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/14/%E8%B0%88%E8%B0%88Tab%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%AE%9E%E7%8E%B0/" rel="next" title="谈谈Tab标签中的路由实现">
+      谈谈Tab标签中的路由实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -316,7 +325,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

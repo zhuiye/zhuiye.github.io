@@ -158,6 +158,78 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/react-warning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/04/react-warning/" class="post-title-link" itemprop="url">Can't perform a React state update</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-04 20:47:43 / 修改时间：20:55:53" itemprop="dateCreated datePublished" datetime="2020-03-04T20:47:43+08:00">2020-03-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>相信使用react 的时候,都会遇到这么个类式如下的警告</p>
+<blockquote>
+<p>Can’t perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function</p>
+</blockquote>
+<p>大致的意思是,不能在已经卸载的组件上执行 state 的更新操作 ,这是不推荐的操作,在你的应用中可能会内存泄露,修复它,请在useEffect 清理函数中执行一些操作 .这也是我此处遇到的警告</p>
+<p><strong>实际项目中遇到的场景</strong></p>
+<p>首页请求接口获取数据,遭遇未授权,返回302,要求重定向到别的页面。<br>由于重定向到别的页面,当前页面遭到销毁,而后续的更新还在继续,故此报了这么个警告<br>大致代码如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> loadData = useCallback(</span><br><span class="line">  <span class="keyword">async</span> (passParams: <span class="built_in">any</span>) =&gt; &#123;</span><br><span class="line">    setLoading(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> api(passParams);</span><br><span class="line"></span><br><span class="line">      setData(response);</span><br><span class="line">     </span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err &amp;&amp; err.code !== <span class="number">302</span>) &#123;</span><br><span class="line">        message.warn(err ? err.cnmsg : <span class="string">'服务器端出现错误'</span>, <span class="number">2</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 继续执行这 setLoading</span></span><br><span class="line">   setLoading(<span class="literal">false</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  [api],</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>从上述代码中可以看出,即便我已经跳出页面了,还是会执行 setLoading(false);如此会出现警告,解决方案也简单.如下:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> loadData = useCallback(</span><br><span class="line">  <span class="keyword">async</span> (passParams: <span class="built_in">any</span>) =&gt; &#123;</span><br><span class="line">    setLoading(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> api(passParams);</span><br><span class="line"></span><br><span class="line">      setData(response);</span><br><span class="line">      setLoading(<span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err &amp;&amp; err.code !== <span class="number">302</span>) &#123;</span><br><span class="line">        message.warn(err ? err.cnmsg : <span class="string">'服务器端出现错误'</span>, <span class="number">2</span>);</span><br><span class="line">        setLoading(<span class="literal">false</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [api],</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>在React Native 中我们也切换页面的时候，也常常会遇到,解决也很简单,如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExamplePage</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    mounted=<span class="literal">false</span></span><br><span class="line">   </span><br><span class="line">    componentDidComponent() &#123;</span><br><span class="line">        <span class="keyword">this</span>.mounted=<span class="literal">true</span></span><br><span class="line">        fetchData().then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.mounted)&#123;</span><br><span class="line">                <span class="keyword">this</span>.setState(....)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentWillUnmount ()&#123;</span><br><span class="line">        <span class="keyword">this</span>.mounted=<span class="literal">false</span></span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至于出现了此等情况,容易造成什么危害,详细请看如下链接</p>
+<p><a href="https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component" target="_blank" rel="noopener">https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/iOS-mvc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1093,80 +1165,6 @@ getMin() -- 检索栈中的最小元素。</code></pre><p>此题要用到辅助�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-life-cycle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/15/react-life-cycle/" class="post-title-link" itemprop="url">react-life-cycle</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-12-15 16:52:28 / 修改时间：16:53:52" itemprop="dateCreated datePublished" datetime="2019-12-15T16:52:28+08:00">2019-12-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="关于在-componentWillMount-中执行异步操作的争论"><a href="#关于在-componentWillMount-中执行异步操作的争论" class="headerlink" title="关于在 componentWillMount 中执行异步操作的争论"></a>关于在 componentWillMount 中执行异步操作的争论</h2><p>componentWillMount 永远执行在 render 函数之前，为什么不在此做一些异步操作呢和 setState，一是官方并不推荐，推荐在 componentDidMount 做一些异步 io 操作，原因是 js 是单线程，执行不可能完成在 render 之前，而且真实 dom 还没渲染完毕，而且在服务端渲染也可能多次调用 componentWillMount，而且现在的 react 版本已经弃用此 api 了，不再过多关注和讨论</p>
-<h3 id="项目中使用"><a href="#项目中使用" class="headerlink" title="项目中使用"></a>项目中使用</h3><p>一般在 constructor 中进行数据的初始化，以前订阅一些操作，而异步的请求则在 componentDidMount 中进行。</p>
-<h2 id="关于-react-的生命周期"><a href="#关于-react-的生命周期" class="headerlink" title="关于 react 的生命周期"></a>关于 react 的生命周期</h2><h3 id="先前版本"><a href="#先前版本" class="headerlink" title="先前版本"></a>先前版本</h3><p><strong>mount：</strong></p>
-<p>constructor-&gt;componentWillMount-&gt;render-&gt;componentDidMount</p>
-<p><strong>setState 更新：</strong></p>
-<p>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
-<p><strong>父组件更新:</strong></p>
-<p>componentWillReceiverProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;componentWillUpdate-&gt;render-&gt;componentDidUpdate</p>
-<h3 id="如今版本"><a href="#如今版本" class="headerlink" title="如今版本"></a>如今版本</h3><p><strong>mount：</strong></p>
-<p>constructor-&gt;getDerivedStateFromProps-&gt;render-&gt;componentDidMount</p>
-<p><strong>setState 更新：</strong></p>
-<p>getDerivedStateFromProps-&gt;shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
-<p><strong>父组件更新:</strong></p>
-<p>getDerivedStateFromProps-&gt;(setState)-&gt;<br>shouldComponentUpdate-&gt;render-&gt;componentDidUpdate</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/38030418" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38030418</a></p>
-<p><a href="https://github.com/reactjs/reactjs.org/issues/302" target="_blank" rel="noopener">https://github.com/reactjs/reactjs.org/issues/302</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1238,7 +1236,7 @@ getMin() -- 检索栈中的最小元素。</code></pre><p>此题要用到辅助�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
