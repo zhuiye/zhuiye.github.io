@@ -158,6 +158,501 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/project-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/16/project-summary/" class="post-title-link" itemprop="url">project-summary</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-16 21:52:01" itemprop="dateCreated datePublished" datetime="2020-01-16T21:52:01+08:00">2020-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-21 21:08:23" itemprop="dateModified" datetime="2020-01-21T21:08:23+08:00">2020-01-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前端这个概念，是web端流行兴起的一个概念，起初，概念比较简单就是做网页的，切图 ，而今我认为，一切需要界面的应用都需要“前端”,app开发，桌面应用开发，小程序开发,网页开发，游戏开发，Unity3D开发，在我看来一个合格的前端工程师，应该是（UI设计师+产品+界面开发）囊括这三个方面，UI这方面的学习甚少，产品 现在才开始萌生意识，开发：如何去实现，这个目前的学习的重点。</p>
+<h2 id="前端作业"><a href="#前端作业" class="headerlink" title="前端作业"></a>前端作业</h2><p>前端主要是干什么呢？一言蔽之：获取数据，渲染数据。但如何优雅的走完整个流程呢，这又需要一个极大技巧性。</p>
+<h2 id="前端项目工程化"><a href="#前端项目工程化" class="headerlink" title="前端项目工程化"></a>前端项目工程化</h2><p>前端发展至今，前端项目工程化越来越成熟，开发效率也越来越高，当今主流的框架有react,vue,angular ,我们只需选择其中一个框架就能构建一个现代化的application ，前端组件化的过程，更是提高了搬砖的效率，刀耕火种的时代已不复存在，现在说说这两年中RN构建现代化项目的过程,</p>
+<h2 id="TypeScript-amp-React-Native"><a href="#TypeScript-amp-React-Native" class="headerlink" title="TypeScript &amp; React Native"></a>TypeScript &amp; React Native</h2><p>TypeScript: js的超集，有完善的类型系统的一门静态强类型语言，以前不知道语言类型的好处，现在才深刻明白，编辑器提示是多么令人幸福的一件事情。</p>
+<p>React Native: 构建iOS/Android app 的技术，如果业务不复杂，推荐用此，开发效率高</p>
+<h2 id="项目的目录结构"><a href="#项目的目录结构" class="headerlink" title="项目的目录结构"></a>项目的目录结构</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">src</span><br><span class="line">  components --组件目录</span><br><span class="line">  screens   --- 页面目录</span><br><span class="line">  values   --- 样式，一些常用值</span><br><span class="line">  utils    ---- 工具目录如 网络请求，</span><br><span class="line">  assets   --- 资源目录，图片。</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>提高代码的复用率和开发效率，组件化这对项目来说是必不可少的，那么什么是组件化呢？编程的思维理解就是一个可以复用的函数，你传进去一些值，经过系列的操作，可以返回你想要的东西，前端的组件化，在于界面，增加的hook之后，连逻辑都可以抽象出来，这个后续再说。先说界面，</p>
+<h2 id="项目中的配置"><a href="#项目中的配置" class="headerlink" title="项目中的配置"></a>项目中的配置</h2><p>项目中的配置，零散 散落在各个文件，我们可以借助一些工具进行集中管理，在RN中，用react-native-config</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="交叉测试"><a href="#交叉测试" class="headerlink" title="交叉测试"></a>交叉测试</h2><h2 id="如何编写代码"><a href="#如何编写代码" class="headerlink" title="如何编写代码"></a>如何编写代码</h2><p>一般的流程如下：获取数据，整合数据，渲染数据，用户交互，整合数据，验证，提交 </p>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><p>命名，重中之中，一个好的命名，看着也舒心，当然最主要易于项目的维护。</p>
+<ol>
+<li><p>文件命名<br>对于页面，一般为页面的标题，组件文件则取通用名字，特殊业务组件跟服务的页面相联系</p>
+</li>
+<li><p>函数命名</p>
+</li>
+</ol>
+<p>具体行为,动作，如:push,change,go,apply, fetch,load ,init 尽量通俗易懂，不要语义不明。 </p>
+<p>ねがい</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/11/git/" class="post-title-link" itemprop="url">git</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-11 17:00:46" itemprop="dateCreated datePublished" datetime="2020-01-11T17:00:46+08:00">2020-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-04 20:45:50" itemprop="dateModified" datetime="2020-03-04T20:45:50+08:00">2020-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天就好好补充一下，这两年在项目中使用git 的经验，git 是一款非常方便的项目管理工具。公司内部一般搭建一个gitlab 服务用于存放代码。</p>
+<h2 id="本机设置用户名和账号"><a href="#本机设置用户名和账号" class="headerlink" title="本机设置用户名和账号"></a>本机设置用户名和账号</h2><p>进入新公司的第一步，我们一般要更改电脑git 中配置的用户名和邮箱，此为识别操作的用户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;hengcheng&quot;</span><br><span class="line">git config --global user.email &quot;503181017@qq.com&quot;</span><br></pre></td></tr></table></figure>
+<p>查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name </span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+<p>详情请参考如下:</p>
+<p><a href="https://www.cnblogs.com/gudi/p/6597660.html" target="_blank" rel="noopener">https://www.cnblogs.com/gudi/p/6597660.html</a></p>
+<h2 id="对于新电脑，添加ssh-的公钥于gitlab-账号上"><a href="#对于新电脑，添加ssh-的公钥于gitlab-账号上" class="headerlink" title="对于新电脑，添加ssh 的公钥于gitlab 账号上"></a>对于新电脑，添加ssh 的公钥于gitlab 账号上</h2><ol>
+<li><p>生成ssh 代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;503181017@qq.com&quot;</span><br><span class="line">密码随后输入</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成的 ssh路径可能如下:</p>
+<p> C:\Users\Aiden.ssh</p>
+</li>
+<li><p>在 gitlal的ssh 添加生成的 id_rsa.pub 内容</p>
+</li>
+</ol>
+<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>上述操作，完毕后，我们就可以从gitLab 上拉代码了，一般格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:zhuiye&#x2F;zhuiye.github.io.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="常规操作"><a href="#常规操作" class="headerlink" title="常规操作"></a>常规操作</h2><p>初始化一个git 仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>一般我们进行文件修改之后，我们可以使用 如下命令，把我们的文件暂存，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<p>当然我们也可以使用下列命令进行撤销暂存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+
+<p>对于工作区的文件，我们可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout  --文件名</span><br></pre></td></tr></table></figure>
+
+<p>当然，对于以上操作，我们都可以借助vscode 来完成，非常方便，不用使用命令来进行繁琐操作</p>
+<p>把文件放入暂存区后，我们想对这次的更改存一次提交，我们就得使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
+<p>如果要撤销这次提交，我们可以使用下列命令<br>，git 会生成一个新的 commit，将指定的 commit 内容从当前分支上撤除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+<p>这在项目中非常有用，例如如果你在后续的版本中，发现某一次的commit代码有问题，这个时候就可以revert 一下。那么这次commit 的代码就会被剔除.</p>
+<p><strong>提交到远程库</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase  <span class="comment">// 把远程库上的代码，加到我们commit记录之后</span></span><br><span class="line">git push origin  <span class="comment">// 代码提交至远程</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h2><p>当我们在某个分支上进行开发的时候，突然接受到从主分支上代码的更新，我们需要合并到正在开发的分支中，这个时候，又不想git commit 因为我们手头的工作还没完成，不想多提交一个记录，我们就可以使用<br>git stash 相关的命名，把这次的更新都暂时存起来。然后我们先去合并主分支，合并好之后，再 弹出 stash 中存储的内容即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash save &quot;hint&quot;</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<p>详情可以参考这篇文章<br><a href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html" target="_blank" rel="noopener">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
+<h2 id="团队合作"><a href="#团队合作" class="headerlink" title="团队合作"></a>团队合作</h2><p>一般而言，我们并不在master 分支上进行功能开发，多人协作，我们都会在开一个属于自己”功能分支”，创建分支，可以使用如下命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b function  &#x2F;&#x2F; 创建并切换到function分支</span><br><span class="line"></span><br><span class="line">git checkout function  &#x2F;&#x2F;切换到function 分支</span><br><span class="line"></span><br><span class="line">git branch -D function   &#x2F;&#x2F;删除function 分支</span><br></pre></td></tr></table></figure>
+
+<p>当我们正在开发的途中，我们在function 分支，如何同步master 分支的代码呢?如下命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">master 分支进行  git pull --rebase </span><br><span class="line"></span><br><span class="line">切换到function分支  git rebase master</span><br></pre></td></tr></table></figure>
+
+<p>开发完成后，我们就得合并分支到master 上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master 分支下执行 git merger function --rebase</span><br></pre></td></tr></table></figure>
+
+<p>当我们不想提交一个commit，切换分支的时候，可以使用  git stash</p>
+<p><a href="https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html" target="_blank" rel="noopener">https://www.cnblogs.com/zndxall/archive/2018/09/04/9586088.html</a></p>
+<h2 id="本地添加远程库"><a href="#本地添加远程库" class="headerlink" title="本地添加远程库"></a>本地添加远程库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git remote add git@github.com:zhuiyeaiden_study_record.git</span><br><span class="line">默认为origin 名，当然我们也可以自定义 </span><br><span class="line">git remote add &quot;name&quot; url</span><br><span class="line"></span><br><span class="line">删除本地远程地址</span><br><span class="line">git remote rm &quot;origin&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="git-cherry-pick-commitid"><a href="#git-cherry-pick-commitid" class="headerlink" title="git cherry-pick commitid"></a>git cherry-pick commitid</h2><p>当我们项目中有两个”主分支”共享一个功能时，这个功能就派上了用场，master1 master2 ,当我们在master1开发完后，把这次的commit 在master2 再次提交一遍就可以了.master2分支中操作如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>多人合作中，代码冲突是时有发生的，如何解决冲突呢？</p>
+<ol>
+<li>找到冲突文件，然后选择保存传入的或者是保留已有的代码</li>
+<li>git add .</li>
+<li>git commit -m</li>
+<li>继续后续操作…</li>
+</ol>
+<h2 id="对远程分支操作"><a href="#对远程分支操作" class="headerlink" title="对远程分支操作"></a>对远程分支操作</h2><p>删除远程分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -d origin branch-name</span><br></pre></td></tr></table></figure>
+
+<p>显示(本地)git所知道的所有本地和远程分支。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
+
+<p>若要更新远程分支的本地列表，请执行以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote update origin --prune</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="给版本打标签"><a href="#给版本打标签" class="headerlink" title="给版本打标签"></a>给版本打标签</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v0.1 -m &#39;注释&#39;</span><br></pre></td></tr></table></figure>
+
+<p>本地打完标签之后，推送到远程服务器中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
+<h2 id="关于git-window-下-文件lf-与-crlf-的问题"><a href="#关于git-window-下-文件lf-与-crlf-的问题" class="headerlink" title="关于git window 下  文件lf 与 crlf 的问题"></a>关于git window 下  文件lf 与 crlf 的问题</h2><p>文件设置为lf 行尾符，在window 环境下 ,git clone 下来却是 crlf ,原因是 git 的自动转化，我们只需要关闭它就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-提交规范"><a href="#git-提交规范" class="headerlink" title="git 提交规范"></a>git 提交规范</h2><ul>
+<li>chore:</li>
+<li>style:</li>
+<li>fix:</li>
+<li>upgrade:</li>
+<li>feat:</li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_33275327/article/details/81485051" target="_blank" rel="noopener">点击查看更多详情</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/02/node/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/02/node/" class="post-title-link" itemprop="url">node</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-02 23:57:08" itemprop="dateCreated datePublished" datetime="2020-01-02T23:57:08+08:00">2020-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 21:31:21" itemprop="dateModified" datetime="2020-01-16T21:31:21+08:00">2020-01-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>近期看了朴灵大神的<strong>深入浅出nodejs</strong>,受益匪浅，至少从表层大致了解后端究竟在执行什么内容，以及后端一些常规操作，测试，监控，部署，维护，负载均衡，进程，线程。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>根据书中所述，适用高并发，以及密集度高的io应用，也可以用来做爬虫应用，写一些命令行工具….</p>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>采用chrome 的v8引擎 运行js,底层的架构则是采用c++模块进行构建。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>单线程，事件驱动，以及异步处理</p>
+<h3 id="异步io"><a href="#异步io" class="headerlink" title="异步io"></a>异步io</h3><p>如果要在单线程中实现异步的话，就需要用到轮询<br>异步io的实现终归是利用线程池</p>
+<h3 id="异步编程的方式"><a href="#异步编程的方式" class="headerlink" title="异步编程的方式"></a>异步编程的方式</h3><p>事件订阅/发布模板<br>promise/defer<br>async await<br>一些异步流程控制库</p>
+<h3 id="node-内存的管理"><a href="#node-内存的管理" class="headerlink" title="node 内存的管理"></a>node 内存的管理</h3><p>v8 引擎申请的内存受到限制，因为垃圾回收机制。</p>
+<h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>二进制数据，占用堆外内存，不由v8分配.在网络/io传输中，利用它能加快速率，与字符串之间的转化，也需要注意，buffer的读取，拼接，然后再转化成字符串，这样的方式最稳妥，解决中文乱码最稳妥的方式</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/02/css-use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/02/css-use/" class="post-title-link" itemprop="url">css-use</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-02 23:22:49" itemprop="dateCreated datePublished" datetime="2020-01-02T23:22:49+08:00">2020-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-25 20:03:22" itemprop="dateModified" datetime="2020-04-25T20:03:22+08:00">2020-04-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>是非经过不知难，近期由于业务需要，做一些展示交互型的web移动端页面，由于接触较少，遇到不少坑，特来记录一下此次的获取的经验。</p>
+<h2 id="技术运用"><a href="#技术运用" class="headerlink" title="技术运用"></a>技术运用</h2><ol>
+<li>react作页面架构</li>
+<li><strong><a href="https://github.com/daneden/animate.css/" target="_blank" rel="noopener">css animate</a></strong></li>
+<li><strong><a href="https://www.animejs.cn/" target="_blank" rel="noopener">animejs</a></strong></li>
+<li><strong><a href="https://g2.antv.vision/zh/" target="_blank" rel="noopener">antV</a></strong>  </li>
+<li><strong><a href="https://hammerjs.github.io/" target="_blank" rel="noopener">hammer.js</a></strong>  手势识别 </li>
+<li><strong><a href="http://airbnb.io/lottie/#/" target="_blank" rel="noopener">lottie-web</a></strong>  动画库</li>
+<li><strong>echart</strong></li>
+</ol>
+<h2 id="关于页面的适配"><a href="#关于页面的适配" class="headerlink" title="关于页面的适配"></a>关于页面的适配</h2><p><strong>100vh或许会产生有滚动条的现象</strong>，浏览器一般都有标题栏，和工具栏，如果我们给body设置100vh,就会产生滚动条，究其原因，100vh等于可视屏幕视口高度，但工具栏遮盖住了一部分，所以产生了滚动条，所以得注意一下这个问题，但我们可以用window.innerHeight来实现<strong>全屏</strong>（没有滚动条得效果），其次我们可以<s><strong>隐藏标题栏或工具栏</strong></s></p>
+<p>在本次的实践项目当中，由于采用图片做背景，文字要覆盖在其固定的位置，故我们要给高度做适配。有两种方式，</p>
+<ol>
+<li>拉伸图片，高度采用vh，长屏幕，适配ok，展示有拉伸效果。</li>
+<li>按宽度比率缩放，高度采用vw， 此等展示效果比较好，就是长屏幕会有大量留白，</li>
+</ol>
+<h2 id="关于一些转化效果"><a href="#关于一些转化效果" class="headerlink" title="关于一些转化效果"></a>关于一些转化效果</h2><p>主要用到css transform:scale(x,y) 这个主要是进行缩放，以及translateY()配合transaction 进行平滑的移动，</p>
+<h2 id="阻止浏览器-微信的下拉刷新"><a href="#阻止浏览器-微信的下拉刷新" class="headerlink" title="阻止浏览器,微信的下拉刷新"></a>阻止浏览器,微信的下拉刷新</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEvenetlistener(<span class="string">"touchmove"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">&#125;,&#123;</span><br><span class="line">    passive:<span class="literal">false</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="阻止菜单出现"><a href="#阻止菜单出现" class="headerlink" title="阻止菜单出现"></a>阻止菜单出现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.oncontextmenu = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="safari-浏览器无法隐藏工具栏及标题栏"><a href="#safari-浏览器无法隐藏工具栏及标题栏" class="headerlink" title="safari 浏览器无法隐藏工具栏及标题栏"></a>safari 浏览器无法隐藏工具栏及标题栏</h2><h2 id="关于iPhoneX的适配"><a href="#关于iPhoneX的适配" class="headerlink" title="关于iPhoneX的适配"></a>关于iPhoneX的适配</h2><p>关于在项目中我使用特意适配，因为比较特殊，没有采用采用css属性适配<br><a href="https://aotu.io/notes/2017/11/27/iphonex/index.html" target="_blank" rel="noopener">https://aotu.io/notes/2017/11/27/iphonex/index.html</a></p>
+<h2 id="浏览器外部唤醒-app"><a href="#浏览器外部唤醒-app" class="headerlink" title="浏览器外部唤醒 app"></a>浏览器外部唤醒 app</h2><p>  android 则用URL schemes ,简单配置如下：<br>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--URL Scheme启动--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--URL Scheme协议部分--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:host</span>=<span class="string">"hengcheng"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:path</span>=<span class="string">"/main"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:port</span>=<span class="string">"8000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:scheme</span>=<span class="string">"example"</span> /&gt;</span> <span class="comment">&lt;!--必填 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--必有项--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--表示该页面可以被隐式调用，必须加上该项--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--如果希望该应用可以通过浏览器的连接启动，则添加该项--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure><br>  调用如下<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.location.href=<span class="string">"example://hengcheng:8000/main"</span></span><br></pre></td></tr></table></figure><br>  iOS则采用<strong>Universal Link</strong>, 也需要经过一番配置，具体操作配置可以上网搜搜，不过需要注意点是跳转iOS那个链接，必须是<strong>不同域</strong>,意味着h5的页面（假如采用:pmtest）要和配置的<strong>Universal Link</strong> (采用pmtest2)不同域。</p>
+<p>  在业务中我们的跳转app大体流程如下：</p>
+  <img src="../images/jumpToApp.jpg">
+
+<p>  下段代码为一个中间页，用来唤醒APP<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">WakeUpApp</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">      componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAndroid()) &#123;</span><br><span class="line">          <span class="built_in">window</span>.location.href = <span class="string">"cktaSpp://xxxxx"</span>;</span><br><span class="line">          setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">window</span>.location.href = <span class="string">"https://fir.im/yfckhb"</span>;</span><br><span class="line">          &#125;, <span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">window</span>.location.href =</span><br><span class="line">            <span class="string">"https://itunes.apple.com/cn/app/%E7%95%85%E5%AE%A2%E4%BC%99%E4%BC%B4/id1449233800?mt=8"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      render() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>  推荐参考链接：</p>
+<p>  <a href="https://juejin.im/post/5b7efb2ee51d45388b6af96c" target="_blank" rel="noopener">https://juejin.im/post/5b7efb2ee51d45388b6af96c</a></p>
+<h2 id="关于此次的页面设计"><a href="#关于此次的页面设计" class="headerlink" title="关于此次的页面设计"></a>关于此次的页面设计</h2><p>设计师尽管是按照iphone6的尺寸来设计，但并没有考虑到iphone6 在safari中的可视页面高度为677-标题栏-工具栏高度，大约517px，如果要求没有<strong>滚动条</strong>的要求，就需要考虑这个<strong>可视高度</strong>。其次，<strong>布局随背景图片乃是大忌</strong>，何解？其一，不同屏幕的适配，会拉伸图片(当然你也可以媒体查询设置不同分辨率的图片,但意味着，要写多套高度适配代码),其二，垂直方向随屏幕高度适配，此处可采取vh,或者可视高度占比来作适配，vh计算其实并不是那么准确，占比也没试过，这些方案并不好，到了这里，说得很清楚了，这就是设计问题了。得出结论，<strong>谨慎布局随背景需求</strong></p>
+<h2 id="最大难点"><a href="#最大难点" class="headerlink" title="最大难点"></a>最大难点</h2><p>业务的场景有一个从远到近的缩放效果，缩放后的页面要适配到各个屏幕，如：在页面的某个位置有一个200*200的图片，你要经过缩放然后扩充到全屏，后续的布局<strong>严重</strong>依赖此缩放的图片。到目前为此：此事无解，因为我根本没法计算<strong>缩放比率</strong>，也就没法正好缩放到图片高度设置（100%）得样子，只好采取拙劣手法，大致缩放到一定范围，然后拿正确图片替换，此法会有一闪而过，无法避免~~</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-hook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="恒承">
+      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chen heng cheng">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/15/react-hook/" class="post-title-link" itemprop="url">react-hook</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-15 16:53:33" itemprop="dateCreated datePublished" datetime="2019-12-15T16:53:33+08:00">2019-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 21:47:17" itemprop="dateModified" datetime="2020-01-16T21:47:17+08:00">2020-01-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>react-hook 是 16.8 版本之后为组件函数提供 state 功能的工具。关于诸多介绍，详细看文档了，下面只讲述我在项目的实际使用。</p>
+<h2 id="react-hook-诞生目的"><a href="#react-hook-诞生目的" class="headerlink" title="react-hook 诞生目的"></a>react-hook 诞生目的</h2><p>根据官方的说法，多年用 class 编写组件，发现其中逻辑的复用并不高，尽管有 renderProps 和高阶组件解决方案，但终究不够优雅，组件间嵌套的层数，一不小心就会让人深陷泥潭。为此官方一直寻找一个方式，更大的复用组件中的一些 state 以及耦合的逻辑，由此 react-hook 诞生出来了，当然 react-hook 也不仅仅是逻辑间的复用，还有 state 组织方式，以及类式 class 生命周期的 useEffect hook。</p>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p>useEffect 这个 hook，里面的门道一点也不简单，目前在项目中使用场景也非常简单，只是在里面处理异步的请求，后续会补充其更多的使用场景。详情请看下面两个链接：</p>
+<p><a href="https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/" target="_blank" rel="noopener">https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/</a></p>
+<p><a href="https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/" target="_blank" rel="noopener">https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/</a></p>
+<p><a href="https://www.robinwieruch.de/react-hooks-fetch-data/" target="_blank" rel="noopener">https://www.robinwieruch.de/react-hooks-fetch-data/</a></p>
+<p>useEffect 集合了类式 class 组件的生命周期 componentDidMount(),componentWillUnMount()<br>componentDidUpdate()。</p>
+<h2 id="自定义的-hook"><a href="#自定义的-hook" class="headerlink" title="自定义的 hook"></a>自定义的 hook</h2><p>大大提升复用率，自定义的 hook 是什么呢，在我看来，它就是一个函数，你可以往里面传一些参数，里面有一个自己的 state，然后返回一个 state 就行了。看下面我封装的代码就可以明白这一点</p>
+<h2 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h2><p>在最近的重构项目中使用 react-hook，react-hook 不仅赋予了函数组件 state 的能力，而且一个强大之处就是对 state 的复用，这点深有体会。用了 react-hook 不仅代码函数大大缩减，而且可以对不同的 state 声明，以及操作进行划分设置，最厉害的就是复用率大大提升。下面就放上项目封装的 request hook</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单示意</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useRequestData</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> fetchData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// params  参数可以传进请求需要的参数</span></span><br><span class="line">    request.post(params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      setData(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    fetchData();</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 暴露出fetchData 主要是为了 刷新，查询所用</span></span><br><span class="line">  <span class="keyword">return</span> [data, fetchData];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useCallback的使用场景"><a href="#useCallback的使用场景" class="headerlink" title="useCallback的使用场景"></a>useCallback的使用场景</h2><p>使传递给子组件的函数保持meroize化，这样可以使子组件不必重新渲染。来看一个example</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params">&#123;onClick&#125;</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;onClick&#125;</span>&gt;</span>example text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="keyword">const</span>  onClick=<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Hello</span> <span class="attr">onClick</span>=<span class="string">&#123;onClick&#125;/</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到每次当父组件重新渲染时，onClick每次都是新的传进Hello,故此引起Hello组件的渲染，引起不必要的渲染，当然，我们一般情况也不必<br>在意，但我们可以进行优化。优化如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onClick=useCallback(<span class="function"><span class="params">()</span>=&gt;</span>&#123;&#125;,[])</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现componentWillReceiverComponent-getDerivedStateFromProps"><a href="#实现componentWillReceiverComponent-getDerivedStateFromProps" class="headerlink" title="实现componentWillReceiverComponent|getDerivedStateFromProps"></a>实现componentWillReceiverComponent|getDerivedStateFromProps</h2><p>在初次用 hook 封装组件的时候，遇到了需要使用 getDerivedStateFromProps 场景，<br>官方给出的建议是保存 state 上次的 props,然后跟更新的 props 做比较。实话实说，实现不怎么优雅</p>
+<p><a href="https://react.docschina.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops" target="_blank" rel="noopener">https://react.docschina.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops</a></p>
+<p>请看下面代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState, CSSProperties &#125; from &quot;react&quot;;</span><br><span class="line">import &#123; Modal, Icon, message &#125; from &quot;antd&quot;;</span><br><span class="line"></span><br><span class="line">const styles: &#123;</span><br><span class="line">  [key: string]: CSSProperties;</span><br><span class="line">&#125; &#x3D; &#123;</span><br><span class="line">  modalStyle: &#123;&#125;,</span><br><span class="line">  container: &#123;</span><br><span class="line">    width: &quot;100%&quot;,</span><br><span class="line">    height: &quot;100%&quot;,</span><br><span class="line">    position: &quot;relative&quot;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  leftIcon: &#123;</span><br><span class="line">    fontSize: 40,</span><br><span class="line">    position: &quot;absolute&quot;,</span><br><span class="line">    left: 0,</span><br><span class="line">    top: &quot;50%&quot;,</span><br><span class="line">    marginTop: -20,</span><br><span class="line">    cursor: &quot;pointer&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  rightIcon: &#123;</span><br><span class="line">    fontSize: 40,</span><br><span class="line">    position: &quot;absolute&quot;,</span><br><span class="line">    right: 0,</span><br><span class="line">    top: &quot;50%&quot;,</span><br><span class="line">    marginTop: -20,</span><br><span class="line">    cursor: &quot;pointer&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  img: &#123;</span><br><span class="line">    width: &quot;100%&quot;,</span><br><span class="line">    height: &quot;auto&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  pictureDesc: &#123;</span><br><span class="line">    fontWeight: &quot;bold&quot;,</span><br><span class="line">    marginBottom: 4,</span><br><span class="line">    marginTop: 4,</span><br><span class="line">    textAlign: &quot;center&quot;,</span><br><span class="line">    display: &quot;block&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">interface PictureScrollViewProps &#123;</span><br><span class="line">  visible: boolean;</span><br><span class="line">  picIndex?: number;</span><br><span class="line">  close: () &#x3D;&gt; void;</span><br><span class="line">  data: Array&lt;&#123;</span><br><span class="line">    type_name: string;</span><br><span class="line">    url: string;</span><br><span class="line">  &#125;&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const PictureScrollView: React.FC&lt;PictureScrollViewProps&gt; &#x3D; (&#123;</span><br><span class="line">  visible,</span><br><span class="line">  close,</span><br><span class="line">  data,</span><br><span class="line">  picIndex &#x3D; 0</span><br><span class="line">&#125;) &#x3D;&gt; &#123;</span><br><span class="line">  const [currentIndex, setCurrentIndex] &#x3D; useState(picIndex);</span><br><span class="line"></span><br><span class="line">  &#x2F;*  目的是当picIndex发生变化,</span><br><span class="line">      更新它</span><br><span class="line">      https:&#x2F;&#x2F;react.docschina.org&#x2F;docs&#x2F;hooks-faq.html#how-do-i-implement-getderivedstatefromprops</span><br><span class="line">  *&#x2F;</span><br><span class="line">  let [prevIndex, setPreIndex] &#x3D; useState &lt; number &gt; 0;</span><br><span class="line"></span><br><span class="line">  if (picIndex !&#x3D;&#x3D; prevIndex) &#123;</span><br><span class="line">    setPreIndex(picIndex);</span><br><span class="line">    setCurrentIndex(picIndex);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const last &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    if (currentIndex &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">      message.warn(&quot;已到第一张图片&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      setCurrentIndex(currentIndex - 1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const next &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    if (currentIndex &#x3D;&#x3D;&#x3D; data.length - 1) &#123;</span><br><span class="line">      message.warn(&quot;已到最后一张图片&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      setCurrentIndex(currentIndex + 1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;Modal</span><br><span class="line">      visible&#x3D;&#123;visible&#125;</span><br><span class="line">      footer&#x3D;&#123;null&#125;</span><br><span class="line">      title&#x3D;&#123;null&#125;</span><br><span class="line">      onCancel&#x3D;&#123;() &#x3D;&gt; &#123;</span><br><span class="line">        setCurrentIndex(picIndex);</span><br><span class="line">        close();</span><br><span class="line">      &#125;&#125;</span><br><span class="line">      width&#x3D;&#123;600&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;data.length !&#x3D;&#x3D; 0 ? (</span><br><span class="line">        &lt;div style&#x3D;&#123;styles.container&#125;&gt;</span><br><span class="line">          &lt;picture&gt;</span><br><span class="line">            &lt;figcaption style&#x3D;&#123;styles.pictureDesc&#125;&gt;</span><br><span class="line">              &#123;data[currentIndex].type_name&#125;</span><br><span class="line">            &lt;&#x2F;figcaption&gt;</span><br><span class="line">            &lt;img src&#x3D;&#123;data[currentIndex].url&#125; alt&#x3D;&quot;xxx&quot; style&#x3D;&#123;styles.img&#125; &#x2F;&gt;</span><br><span class="line">          &lt;&#x2F;picture&gt;</span><br><span class="line">          &lt;Icon</span><br><span class="line">            type&#x3D;&quot;left-circle&quot;</span><br><span class="line">            theme&#x3D;&quot;filled&quot;</span><br><span class="line">            style&#x3D;&#123;styles.leftIcon&#125;</span><br><span class="line">            onClick&#x3D;&#123;last&#125;</span><br><span class="line">          &#x2F;&gt;</span><br><span class="line">          &lt;Icon</span><br><span class="line">            type&#x3D;&quot;right-circle&quot;</span><br><span class="line">            theme&#x3D;&quot;filled&quot;</span><br><span class="line">            style&#x3D;&#123;styles.rightIcon&#125;</span><br><span class="line">            onClick&#x3D;&#123;next&#125;</span><br><span class="line">          &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      ) : (</span><br><span class="line">        &lt;div&gt;无图片数据&lt;&#x2F;div&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;&#x2F;Modal&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">export default PictureScrollView;</span><br></pre></td></tr></table></figure>
+
+<p>上面的组件封装的是一个照片轮播墙，picIndex 是指当前的照片是哪一张，组件初入挂载，<br>picIndex 从组件外传进来，关闭，再次点击另一张照片，picIndex 要相应改变，故此要监听 picIndex prop 的变量，从而同步更新内部的 picIndex state .</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/react-life-cycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -532,419 +1027,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/iOS-development-preface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/09/iOS-development-preface/" class="post-title-link" itemprop="url">iOS development  preface</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-09 22:28:19" itemprop="dateCreated datePublished" datetime="2019-11-09T22:28:19+08:00">2019-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-25 12:06:57" itemprop="dateModified" datetime="2020-01-25T12:06:57+08:00">2020-01-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="iOS-development-preface"><a href="#iOS-development-preface" class="headerlink" title="iOS development  preface"></a>iOS development  preface</h1><p>  2019.10.1,心血来潮，我入手了人生的第一部Macbook Pro,由此开始走上学习iOS 开发的道路.<br>  iOS 开发用到的语言事Objective-C (简称OC),该语言已经有30~40年的历史的，算是比较老的，它是 C的扩展语言，增加了面向对象的特性,采用smallTalk80 语言的消息传递机制。然,英雄总有迟暮的一天，由于一些原因，苹果在2014年又推出了新的开发语言Swift,用来开发 iOS 应用，目前苹果官方也是极力推Swift,对于OC,则是”维护”的状态。由于国内项目多采用OC,对于新的swift项目也在实践当中，故此，我从OC开始学起，从网上搜寻得来两本书，&lt;Objective-C.程序设计&gt;,&lt;Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方&gt;</p>
-<p>  语言都有思想的共性，无非是写的方式不同，学习一门新的语言，首先从语法开始学习，不得不说，OC的语法,啰嗦，而且怪异，可能是我写脚本语言JS较多的缘故吧。OC 跟大都数面对对象的语言一样，拥有类的概念，继承，多态等等，还有C的内存管理,后续学习的过程中，我会和JS参照对比</p>
-<h2 id="OC"><a href="#OC" class="headerlink" title="OC"></a>OC</h2><p>  OC 以smallTalk-80 为基础，在C语言的基础在扩展（就好比typescript是js 的超集），支持对象的创建，是一门面向对象编程的静态语言.</p>
-<p><a href="https://upload.wikimedia.org/wikipedia/commons/7/77/Unix_history-simple.svg" target="_blank" rel="noopener">https://upload.wikimedia.org/wikipedia/commons/7/77/Unix_history-simple.svg</a></p>
-<p>  得改变想法，先设计，再编码？</p>
-<p>  C 代码编译<br>  编译器 和链接器</p>
-<p>  C语言的来源：为开发unix，设计面向编程人员的一种高级程序语言，<br>  大多数操作系统的底层核心都有用到C编写，C高效，较自由？但内存管理有问题？</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/react-native-module/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/09/react-native-module/" class="post-title-link" itemprop="url">react-native-module</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-09 12:29:47 / 修改时间：13:42:30" itemprop="dateCreated datePublished" datetime="2019-11-09T12:29:47+08:00">2019-11-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="create-react-native-module"><a href="#create-react-native-module" class="headerlink" title="create-react-native-module"></a>create-react-native-module</h2><p>此为官方推荐用来创建native 库的一个工具</p>
-<p><a href="https://github.com/brodybits/create-react-native-module" target="_blank" rel="noopener">https://github.com/brodybits/create-react-native-module</a></p>
-<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-native-module</span><br></pre></td></tr></table></figure>
-
-<h3 id="use"><a href="#use" class="headerlink" title="use"></a>use</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-native-module MyFancyLibrary</span><br></pre></td></tr></table></figure>
-
-<h2 id="下面是我集成一个android-sdk-ocr-于库中的一个步骤，本地开发"><a href="#下面是我集成一个android-sdk-ocr-于库中的一个步骤，本地开发" class="headerlink" title="下面是我集成一个android sdk (ocr) 于库中的一个步骤，本地开发"></a>下面是我集成一个android sdk (ocr) 于库中的一个步骤，本地开发</h2><h3 id="创建库与项目目录平级"><a href="#创建库与项目目录平级" class="headerlink" title="创建库与项目目录平级"></a>创建库与项目目录平级</h3><pre><code>如: react-native-project &amp; react-native-library</code></pre><h3 id="修改react-native-project项目中的package-json"><a href="#修改react-native-project项目中的package-json" class="headerlink" title="修改react-native-project项目中的package.json"></a>修改react-native-project项目中的package.json</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 代表等下yarn  install 的时候从同级目录中下载</span></span><br><span class="line"><span class="comment">   后续开发完成你也可以把包上传到github 上 </span></span><br><span class="line"><span class="comment">   "https://github.com/user/react-native-library" </span></span><br><span class="line"><span class="comment">   或者自己的私有gitlabe服务器中</span></span><br><span class="line"><span class="comment">   :git+ssh://git@gitlab.xxxxxx/react-native-library.git</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">"react-native-library"</span>: <span class="string">"file:../react-native-library"</span>,</span><br></pre></td></tr></table></figure>
-<h3 id="android-中-build-grade-修改"><a href="#android-中-build-grade-修改" class="headerlink" title="android 中 build.grade 修改"></a>android 中 build.grade 修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        maven &#123;</span><br><span class="line">            &#x2F;&#x2F; All of React Native (JS, Obj-C sources, Android binaries) is installed from npm</span><br><span class="line">            url &quot;$rootDir&#x2F;..&#x2F;node_modules&#x2F;react-native&#x2F;android&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; Requested by ImageCropPicker</span><br><span class="line">        maven &#123; url &#39;https:&#x2F;&#x2F;maven.google.com&#39; &#125;</span><br><span class="line">        maven &#123; url &quot;https:&#x2F;&#x2F;jitpack.io&quot; &#125;</span><br><span class="line">        flatDir &#123;</span><br><span class="line">            &#x2F;&#x2F; 对于库中依赖的aar包,可能需要这样配置</span><br><span class="line">            dirs &quot;$rootDir&#x2F;..&#x2F;node_modules&#x2F;react-native-alipay&#x2F;android&#x2F;libs&quot;, </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="setting-grade修改"><a href="#setting-grade修改" class="headerlink" title="setting.grade修改"></a>setting.grade修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里的路径仅为开发时的,待开发完成时，改为node_moudle  包下的即可</span><br><span class="line"> project(&#39;:react-native-library&#39;).projectDir &#x3D; new File(rootProject.projectDir, &#39;..&#x2F;..&#x2F;react-native-library&#x2F;android&#39;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="关于android-如何集成"><a href="#关于android-如何集成" class="headerlink" title="关于android 如何集成"></a>关于android 如何集成</h3><p>这次我集成的是一个ocr sdk ,其实也不难，一般有提供一个sample demo<br>我们只需要 复制其中的代码与我们的native 库中，然后做js的桥接即可，<br>这复制过程中，要注意的点:</p>
-<ol>
-<li>复制过来文件包名的修改</li>
-<li>sample 代码中对库的依赖也要加入 我们要开发库中的build.grade文件中</li>
-</ol>
-<hr>
-<p>native libray build.gradle 要配置好,example 如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    &#x2F;&#x2F; ref:</span><br><span class="line">    &#x2F;&#x2F; https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native&#x2F;blob&#x2F;0.61-stable&#x2F;template&#x2F;android&#x2F;app&#x2F;build.gradle#L192</span><br><span class="line">    &#x2F;&#x2F;noinspection GradleDynamicVersion</span><br><span class="line">    &#x2F;&#x2F; 着重:依赖的sdk</span><br><span class="line">    implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.aar&#39;])</span><br><span class="line"></span><br><span class="line">    implementation &#39;com.facebook.react:react-native:+&#39;</span><br><span class="line">    &#x2F;&#x2F; 着重</span><br><span class="line">    &#x2F;&#x2F; 复制的代码依赖的库...</span><br><span class="line">    implementation &#39;com.android.support:appcompat-v7:28.0.0&#39;</span><br><span class="line">    implementation &#39;com.android.support:design:28.0.0&#39;</span><br><span class="line">    implementation &#39;com.android.support.constraint:constraint-layout:1.1.3&#39;&#x2F;&#x2F; From node_modules</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="桥接native-端代码"><a href="#桥接native-端代码" class="headerlink" title="桥接native 端代码"></a>桥接native 端代码</h3><p>集成之后，我们就可以写桥接代码了,参考官方提供的桥接代码就可以了<br><a href="https://reactnative.cn/docs/native-modules-android/" target="_blank" rel="noopener">https://reactnative.cn/docs/native-modules-android/</a></p>
-<p><strong>关于定义js的接口</strong><br>如果集成的sdk中，有关于api key and api secret 的配置，我们最好也暴露出一个js的方法，交由js 配置<br>如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reactNativeLibrary.config(key ,secret )</span><br></pre></td></tr></table></figure>
-
-
-<p>也可以参考阿里支付的集成方案<br><a href="https://github.com/0x5e/react-native-alipay" target="_blank" rel="noopener">https://github.com/0x5e/react-native-alipay</a></p>
-<p>ios 端暂无试过集成..</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/jump-wall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/07/jump-wall/" class="post-title-link" itemprop="url">jump-wall</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-07 22:28:47" itemprop="dateCreated datePublished" datetime="2019-08-07T22:28:47+08:00">2019-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-23 17:18:40" itemprop="dateModified" datetime="2019-11-23T17:18:40+08:00">2019-11-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><ol>
-<li><p>置备一台国外的服务器</p>
-<p>阿里云的香港服务器  <a href="qq://txfile/#">https://cn.aliyun.com/product/swas</a></p>
-</li>
-<li><p>进入系统创建一个 ssr.sh 脚本文件</p>
-<p>内容如下:<a href="https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh" target="_blank" rel="noopener">https://github.com/ToyoDAdoubi/doubi/blob/master/ssr.sh</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test </span><br><span class="line">vim ssr.sh</span><br><span class="line">i:进入编辑模式</span><br><span class="line">......输入内容</span><br><span class="line">ese：返回一般模式</span><br><span class="line">:wq 保存退处</span><br><span class="line">bash ssr.sh :执行...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启服务器（SSR服务器端口）也就是在配置SSR， 需要的端口号</p>
-</li>
-</ol>
-<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>进入服务器，执行复制下列代码,傻瓜式操作即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;teddysun&#x2F;shadowsocks_install&#x2F;master&#x2F;shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line"></span><br><span class="line">.&#x2F;shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure>
-
-<p>ssh root@ipaddress</p>
-<h2 id="notice"><a href="#notice" class="headerlink" title="notice"></a>notice</h2><p>系统要求: <strong><em>centos7</em></strong></p>
-<p>一般情况下就可以轻松happy访问,但你会发现即使100M的网络，也如龟速，这个时候就要安装BBR 加速.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh </span><br><span class="line">chmod +x bbr.sh </span><br><span class="line">.&#x2F;bbr.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="relative-link-following"><a href="#relative-link-following" class="headerlink" title="relative link following"></a>relative link following</h3><p><a href="https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/" target="_blank" rel="noopener">https://www.zhuangold.com/vultr-vps%e4%b8%bb%e6%9c%ba%e5%bf%ab%e9%80%9f%e5%ae%89%e8%a3%85shadowsocks%ef%bc%88ss%ef%bc%89%e6%95%99%e7%a8%8b-2-2/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/dart-study/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/22/dart-study/" class="post-title-link" itemprop="url">dart-study</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-22 23:29:18" itemprop="dateCreated datePublished" datetime="2019-07-22T23:29:18+08:00">2019-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-07-23 22:33:57" itemprop="dateModified" datetime="2019-07-23T22:33:57+08:00">2019-07-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>#dart Study<br><a href="https://dart.dev/guides/language/language-tour#a-basic-dart-program" target="_blank" rel="noopener">https://dart.dev/guides/language/language-tour#a-basic-dart-program</a></p>
-<h3 id="dart-语言教程"><a href="#dart-语言教程" class="headerlink" title="dart 语言教程"></a>dart 语言教程</h3><h3 id="一个基础的dart-程序"><a href="#一个基础的dart-程序" class="headerlink" title="一个基础的dart 程序"></a>一个基础的dart 程序</h3><p>下面的代码用了dart基础功能</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个函数</span></span><br><span class="line">printInteger(<span class="built_in">int</span> aNumber) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'The number is <span class="subst">$aNumber</span>.'</span>); <span class="comment">// Print to console.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app的执行入口main函数.</span></span><br><span class="line">main() &#123;</span><br><span class="line">    <span class="comment">// 声明并初始化一个变量</span></span><br><span class="line">    <span class="keyword">var</span> number = <span class="number">42</span>;</span><br><span class="line">    printInteger(number); <span class="comment">// Call a function.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><b>//</b>  这是一个单行的注释</p>
-<p><b>int</b> 一个内置的类型(built in types),其它内置类型有String,bool…</p>
-<p><b>$variableName (or ${expression})</b> 字符串插值，类似字符串模板</p>
-<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><hr>
-<ol>
-<li>一切皆对象</li>
-<li>Dart是强类型语言，类型声明是可选的，因为有类型推断,number 被推断为int,</li>
-<li>dart 支持常规类型，List&lt;int&gt;或者 List&lt;dynamic&gt;</li>
-<li>dart 支持全局函数，如 main(), 可以嵌套函数，或者当作类实例的方法，对象的方法</li>
-<li>相似的，dart 也支持全局的变量,也可当作对象的属性，类实例的属性</li>
-<li>不像java,<b>dart</b> 没有关键字 <b>public, protected ,private</b> 如果一个标识符以”_”开头,它将在这个库是私有的.</li>
-<li>Dart 的工具能报告两种类型问题，警告和错误,警告不会阻止你的代码执行，但错误会</li>
-</ol>
-<h3 id="keyWords"><a href="#keyWords" class="headerlink" title="keyWords"></a>keyWords</h3><p>略….</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>创建变量并初始化</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">"hengcheng"</span></span><br><span class="line"></span><br><span class="line">dymaic name=<span class="string">"hengcheng"</span></span><br><span class="line"><span class="built_in">String</span> name=<span class="string">"hengcheng"</span></span><br></pre></td></tr></table></figure>
-<p>变量储存引用,name引用了一个带有值hengcheng得字符串对象</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> lineCount;</span><br><span class="line"><span class="keyword">assert</span>(lineCount == <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<p>没被赋值得变量有一个默认值为<b>null</b></p>
-<h4 id="Final-and-const"><a href="#Final-and-const" class="headerlink" title="Final and const"></a>Final and const</h4><p>如果你没有意图去改变一个变量得值，用const 或者final</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> name = <span class="string">'Bob'</span>; <span class="comment">// Without a type annotation</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> nickname = <span class="string">'Bobby'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h3><ol>
-<li>numbers</li>
-<li>strings</li>
-<li>booleans</li>
-<li>lists(就像数组) </li>
-<li>sets </li>
-<li>maps</li>
-<li>runes </li>
-<li>symbols</li>
-</ol>
-<h3 id="字符串转数字"><a href="#字符串转数字" class="headerlink" title="字符串转数字"></a>字符串转数字</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String -&gt; int</span></span><br><span class="line"><span class="keyword">var</span> one = <span class="built_in">int</span>.parse(<span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">assert</span>(one == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String -&gt; double</span></span><br><span class="line"><span class="keyword">var</span> onePointOne = <span class="built_in">double</span>.parse(<span class="string">'1.1'</span>);</span><br><span class="line"><span class="keyword">assert</span>(onePointOne == <span class="number">1.1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> oneAsString = <span class="number">1.</span>toString();</span><br><span class="line"><span class="keyword">assert</span>(oneAsString == <span class="string">'1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// double -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> piAsString = <span class="number">3.14159</span>.toStringAsFixed(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">assert</span>(piAsString == <span class="string">'3.14'</span>);</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/jQuery-deferred/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="恒承">
-      <meta itemprop="description" content="知识的匮乏，让人心生恐惧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chen heng cheng">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/21/jQuery-deferred/" class="post-title-link" itemprop="url">jQuery.deferred</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-07-21 20:57:13 / 修改时间：20:59:35" itemprop="dateCreated datePublished" datetime="2019-07-21T20:57:13+08:00">2019-07-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="jQuery-deferred"><a href="#jQuery-deferred" class="headerlink" title="jQuery.deferred()"></a>jQuery.deferred()</h2><h3 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h3><p>由于javascript中的存在着异步特性的调用，写异步代码的时候，容易造成回调函数地狱，使代码不雅观，于是便出现了一写解决方案，去解决这个嵌套地狱，如deferred,Promise方案…</p>
-<h3 id="常见的回调地狱"><a href="#常见的回调地狱" class="headerlink" title="常见的回调地狱"></a>常见的回调地狱</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;<span class="attr">url</span>:<span class="string">'test.php'</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url:<span class="string">'test.php'</span>,</span><br><span class="line">        data:res.data,</span><br><span class="line">        success:<span class="function"><span class="keyword">function</span>(<span class="params">res1</span>)</span>&#123;</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">                ......</span></span><br><span class="line"><span class="comment">                ...</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="deferred"><a href="#deferred" class="headerlink" title="deferred()"></a>deferred()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;<span class="attr">url</span>:<span class="string">'test.php'</span>&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $.ajax(&#123;<span class="attr">url</span>:<span class="string">'test1.php'</span>,<span class="attr">data</span>:res.data&#125;) </span><br><span class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">res1</span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="实现简单的deferred"><a href="#实现简单的deferred" class="headerlink" title="实现简单的deferred"></a>实现简单的deferred</h3><p>1.Deferred 有done方法，有resovle 决定函数异步是否成功了的状态</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Deferred = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> callbackList = [];</span><br><span class="line">    <span class="keyword">let</span> failcallbackList = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> deferred = &#123;</span><br><span class="line">        done: <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 简单的假设传进来的是fn--参数是函数</span></span><br><span class="line">            callbackList.push(fn)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        resolve: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> fn <span class="keyword">of</span> callbackList) &#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>, data)</span><br><span class="line">            &#125;</span><br><span class="line">            callbackList=[]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">            failcallbackList.push(fn)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        reject: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> fn <span class="keyword">of</span> failcallbackList) &#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>, data)</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            failcallbackList=[]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> deferred;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testFn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span>  deferred=Deferred();</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="comment">// deferred.resolve('test data')</span></span><br><span class="line">       deferred.reject(<span class="string">' occur error '</span>)</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">    <span class="keyword">return</span> deferred</span><br><span class="line">&#125;</span><br><span class="line">testFn().done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;).fail(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>简单的实现大致如上，下面我们来看看jQuery.deferred的具体实现，源码参照1.5版本</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a simple deferred (one callbacks list)</span></span><br><span class="line">  <span class="comment">// 创建一个简单的deferred对象</span></span><br><span class="line">_Deferred: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> <span class="comment">// callbacks list ---回调函数列表</span></span><br><span class="line">		callbacks = [],</span><br><span class="line">             <span class="comment">// 储存上下文和参数</span></span><br><span class="line">		<span class="comment">// stored [ context , args ] </span></span><br><span class="line">		fired,</span><br><span class="line">           <span class="comment">// .</span></span><br><span class="line">		<span class="comment">// to avoid firing when already doing so</span></span><br><span class="line">		firing,</span><br><span class="line">		<span class="comment">// flag to know if the deferred has been cancelled</span></span><br><span class="line">		cancelled,</span><br><span class="line">		<span class="comment">// the deferred itself</span></span><br><span class="line">		deferred  = &#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// done( f1, f2, ...)</span></span><br><span class="line">			done: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> ( !cancelled ) &#123;</span><br><span class="line">					<span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">						i,</span><br><span class="line">						length,</span><br><span class="line">						elem,</span><br><span class="line">						type,</span><br><span class="line">						_fired;</span><br><span class="line">					<span class="keyword">if</span> ( fired ) &#123;</span><br><span class="line">						_fired = fired; <span class="comment">//如果已经有了上下文信息 ，存储，</span></span><br><span class="line">						fired = <span class="number">0</span>;<span class="comment">// 重置</span></span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">for</span> ( i = <span class="number">0</span>, length = args.length; i &lt; length; i++ ) &#123;</span><br><span class="line">						elem = args[ i ];</span><br><span class="line">						type = jQuery.type( elem );</span><br><span class="line">                           <span class="comment">// 把函数加入私有的变量的列表中..</span></span><br><span class="line">						<span class="keyword">if</span> ( type === <span class="string">"array"</span> ) &#123;</span><br><span class="line">                                 <span class="comment">// 如果是传经来的是数组，如&#123;[fn1,fn2]&#125;--递归调用</span></span><br><span class="line">							deferred.done.apply( deferred, elem );</span><br><span class="line">						&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( type === <span class="string">"function"</span> ) &#123;</span><br><span class="line">							callbacks.push( elem );</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">                       <span class="comment">// 如果_fired有..触发</span></span><br><span class="line">					<span class="keyword">if</span> ( _fired ) &#123;</span><br><span class="line">						deferred.resolveWith( _fired[ <span class="number">0</span> ], _fired[ <span class="number">1</span> ] );</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">                   <span class="comment">// 返回this ,回调用的</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// resolve with given context and args</span></span><br><span class="line">			resolveWith: <span class="function"><span class="keyword">function</span>(<span class="params"> context, args </span>) </span>&#123;</span><br><span class="line">				<span class="keyword">if</span> ( !cancelled &amp;&amp; !fired &amp;&amp; !firing ) &#123;</span><br><span class="line">					firing = <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">try</span> &#123;</span><br><span class="line">                           <span class="comment">// 利用队列，顺序调用每一个函数</span></span><br><span class="line">						<span class="keyword">while</span>( callbacks[ <span class="number">0</span> ] ) &#123;</span><br><span class="line">							callbacks.shift().apply( context, args );</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">finally</span> &#123;</span><br><span class="line">						fired = [ context, args ];</span><br><span class="line">						firing = <span class="number">0</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// resolve with this as context and given arguments</span></span><br><span class="line">			resolve: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				deferred.resolveWith( jQuery.isFunction( <span class="keyword">this</span>.promise ) ? <span class="keyword">this</span>.promise() : <span class="keyword">this</span>, <span class="built_in">arguments</span> );</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Has this deferred been resolved? 判断一个deffer 对象的状态</span></span><br><span class="line">			isResolved: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> !!( firing || fired );</span><br><span class="line">			&#125;,</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Cancel</span></span><br><span class="line">			cancel: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">				cancelled = <span class="number">1</span>;</span><br><span class="line">				callbacks = [];</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> deferred;</span><br><span class="line">&#125;,</span><br><span class="line">       </span><br><span class="line">   <span class="comment">// Full fledged deferred (two callbacks list)</span></span><br><span class="line">Deferred: <span class="function"><span class="keyword">function</span>(<span class="params"> func </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> deferred = jQuery._Deferred(),</span><br><span class="line">		failDeferred = jQuery._Deferred(),</span><br><span class="line">		promise;</span><br><span class="line">	<span class="comment">// Add errorDeferred methods, then and promise</span></span><br><span class="line">       <span class="comment">// 往deferred对象中添加errorDeferred方法和promise</span></span><br><span class="line">	jQuery.extend( deferred, &#123;</span><br><span class="line">		then: <span class="function"><span class="keyword">function</span>(<span class="params"> doneCallbacks, failCallbacks </span>) </span>&#123;</span><br><span class="line">			deferred.done( doneCallbacks ).fail( failCallbacks );</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">		&#125;,</span><br><span class="line">		fail: failDeferred.done,</span><br><span class="line">		rejectWith: failDeferred.resolveWith,</span><br><span class="line">		reject: failDeferred.resolve,</span><br><span class="line">		isRejected: failDeferred.isResolved,</span><br><span class="line">		<span class="comment">// Get a promise for this deferred</span></span><br><span class="line">		<span class="comment">// If obj is provided, the promise aspect is added to the object</span></span><br><span class="line">           <span class="comment">// 返回一个deferred对象</span></span><br><span class="line">           <span class="comment">// 如果传入一个对象，会把deferred对象的所有属性赋予给这个对象</span></span><br><span class="line">		promise: <span class="function"><span class="keyword">function</span>(<span class="params"> obj , i <span class="regexp">/* internal */</span> </span>) </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> ( obj == <span class="literal">null</span> ) &#123;</span><br><span class="line">				<span class="keyword">if</span> ( promise ) &#123;</span><br><span class="line">					<span class="keyword">return</span> promise;</span><br><span class="line">				&#125;</span><br><span class="line">				promise = obj = &#123;&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			i = promiseMethods.length;</span><br><span class="line">			<span class="keyword">while</span>( i-- ) &#123;</span><br><span class="line">				obj[ promiseMethods[ i ] ] = deferred[ promiseMethods[ i ] ];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> obj;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; );</span><br><span class="line">	<span class="comment">// Make sure only one callback list will be used</span></span><br><span class="line">	deferred.then( failDeferred.cancel, deferred.cancel );</span><br><span class="line">	<span class="comment">// Unexpose cancel</span></span><br><span class="line">	<span class="keyword">delete</span> deferred.cancel;</span><br><span class="line">	<span class="comment">// Call given func if any</span></span><br><span class="line">	<span class="keyword">if</span> ( func ) &#123;</span><br><span class="line">		func.call( deferred, deferred );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> deferred;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// Deferred helper 这个方法相当于Promise.all([])</span></span><br><span class="line">when: <span class="function"><span class="keyword">function</span>(<span class="params"> object </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">		length = args.length,</span><br><span class="line">		deferred = length &lt;= <span class="number">1</span> &amp;&amp; object &amp;&amp; jQuery.isFunction( object.promise ) ?</span><br><span class="line">			object :</span><br><span class="line">			jQuery.Deferred(),</span><br><span class="line">		promise = deferred.promise(),</span><br><span class="line">		resolveArray;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ( length &gt; <span class="number">1</span> ) &#123;</span><br><span class="line">		resolveArray = <span class="keyword">new</span> <span class="built_in">Array</span>( length );</span><br><span class="line">		jQuery.each( args, <span class="function"><span class="keyword">function</span>(<span class="params"> index, element </span>) </span>&#123;</span><br><span class="line">			jQuery.when( element ).then( <span class="function"><span class="keyword">function</span>(<span class="params"> value </span>) </span>&#123;</span><br><span class="line">				resolveArray[ index ] = <span class="built_in">arguments</span>.length &gt; <span class="number">1</span> ? slice.call( <span class="built_in">arguments</span>, <span class="number">0</span> ) : value;</span><br><span class="line">				<span class="keyword">if</span>( ! --length ) &#123;</span><br><span class="line">					deferred.resolveWith( promise, resolveArray );</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;, deferred.reject );</span><br><span class="line">		&#125; );</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( deferred !== object ) &#123;</span><br><span class="line">		deferred.resolve( object );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> promise;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>跟promise 比起来，功能还没那么强大  To be continue…..</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1012,7 +1098,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
